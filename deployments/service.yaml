@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: bot
+  name: bot-registry
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: bot-registry
+
+

@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: bot-registry-deployment
+  namespace: bot
+spec:
+  template:
+    metadata:
+      labels:
+        app: bot-registry
+    spec:
+      containers:
+      - name: bot-registry
+        imagePullPolicy: Always
+        image: ksunhokim/bot-registry
+        ports:
+        - containerPort: 8080
+        env:
+        - name: BUILD
+          value: $BUILD_ID
