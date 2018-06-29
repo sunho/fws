@@ -8,7 +8,7 @@ pipeline {
 		stage("Build") {
 			steps {
 				script {
-					withKubeConfig([credentialsId: 'kube-token', serverUrl: 'https://kubernetes.default']) {
+					withKubeConfig(credentialsId: 'kube-token', serverUrl: 'https://kubernetes.default') {
 						sh 'kubectl get pods'
 					}
 				}
