@@ -5,14 +5,17 @@ pipeline {
 	agent any
 
 	stages {
-		stage("Build") {
+		stage("Build & Test") {
 			steps {
-				kubernetesDeploy configs: 'deployments/*', kubeconfigId: 'kube-config'
+				sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt compile test docker"
 			}
+		}
+
+		stage("Deploy") {
+			docker.withRegistry("", "docker-credentials") {
+				sh "docker push ksunhokim/bot-registry:latest"
+			}
+			kubernetesDeploy configs: 'deployments/deploy.yaml', kubeconfigId: 'kube-config'
 		}
 	}
 }
-
-
-//sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt compile test docker"
-//
