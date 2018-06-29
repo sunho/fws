@@ -2,8 +2,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: bot-registry-deployment
-  labels:
-    build: $BUILD_ID
   namespace: bot
 spec:
   strategy:
@@ -11,6 +9,7 @@ spec:
   template:
     metadata:
       labels:
+        build: $BUILD_ID
         app: bot-registry
     spec:
       containers:
