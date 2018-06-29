@@ -13,8 +13,10 @@ pipeline {
 
 		stage("Deploy") {
 			steps {
-				docker.withRegistry("", "docker-credentials") {
-					sh "docker push ksunhokim/bot-registry:latest"
+				script {
+					docker.withRegistry("", "docker-credentials") {
+						sh "docker push ksunhokim/bot-registry:latest"
+					}
 				}
 
 				kubernetesDeploy configs: 'deployments/deploy.yaml', kubeconfigId: 'kube-config'
