@@ -17,5 +17,6 @@ spec:
         image: ksunhokim/bot-registry
         ports:
         - containerPort: 8080
-        environments:
-          BUILD: $BUILD_ID
+        env:
+        - name: BUILD
+          value: $BUILD_ID
