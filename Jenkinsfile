@@ -8,7 +8,9 @@ pipeline {
 		stage("Build") {
 			steps {
 				script {
-						sh 'echo 312'
+					withKubeConfig([credentialsId: 'kube-token', serverUrl: 'https://kubernetes.default']) {
+						sh 'kubectl get pods'
+					}
 				}
 			}
 		}
@@ -17,4 +19,4 @@ pipeline {
 
 
 //sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt compile test docker"
-//withKubeConfig([credentialsId: 'kube-token', serverUrl: 'https://kubernetes.default']) {
+//
