@@ -19,7 +19,7 @@ pipeline {
 					}
 				}
 
-				kubernetesDeploy configs: 'deployments/deploy.yaml', kubeconfigId: 'kube-config'
+				kubernetesDeploy configs: 'deployments/deploy.yaml', kubeconfigId: 'kube-config', enableConfigSubstitution: true
 			}
 		}
 	}
