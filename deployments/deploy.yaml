@@ -9,7 +9,6 @@ spec:
   template:
     metadata:
       labels:
-        build: $BUILD_ID
         app: bot-registry
     spec:
       containers:
@@ -18,3 +17,5 @@ spec:
         image: ksunhokim/bot-registry
         ports:
         - containerPort: 8080
+        environments:
+          BUILD: $BUILD_ID
