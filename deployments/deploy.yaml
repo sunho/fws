@@ -4,8 +4,6 @@ metadata:
   name: bot-registry-deployment
   namespace: bot
 spec:
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
