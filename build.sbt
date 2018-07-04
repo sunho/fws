@@ -1,13 +1,15 @@
 name := "bot-registry"
 
-val circleVersion = "0.9.0"
+val circeVersion = "0.9.0"
 val finchVersion = "0.21.0"
 
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.5" % "test",
   "com.github.finagle" %% "finch-core" % finchVersion,
   "com.github.finagle" %% "finch-circe" % finchVersion,
-  "io.circe" %% "circe-generic" % circleVersion
+  "io.circe" %% "circe-core" % circeVersion,
+  "io.circe" %% "circe-generic" % circeVersion,
+  "io.circe" %% "circe-parser" % circeVersion
 )
 
 enablePlugins(DockerPlugin)
