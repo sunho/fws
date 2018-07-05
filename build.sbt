@@ -9,7 +9,10 @@ libraryDependencies ++= Seq(
   "com.github.finagle" %% "finch-circe" % finchVersion,
   "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
-  "io.circe" %% "circe-parser" % circeVersion
+  "io.circe" %% "circe-parser" % circeVersion,
+  "io.circe" %% "circe-generic-extras" % circeVersion,
+  "com.twitter" %% "twitter-server" % "18.6.0",
+  "com.typesafe.play" %% "play-json" % "2.6.7"
 )
 
 enablePlugins(DockerPlugin)

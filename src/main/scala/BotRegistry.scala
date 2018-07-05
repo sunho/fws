@@ -1,16 +1,21 @@
-import com.twitter.finagle.Http
+import com.twitter.finagle.param.Stats
+import com.twitter.server.TwitterServer
+import com.twitter.finagle.{Http, Service}
+import com.twitter.finagle.http.{Request, Response}
 import com.twitter.util.Await
-import io.finch._
-import io.finch.syntax._
-import io.circe.generic.auto._
-import io.finch.circe._
+import com.botregistry.service._
 
-object BotRegistry {
-  def main(args: Array[String]): Unit = {
-    val time: Endpoint[Unit] =
-      get("time") {
-        Ok()
-      }
-    Await.ready(Http.server.serve(":8080", time.toService))
+object BotRegistry extends TwitterServer {
+  def main(): Unit = {
+    val api = new StandardService(".")
+    println(api.config.adminToken)
+    val server = Http.server
+      .configured(Stats(statsReceiver))
+      .serve(":8080", api.toService)
+
+    onExit {
+      server.close()
+    }
+    Await.ready(adminHttpServer)
   }
 }

@@ -1,12 +1,18 @@
 package com.botregistry.core
 import java.io.{IOException, PrintWriter}
-import scala.reflect.runtime.universe.{TypeTag, typeOf}
-import scala.io.Source
-import io.circe.syntax._
-import io.circe.parser.decode
 
-class FileStore[K, T <: StorageItem[K]] extends Storage[K, T] {
-  var items = new collection.mutable.HashMap[K, T]
+import io.circe.{Decoder, Encoder, Json}
+
+import scala.reflect.runtime.universe._
+import scala.io.Source
+import scala.collection.concurrent.TrieMap
+import io.circe.generic.auto._
+import io.circe.syntax._
+import io.circe.parser._
+
+class FileStorage[K <% Ordered[K], T <: StorageItem[K]] extends Storage[K, T] {
+  val items = new TrieMap[K, T]
+  val path = ""
 
   override def addOrUpdate(item: T): Option[Unit] = {
     items += item.key -> item; Some()
@@ -16,27 +22,50 @@ class FileStore[K, T <: StorageItem[K]] extends Storage[K, T] {
     items.get(key)
   }
 
+  override def getLastKey: Option[K]= {
+    items.keys reduceOption((a, b) => if (a> b) a else b)
+  }
+
+  override def getAll: List[T] = {
+    items.values.toList
+  }
+
   override def delete(key: K): Option[Unit] = {
     items.get(key) match {
       case Some(_) => items -= key; Some()
-      case None => None
+      case None    => None
     }
   }
 
-  def filename()(implicit tag: TypeTag[T]): String = s"${tag.tpe.toString}.json"
-
-  def save(){
-    new PrintWriter(filename){ write(items.asJson.toString); close }
+  def save()(implicit encoder: Encoder[T]) {
+    new PrintWriter(path) {
+      write(items.values.map(_.asJson).asJson.toString); close
+    }
   }
 
-  def load(path: String): Unit = {
-    val raw = {
-      val src = Source.fromFile(filename)
-      try src.mkString finally src.close
-    }
-    items = decode[collection.mutable.HashMap[K,T]](raw) match {
-      case Left(error) => throw new IOException(error)
-      case Right(decoded) => decoded
+}
+
+object FileStorage {
+  def apply[K <% Ordered[K], T <: StorageItem[K]](path: String)(
+      implicit decoder: Decoder[T]): FileStorage[K, T] = {
+    val path2 = path
+    new FileStorage[K, T] {
+      override val path = path2
+      val raw = decode[List[Json]]({
+        val src = Source.fromFile(s"$path")
+        try src.mkString
+        finally src.close
+      }) match {
+        case Right(decoded) => decoded
+        case Left(_)        => throw new IllegalArgumentException
+      }
+      override val items = TrieMap[K,T](
+        raw map (_.as[T]) map {
+        case Right(decoded) => decoded
+        case Left(_)        => throw new IllegalArgumentException
+      } map { item: T =>
+        (item.key, item)
+      }: _*)
     }
   }
 }
