@@ -1,11 +1,10 @@
 package com.botregistry.core
-import io.circe.generic.auto._
 
-case class User(id: Int, isAdmin: Boolean, repos: List[Int])
-    extends StorageItem[Int] {
-  val key = id
+case class User(name: String, isAdmin: Boolean, repos: Set[Int])
+    extends StorageItem[String] {
+  val key = name
 }
 
-case class Token(token: String, id: Int) extends StorageItem[String] {
+case class Token(token: String, name: String) extends StorageItem[String] {
   val key = token
 }

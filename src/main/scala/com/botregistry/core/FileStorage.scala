@@ -1,12 +1,9 @@
 package com.botregistry.core
-import java.io.{IOException, PrintWriter}
 
+import java.io.PrintWriter
 import io.circe.{Decoder, Encoder, Json}
-
-import scala.reflect.runtime.universe._
 import scala.io.Source
 import scala.collection.concurrent.TrieMap
-import io.circe.generic.auto._
 import io.circe.syntax._
 import io.circe.parser._
 
@@ -22,8 +19,8 @@ class FileStorage[K <% Ordered[K], T <: StorageItem[K]] extends Storage[K, T] {
     items.get(key)
   }
 
-  override def getLastKey: Option[K]= {
-    items.keys reduceOption((a, b) => if (a> b) a else b)
+  override def getLastKey: Option[K] = {
+    items.keys reduceOption ((a, b) => if (a > b) a else b)
   }
 
   override def getAll: List[T] = {
@@ -59,8 +56,7 @@ object FileStorage {
         case Right(decoded) => decoded
         case Left(_)        => throw new IllegalArgumentException
       }
-      override val items = TrieMap[K,T](
-        raw map (_.as[T]) map {
+      override val items = TrieMap[K, T](raw map (_.as[T]) map {
         case Right(decoded) => decoded
         case Left(_)        => throw new IllegalArgumentException
       } map { item: T =>

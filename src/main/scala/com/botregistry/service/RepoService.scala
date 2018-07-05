@@ -1,38 +1,60 @@
 package com.botregistry.service
-import com.botregistry.core.{Repo, User}
+
 import io.finch._
 import io.finch.circe._
 import io.finch.syntax._
-import io.circe.syntax._
 import io.circe.generic.auto._
-import com.twitter.finagle.Http
+import com.botregistry.core._
 
 trait RepoService extends StorageService with AuthService {
-  val getRepos: Endpoint[List[Repo]] = get("repos" :: authenticate) { u: User =>
-    if (u.isAdmin) {
-      Ok(repoStore.getAll)
-    } else {
-      val repos: List[Repo] = u.repos
-        .map(repoStore.get(_))
-        .filter(_.isDefined)
-        .map({ case Some(x) => x })
-      Ok(repos)
-    }
-  }
+  protected def repoEndpoint = "repos"
+  protected def repoPath: Endpoint[Repo] =
+    path[Int]
+      .mapOutput { i =>
+        repoStore.get(i) match {
+          case Some(x) => Ok(x)
+          case None    => throw new IllegalArgumentException
+        }
+      }
+      .handle {
+        case e: Exception => NotFound(e)
+      }
 
-  private def repoBody: Endpoint[Repo] = jsonBody[Repo]
-
-  val addRepos: Endpoint[Int] = post("repos" :: authenticate :: repoBody) {
-    (u: User, r: Repo) =>
-      if (!u.isAdmin) {
-        Unauthorized(new IllegalAccessException)
+  val getRepos: Endpoint[List[Repo]] = get(authenticate :: repoEndpoint) {
+    u: User =>
+      if (u.isAdmin) {
+        Ok(repoStore.getAll)
       } else {
-        val r2 = r.copy(id = repoStore.getLastKey match {
-          case Some(x) => x + 1
-          case None => 0
-        })
-        repoStore.addOrUpdate(r2)
-        Created(r2.id)
+        val repos: List[Repo] = u.repos.flatMap(repoStore.get).toList
+        Ok(repos)
       }
   }
+
+  val getRepo: Endpoint[Repo] = get(authenticate :: repoEndpoint :: repoPath) {
+    (u: User, repo: Repo) =>
+      if (u.isAdmin || u.repos.contains(repo.id)) {
+        Ok(repo)
+      } else {
+        Unauthorized(new IllegalAccessException)
+      }
+  }
+
+  val putRepo: Endpoint[Unit] =
+    put(admin :: "repos" :: path[Int] :: jsonBody[Repo]) {
+      (id: Int, repo: Repo) =>
+        repoStore.addOrUpdate(repo.copy(id = id)) match {
+          case Some(_) => Ok()
+          case None    => InternalServerError(new IllegalArgumentException)
+        }
+    }
+
+  val deleteRepo: Endpoint[Unit] =
+    delete(admin :: repoEndpoint :: repoPath) { repo: Repo =>
+      repoStore.delete(repo.id) match {
+        case Some(_) => Ok()
+        case None    => BadRequest(new IllegalArgumentException)
+      }
+    }
+
+  val repoApi = getRepos :+: getRepo :+: putRepo :+: deleteRepo
 }

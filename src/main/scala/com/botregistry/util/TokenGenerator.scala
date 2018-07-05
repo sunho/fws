@@ -1,5 +1,6 @@
 //https://gist.github.com/jeffsteinmetz/063bd3237033f3af2ed9
 package com.botregistry.util
+
 import java.security._
 
 object TokenGenerator {

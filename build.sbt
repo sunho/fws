@@ -12,7 +12,9 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-parser" % circeVersion,
   "io.circe" %% "circe-generic-extras" % circeVersion,
   "com.twitter" %% "twitter-server" % "18.6.0",
-  "com.typesafe.play" %% "play-json" % "2.6.7"
+  "com.typesafe.play" %% "play-json" % "2.6.7",
+  "com.github.nscala-time" %% "nscala-time" % "2.20.0",
+  "ch.qos.logback" % "logback-classic" % "1.1.3" % Runtime
 )
 
 enablePlugins(DockerPlugin)
@@ -39,3 +41,5 @@ imageNames in docker := Seq(
 buildOptions in docker := BuildOptions(
   cache = false
 )
+
+fork in run := true

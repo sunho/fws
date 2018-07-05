@@ -1,6 +1,6 @@
 package com.botregistry.core
+
 import io.circe.generic.auto._
-import io.circe.syntax._
 import io.circe.parser._
 import scala.io.Source
 

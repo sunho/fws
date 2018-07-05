@@ -9,10 +9,27 @@ spec:
       labels:
         app: bot-registry
     spec:
+      volumes:
+      - name: bot-registry-config
+        configMap:
+          name: bot-registry-config
+          items:
+          - key: Config.json
+            path: Config.json
+      - name: bot-registry-pv
+        persistentVolumeClaim:
+         claimName: bot-registry-pv
       containers:
       - name: bot-registry
         imagePullPolicy: Always
         image: ksunhokim/bot-registry
+        workingDir: /home
+        volumeMounts:
+        - mountPath: "/home"
+          name: bot-registry-pv
+        - mountPath: "/home/Config.json"
+          name: bot-registry-config
+          subPath: "Config.json"
         ports:
         - containerPort: 8080
         env:
