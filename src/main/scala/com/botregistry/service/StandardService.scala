@@ -11,7 +11,8 @@ class StandardService(conf: Config)
     with UserRepoService
     with TokenService
     with WebhookService
-    with BuildService {
+    with BuildService
+    with HistoryService {
   implicit val ee: Encoder[Exception] = Encoder.instance { e =>
     Json.obj(
       "message" -> Json.fromString(e.getMessage)
@@ -37,7 +38,7 @@ class StandardService(conf: Config)
     FileStorage[Int, BuildHistory](s"${config.dataPath}/History.json")
 
   def api =
-    repoApi :+: userApi :+: userRepoApi :+: tokenApi :+: webhookApi :+: buildApi
+    repoApi :+: userApi :+: userRepoApi :+: tokenApi :+: webhookApi :+: buildApi :+: historyApi
   def toService = api.toService
 
   def save(): Unit = {

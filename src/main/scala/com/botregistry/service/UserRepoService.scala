@@ -13,7 +13,7 @@ trait UserRepoService extends RepoService with UserService {
     (u: User, repo: Repo) =>
       userStore.addOrUpdate(u.copy(repos = u.repos + repo.id)) match {
         case Some(_) => Ok()
-        case None    => InternalServerError(new ArithmeticException)
+        case None    => InternalServerError(new IllegalStateException)
       }
   }
 
@@ -25,7 +25,7 @@ trait UserRepoService extends RepoService with UserService {
     (u: User, repo: Repo) =>
       userStore.addOrUpdate(u.copy(repos = u.repos - repo.id)) match {
         case Some(_) => Ok()
-        case None    => InternalServerError(new ArithmeticException)
+        case None    => InternalServerError(new IllegalStateException)
       }
   }
 

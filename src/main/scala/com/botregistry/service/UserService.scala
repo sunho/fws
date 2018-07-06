@@ -14,7 +14,7 @@ trait UserService extends StorageService with AuthService {
       .mapOutput { n =>
         userStore.get(n) match {
           case Some(x) => Ok(x)
-          case None    => throw new ArithmeticException
+          case None    => throw new IllegalStateException
         }
       }
       .handle {
@@ -28,14 +28,14 @@ trait UserService extends StorageService with AuthService {
   val putUser: Endpoint[Unit] = put(userEndpoint :: jsonBody[User]) { u: User =>
     userStore.addOrUpdate(u) match {
       case Some(_) => Ok()
-      case None    => InternalServerError(new ArithmeticException())
+      case None    => InternalServerError(new IllegalStateException)
     }
   }
 
   val deleteUser: Endpoint[Unit] = delete(oneUserEndpoint) { u: User =>
     userStore.delete(u.name) match {
       case Some(_) => Ok()
-      case None    => InternalServerError(new ArithmeticException)
+      case None    => InternalServerError(new IllegalStateException)
     }
   }
 

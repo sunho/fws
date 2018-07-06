@@ -21,9 +21,20 @@ trait BuildService extends RepoService {
     BuildHistory(id, repo.id, res._1, time, res._2)
   }
 
+  protected def getSubsequntBuilds(repo: Repo): List[BuildHistory] = {
+    val time = TimeUtil.timestamp
+    historyStore.getAll.filter { x =>
+      x.repoId == repo.id && time - x.time <= 60 * 60
+    }
+  }
+
   protected def build(repo: Repo): Unit = {
     if (BuildPool.building.exists(_._1 == repo.id)) {
       throw new IllegalArgumentException("the repo is already in build pool")
+    }
+    if (getSubsequntBuilds(repo).size >= 20) {
+      throw new IllegalArgumentException(
+        "you exceeded the number of builds allowed within an hour")
     }
     val fut = BuildPool.run(Build(buildSettings, repo))
     fut onComplete {

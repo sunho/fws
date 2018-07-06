@@ -23,7 +23,7 @@ trait TokenService extends UserService {
       val tok = Token(TokenGenerator.generateSHAToken(u.name), u.name)
       tokenStore.addOrUpdate(tok) match {
         case Some(_) => Ok(tok.token)
-        case None => InternalServerError(new ArithmeticException)
+        case None    => InternalServerError(new IllegalStateException)
       }
   }
 

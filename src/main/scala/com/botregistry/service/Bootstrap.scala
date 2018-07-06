@@ -30,5 +30,8 @@ object Bootstrap {
     }
   }
 
-  def setup(config: Config): Unit = storageSetup _; dockerSetup _
+  def setup(config: Config): Unit = {
+    storageSetup(config)
+    dockerSetup(config)
+  }
 }
