@@ -1,9 +1,11 @@
 package com.botregistry.core
 
-class DockerTask(settings: DockerSettings, dockerFile: String)
-    extends BuildTask {
-  def name = "Docker"
-  def run(): (Boolean, String) = {
-    (true, "Asdf")
+object DockerTask {
+  def build(path: String, tag: String): CommandTask = {
+    CommandTask(s"docker build -t $tag $path")
+  }
+
+  def push(tag: String): CommandTask = {
+    CommandTask(s"docker push $tag")
   }
 }

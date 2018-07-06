@@ -7,7 +7,7 @@ import io.circe.generic.auto._
 import com.botregistry.core._
 
 trait UserRepoService extends RepoService with UserService {
-  private def userRepoEndpoint = oneUserEndpoint :: "repos"
+  protected def userRepoEndpoint = oneUserEndpoint :: "repos"
 
   val addUserRepo: Endpoint[Unit] = post(userRepoEndpoint :: repoPath) {
     (u: User, repo: Repo) =>

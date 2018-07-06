@@ -4,7 +4,10 @@ import io.circe.generic.auto._
 import io.circe.parser._
 import scala.io.Source
 
-case class Config(adminToken: String)
+case class Config(basePath: String,
+                  dockerRegistry: String,
+                  kubeNamespace: String,
+                  adminToken: String)
 
 object Config {
   def fromFile(path: String): Config = {

@@ -27,6 +27,7 @@ object BuildPool {
         }
       }
       val logs = runTasks()
+      building -= build.repo.id
       (logs.size == build.tasks.size, logs.toMap)
     }
   }

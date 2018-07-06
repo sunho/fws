@@ -10,23 +10,33 @@ class StandardService(path: String)
     with UserService
     with UserRepoService
     with TokenService
-    with WebhookService {
-
+    with WebhookService
+    with BuildService {
   implicit val ee: Encoder[Exception] = Encoder.instance { e =>
     Json.obj(
       "message" -> Json.fromString(e.getMessage)
     )
   }
 
+  override def postBuild(repo: Repo, history: BuildHistory): Unit = {
+    println(repo, history)
+  }
+  override def buildSettings: BuildSettings = {
+    BuildSettings(config.basePath, config.dockerRegistry, config.kubeNamespace)
+  }
   override val config = Config.fromFile(s"$path/Config.json")
   override val userStore = FileStorage[String, User](s"$path/User.json")
   override val repoStore = FileStorage[Int, Repo](s"$path/Repo.json")
   override val tokenStore = FileStorage[String, Token](s"$path/Token.json")
+  override val historyStore =
+    FileStorage[Int, BuildHistory](s"$path/History.json")
 
-  def api = repoApi :+: userApi :+: userRepoApi :+: tokenApi :+: webhookApi
+  def api =
+    repoApi :+: userApi :+: userRepoApi :+: tokenApi :+: webhookApi :+: buildApi
   def toService = api.toService
 
   def save() {
+    historyStore.save()
     userStore.save()
     repoStore.save()
     tokenStore.save()

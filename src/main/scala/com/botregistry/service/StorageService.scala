@@ -6,4 +6,5 @@ trait StorageService {
   val userStore: Storage[String, User]
   val repoStore: Storage[Int, Repo]
   val tokenStore: Storage[String, Token]
+  val historyStore: Storage[Int, BuildHistory]
 }

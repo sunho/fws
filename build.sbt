@@ -14,13 +14,15 @@ libraryDependencies ++= Seq(
   "com.twitter" %% "twitter-server" % "18.6.0",
   "com.typesafe.play" %% "play-json" % "2.6.7",
   "com.github.nscala-time" %% "nscala-time" % "2.20.0",
-  "ch.qos.logback" % "logback-classic" % "1.1.3" % Runtime
+  "ch.qos.logback" % "logback-classic" % "1.1.3" % Runtime,
+  "io.skuber" %% "skuber" % "2.0.7"
 )
 
 enablePlugins(DockerPlugin)
 
 assemblyMergeStrategy in assembly := {
   case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case PathList("reference.conf") => MergeStrategy.concat
   case x => MergeStrategy.first
 }
 
@@ -28,7 +30,7 @@ dockerfile in docker := {
   val artifact: File = assembly.value
   val artifactTargetPath = s"/app/${artifact.name}"
   new Dockerfile {
-    from("openjdk:8-jre")
+    from("ksunhokim/docker-kube-jre8")
     add(artifact, artifactTargetPath)
     entryPoint("java", "-jar", artifactTargetPath)
   }

@@ -7,6 +7,14 @@ import java.nio.file.{Files, Paths}
 
 import com.twitter.util.Await
 import com.botregistry.service._
+import skuber._
+import skuber.json.format._
+import skuber.apps.v1.Deployment
+import LabelSelector.dsl._
+import akka.actor.ActorSystem
+import akka.stream.ActorMaterializer
+
+import scala.util.{Failure, Success}
 
 object Main extends TwitterServer {
   def create(path: String, content: String): Unit = {
@@ -18,6 +26,16 @@ object Main extends TwitterServer {
   }
 
   def main(): Unit = {
+    implicit val system = ActorSystem()
+    implicit val materializer = ActorMaterializer()
+    implicit val dispatcher = system.dispatcher
+    val k8s = k8sInit
+    k8s.getInNamespace[Deployment]("bot-registry", "bot") onComplete {
+      case Success(dep) => println(dep.status.get.replicas)
+      case Failure(e)   => throw e
+    }
+
+    create("History.json", "[]")
     create("Repo.json", "[]")
     create("User.json", "[]")
     create("Token.json", "[]")
