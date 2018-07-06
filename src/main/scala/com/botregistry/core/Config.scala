@@ -4,8 +4,12 @@ import io.circe.generic.auto._
 import io.circe.parser._
 import scala.io.Source
 
-case class Config(basePath: String,
+case class Config(workspacePath: String,
+                  dataPath: String,
                   dockerRegistry: String,
+                  dockerHost: String,
+                  dockerUsername: String,
+                  dockerPassword: String,
                   kubeNamespace: String,
                   adminToken: String)
 

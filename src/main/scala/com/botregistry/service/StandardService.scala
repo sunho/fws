@@ -5,7 +5,7 @@ import io.circe.{Encoder, Json}
 import io.finch.circe._
 import io.circe.generic.auto._
 
-class StandardService(path: String)
+class StandardService(conf: Config)
     extends RepoService
     with UserService
     with UserRepoService
@@ -22,23 +22,39 @@ class StandardService(path: String)
     println(repo, history)
   }
   override def buildSettings: BuildSettings = {
-    BuildSettings(config.basePath, config.dockerRegistry, config.kubeNamespace)
+    BuildSettings(config.workspacePath,
+                  config.dockerRegistry,
+                  config.kubeNamespace)
   }
-  override val config = Config.fromFile(s"$path/Config.json")
-  override val userStore = FileStorage[String, User](s"$path/User.json")
-  override val repoStore = FileStorage[Int, Repo](s"$path/Repo.json")
-  override val tokenStore = FileStorage[String, Token](s"$path/Token.json")
+  override val config = conf
+  override val userStore =
+    FileStorage[String, User](s"${config.dataPath}/User.json")
+  override val repoStore =
+    FileStorage[Int, Repo](s"${config.dataPath}/Repo.json")
+  override val tokenStore =
+    FileStorage[String, Token](s"${config.dataPath}/Token.json")
   override val historyStore =
-    FileStorage[Int, BuildHistory](s"$path/History.json")
+    FileStorage[Int, BuildHistory](s"${config.dataPath}/History.json")
 
   def api =
     repoApi :+: userApi :+: userRepoApi :+: tokenApi :+: webhookApi :+: buildApi
   def toService = api.toService
 
-  def save() {
+  def save(): Unit = {
     historyStore.save()
     userStore.save()
     repoStore.save()
     tokenStore.save()
+  }
+
+  def startSaving(): Unit = {
+    val t = new java.util.Timer()
+    val task = new java.util.TimerTask {
+      def run() = {
+        println("saving")
+        save()
+      }
+    }
+    t.schedule(task, 10000L, 10000L)
   }
 }
