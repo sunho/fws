@@ -13,7 +13,6 @@ trait WebhookService extends BuildService {
       "webhook" :: path[String] :: header("X-GitHub-Event") :: jsonBody[Json]) {
       (token: String, event: String, body: Json) =>
         event match {
-          case "ping" => Ok("pong!")
           case "push" => {
             val tok = tokenStore.get(token) match {
               case Some(x) => x
@@ -31,15 +30,16 @@ trait WebhookService extends BuildService {
                 case Some(x) => x
                 case None    => throw new IllegalArgumentException("invalid repo")
               }
-            Build.buildRepo(historyStore, postBuild, buildSettings, repo)
+            Build.run(historyStore, Build(buildSettings, repo), postBuild)
             Ok("build requested")
           }
+          case "ping" => Ok("pong!")
           case _ =>
             throw new IllegalArgumentException(
               "only ping and push events are supported")
         }
     }.handle {
-      case e: Exception => println(e); BadRequest(e)
+      case e: Exception => BadRequest(e)
     }
 
   val webhookApi = webhook

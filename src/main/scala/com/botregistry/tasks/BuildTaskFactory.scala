@@ -1,5 +1,6 @@
-package com.botregistry.core
+package com.botregistry.tasks
 
+import com.botregistry.core._
 import com.botregistry.util.TimeUtil
 
 object BuildTaskFactory {

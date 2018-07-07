@@ -1,9 +1,11 @@
 package com.botregistry.core
 
+import com.botregistry.util.TimeUtil
+
 case class BuildHistory(id: Int,
                         repoId: Int,
-                        success: Boolean,
                         time: Int,
+                        success: Boolean,
                         logs: List[(String, String)])
     extends StorageItem[Int] {
   val key = id
@@ -14,5 +16,15 @@ case class BuildHistory(id: Int,
         "#" * 20 + key + "#" * 20 + "\n" + value
       }
       .mkString("\n")}"
+  }
+}
+
+object BuildHistory {
+  def getSubsequntBuilds(historyStore: Storage[Int, BuildHistory],
+                         repo: Repo): List[BuildHistory] = {
+    val time = TimeUtil.timestamp
+    historyStore.getAll.filter { x =>
+      x.repoId == repo.id && time - x.time <= 60 * 60
+    }
   }
 }

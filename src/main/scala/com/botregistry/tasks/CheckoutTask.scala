@@ -1,4 +1,6 @@
-package com.botregistry.core
+package com.botregistry.tasks
+
+import com.botregistry.core.Repo
 
 object CheckoutTask {
   def apply(path: String, repo: Repo): CommandTask = {

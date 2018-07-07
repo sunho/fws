@@ -16,7 +16,8 @@ class StandardService(conf: Config)
     with WebhookService
     with BuildService
     with HistoryService
-    with StateService {
+    with StateService
+    with ConfigMapService {
   implicit val ee: Encoder[Exception] = Encoder.instance { e =>
     Json.obj(
       "message" -> Json.fromString(e.getMessage)
@@ -43,7 +44,7 @@ class StandardService(conf: Config)
 
   def jsonApi =
     repoApi :+: userApi :+: userRepoApi :+: tokenApi :+: webhookApi :+: buildApi :+: historyApi :+: stateApi
-  def textApi = getRepoHistory
+  def textApi = getRepoHistory :+: getRepoConfig :+: setRepoConfig
 
   def save(): Unit = {
     historyStore.save()

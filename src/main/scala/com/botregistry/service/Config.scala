@@ -1,7 +1,8 @@
-package com.botregistry.core
+package com.botregistry.service
 
 import io.circe.generic.auto._
 import io.circe.parser._
+
 import scala.io.Source
 
 case class Config(workspacePath: String,

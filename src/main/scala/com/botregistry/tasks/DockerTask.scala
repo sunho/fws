@@ -1,4 +1,6 @@
-package com.botregistry.core
+package com.botregistry.tasks
+
+import com.botregistry.service.Config
 
 object DockerTask {
   def build(path: String, image: String): CommandTask = {

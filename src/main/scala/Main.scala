@@ -2,12 +2,14 @@ import com.twitter.server.TwitterServer
 import com.twitter.finagle.Http
 import com.botregistry.core._
 import com.botregistry.service._
+import com.botregistry.util.Bootstrap
 import com.twitter.util.Await
 
 object Main extends TwitterServer {
+
   def main(): Unit = {
     val config = Config.fromFile("Config.json")
-    com.botregistry.service.Bootstrap.setup(config)
+    Bootstrap.setup(config)
 
     val service = new StandardService(config)
     service.startSaving()

@@ -1,10 +1,10 @@
-package com.botregistry.service
+package com.botregistry.util
 
 import java.io.PrintWriter
 import java.nio.file.{Files, Paths}
 
-import com.botregistry.core.{Config, DockerTask}
-import com.botregistry.util.CommandExec
+import com.botregistry.service.Config
+import com.botregistry.tasks.DockerTask
 
 object Bootstrap {
   def create(path: String, content: String): Unit = {

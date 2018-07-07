@@ -1,4 +1,4 @@
-package com.botregistry.core
+package com.botregistry.tasks
 
 import java.io.PrintWriter
 

@@ -1,13 +1,11 @@
 package com.botregistry.service
 
 import io.finch._
-import io.finch.circe._
 import io.finch.syntax._
-import io.circe.generic.auto._
 import com.botregistry.core._
-import com.botregistry.util.{TimeUtil, TokenGenerator}
+import com.botregistry.util.TimeUtil
 
-import scala.util.{Failure, Success}
+import scala.util.{Success, Failure}
 
 trait BuildService extends RepoService {
   def buildSettings: BuildSettings
@@ -17,7 +15,7 @@ trait BuildService extends RepoService {
     post(authenticate :: repoEndpoint :: repoPath :: "build") {
       (u: User, repo: Repo) =>
         if (u.isAdmin || u.repos.contains(repo.id)) {
-          Build.buildRepo(historyStore, postBuild, buildSettings, repo)
+          Build.run(historyStore, Build(buildSettings, repo), postBuild)
           Ok()
         } else {
           Unauthorized(new IllegalAccessException)

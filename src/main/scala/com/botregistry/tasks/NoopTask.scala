@@ -1,4 +1,4 @@
-package com.botregistry.core
+package com.botregistry.tasks
 
 class NoopTask extends BuildTask {
   override def name: String = "noop"

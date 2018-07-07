@@ -10,7 +10,11 @@ import com.botregistry.core._
 trait StateService extends RepoService {
   val getRepoState: Endpoint[RepoState] =
     get(repoEndpoint :: repoPath :: "state") { repo: Repo =>
-      Ok(RepoState(buildState = BuildState.get(historyStore, repo)))
+      Ok(
+        RepoState(BuildState.get(historyStore, repo),
+                  RunState
+                    .get(config.kubeNamespace, repo.kubeName)
+                    .getOrElse(RunState())))
     }
 
   val stateApi = getRepoState
