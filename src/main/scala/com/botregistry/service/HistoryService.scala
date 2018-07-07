@@ -17,10 +17,11 @@ trait HistoryService extends RepoService {
   val getRepoHistory: Endpoint[String] =
     get(historyEndpoint :: path[Int]) { (repo: Repo, id: Int) =>
       historyStore.get(id) match {
-        case Some(x) => Ok(x.toString)
-        case None    => NotFound(new IllegalArgumentException)
+        case Some(x) =>
+          Ok(x.toString).withHeader("Content-Type", "text/plain;charset=utf-8")
+        case None => NotFound(new IllegalArgumentException)
       }
     }
 
-  val historyApi = getRepoHistories :+: getRepoHistory
+  val historyApi = getRepoHistories
 }

@@ -1,8 +1,11 @@
 package com.botregistry.service
 
 import com.botregistry.core._
-import io.circe.{Encoder, Json}
+import io.finch._
 import io.finch.circe._
+import io.finch.syntax._
+import io.circe._
+import io.circe.syntax._
 import io.circe.generic.auto._
 
 class StandardService(conf: Config)
@@ -38,9 +41,9 @@ class StandardService(conf: Config)
   override val historyStore =
     FileStorage[Int, BuildHistory](s"${config.dataPath}/History.json")
 
-  def api =
+  def jsonApi =
     repoApi :+: userApi :+: userRepoApi :+: tokenApi :+: webhookApi :+: buildApi :+: historyApi :+: stateApi
-  def toService = api.toService
+  def textApi = getRepoHistory
 
   def save(): Unit = {
     historyStore.save()
@@ -49,11 +52,18 @@ class StandardService(conf: Config)
     tokenStore.save()
   }
 
+  def toService = {
+    io.finch.Bootstrap
+      .configure(includeServerHeader = false)
+      .serve[Application.Json](jsonApi)
+      .serve[Text.Plain](textApi)
+      .toService
+  }
+
   def startSaving(): Unit = {
     val t = new java.util.Timer()
     val task = new java.util.TimerTask {
       def run() = {
-        println("saving")
         save()
       }
     }
