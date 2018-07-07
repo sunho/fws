@@ -9,6 +9,7 @@ spec:
       labels:
         app: bot-registry
     spec:
+      serviceAccountName: bot-registry
       volumes:
       - name: bot-registry-config
         configMap:

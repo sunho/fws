@@ -1,12 +1,13 @@
 package com.botregistry.service
 
+import com.botregistry.core._
 import io.finch._
 import io.finch.circe._
 import io.finch.syntax._
 import io.circe._
 import com.botregistry.util.JsonUtil
 
-trait WebhookService extends StorageService {
+trait WebhookService extends BuildService {
   val webhook: Endpoint[String] =
     post(
       "webhook" :: path[String] :: header("X-GitHub-Event") :: jsonBody[Json]) {
@@ -30,8 +31,8 @@ trait WebhookService extends StorageService {
                 case Some(x) => x
                 case None    => throw new IllegalArgumentException("invalid repo")
               }
-            println(repo)
-            Ok("hoi")
+            Build.buildRepo(historyStore, postBuild, buildSettings, repo)
+            Ok("build requested")
           }
           case _ =>
             throw new IllegalArgumentException(

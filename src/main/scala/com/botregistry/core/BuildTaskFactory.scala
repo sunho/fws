@@ -22,6 +22,7 @@ object BuildTaskFactory {
       DockerTask.build(path, image) ::
       DockerTask.push(image) ::
       KubeTask(settings.kubeNamespace, repo.kubeName, image) ::
+      NoopTask() ::
       Nil
   }
 }

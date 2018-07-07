@@ -9,7 +9,7 @@ object BuildPool {
   val building = new TrieMap[Int, Build]
 
   // hjv;afsdilfksnam,l,dlkasdhfkjsfefb
-  def run(build: Build): Future[(Boolean, Map[String, String])] = {
+  def run(build: Build): Future[(Boolean, List[(String, String)])] = {
     building += build.repo.id -> build
     Future {
       @scala.annotation.tailrec
@@ -28,7 +28,8 @@ object BuildPool {
       }
       val logs = runTasks()
       building -= build.repo.id
-      (logs.size == build.tasks.size, logs.toMap)
+      (logs.size == build.tasks.size, logs)
     }
   }
+
 }
