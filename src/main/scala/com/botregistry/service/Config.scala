@@ -11,6 +11,7 @@ case class Config(workspacePath: String,
                   dockerHost: String,
                   dockerUsername: String,
                   dockerPassword: String,
+                  botHost: String,
                   kubeNamespace: String,
                   adminToken: String)
 
