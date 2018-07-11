@@ -1,5 +1,7 @@
 package com.botregistry.service
 
+import java.nio.charset.StandardCharsets
+
 import io.finch.syntax._
 import io.finch._
 import com.botregistry.core._
@@ -50,11 +52,22 @@ trait ConfigMapService extends RepoService {
     }
 
   val getRepoLog: Endpoint[String] =
-    get(authenticate :: repoEndpoint :: repoPath :: "logs") {
-      (u: User, repo: Repo) =>
+    get(repoEndpoint :: repoPath :: "logs" :: param[String]("token")) {
+      (repo: Repo, token: String) =>
+        val tok = tokenStore.get(token) match {
+          case Some(x) => x
+          case None    => throw new IllegalArgumentException
+        }
+
+        val u = userStore.get(tok.name) match {
+          case Some(x) => x
+          case None => throw new IllegalStateException
+        }
         if (u.isAdmin || u.repos.contains(repo.id)) {
           KubeUtil.getDeploymentLog(config.kubeNamespace, repo.kubeName) match {
             case Right(x) => Ok(x)
+              .withHeader("Content-Type", "text/plain;charset=utf-8")
+              .withCharset(StandardCharsets.UTF_8)
             case Left(x) => println(x); throw new IllegalStateException
           }
         } else {
@@ -62,6 +75,7 @@ trait ConfigMapService extends RepoService {
         }
     }.handle {
       case e: IllegalAccessException   => Forbidden(e)
+      case e: IllegalArgumentException=> BadRequest(e)
       case e: IllegalStateException=> InternalServerError(e)
     }
 
