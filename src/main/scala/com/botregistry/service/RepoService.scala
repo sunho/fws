@@ -35,7 +35,7 @@ trait RepoService extends StorageService with AuthService {
       if (u.isAdmin || u.repos.contains(repo.id)) {
         Ok(repo)
       } else {
-        Unauthorized(new IllegalAccessException)
+        Forbidden(new IllegalAccessException)
       }
   }
 

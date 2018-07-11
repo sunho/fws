@@ -36,6 +36,6 @@ trait AuthService extends StorageService with ConfigService {
           throw new IllegalAccessException
       }
       .handle {
-        case e: Exception => Unauthorized(e)
+        case e: Exception => Forbidden(e)
       }
 }

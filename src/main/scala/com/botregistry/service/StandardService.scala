@@ -62,7 +62,7 @@ class StandardService(conf: Config)
 
   def jsonApi =
     repoApi :+: userApi :+: userRepoApi :+: tokenApi :+: webhookApi :+: buildApi :+: historyApi :+: stateApi
-  def textApi = getRepoHistory :+: getRepoConfig :+: setRepoConfig
+  def textApi = getRepoHistory :+: configMapApi
 
   def save(): Unit = {
     historyStore.save()

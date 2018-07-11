@@ -18,7 +18,7 @@ trait BuildService extends RepoService {
           Build.run(historyStore, Build(buildSettings, repo), postBuild)
           Ok()
         } else {
-          Unauthorized(new IllegalAccessException)
+          Forbidden(new IllegalAccessException)
         }
     }.handle {
       case e: Exception => BadRequest(e)
@@ -33,7 +33,7 @@ trait BuildService extends RepoService {
             case Right(_) => Ok()
           }
         } else {
-          Unauthorized(new IllegalAccessException)
+          Forbidden(new IllegalAccessException)
         }
     }.handle {
       case e: Exception => BadRequest(e)

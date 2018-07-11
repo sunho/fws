@@ -22,6 +22,7 @@ rules:
     - deployments
     - pods
     - configmaps
+    - pods/log
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ---
 kind: ClusterRoleBinding

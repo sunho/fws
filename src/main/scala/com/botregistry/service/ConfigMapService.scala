@@ -3,6 +3,7 @@ package com.botregistry.service
 import io.finch.syntax._
 import io.finch._
 import com.botregistry.core._
+import com.botregistry.util.KubeUtil
 
 trait ConfigMapService extends RepoService {
   val getRepoConfig: Endpoint[String] =
@@ -48,5 +49,21 @@ trait ConfigMapService extends RepoService {
       case e: IllegalStateException    => InternalServerError(e)
     }
 
-  val configMapApi = getRepoConfig :+: setRepoConfig
+  val getRepoLog: Endpoint[String] =
+    get(authenticate :: repoEndpoint :: repoPath :: "logs") {
+      (u: User, repo: Repo) =>
+        if (u.isAdmin || u.repos.contains(repo.id)) {
+          KubeUtil.getDeploymentLog(config.kubeNamespace, repo.kubeName) match {
+            case Right(x) => Ok(x)
+            case Left(x) => println(x); throw new IllegalStateException
+          }
+        } else {
+          throw new IllegalAccessException
+        }
+    }.handle {
+      case e: IllegalAccessException   => Forbidden(e)
+      case e: IllegalStateException=> InternalServerError(e)
+    }
+
+  val configMapApi = getRepoConfig :+: setRepoConfig :+: getRepoLog
 }
