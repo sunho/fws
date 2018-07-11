@@ -54,15 +54,7 @@ trait ConfigMapService extends RepoService {
   val getRepoLog: Endpoint[String] =
     get(repoEndpoint :: repoPath :: "logs" :: param[String]("token")) {
       (repo: Repo, token: String) =>
-        val tok = tokenStore.get(token) match {
-          case Some(x) => x
-          case None    => throw new IllegalArgumentException
-        }
-
-        val u = userStore.get(tok.name) match {
-          case Some(x) => x
-          case None => throw new IllegalStateException
-        }
+        val u = getUser(token)
         if (u.isAdmin || u.repos.contains(repo.id)) {
           KubeUtil.getDeploymentLog(config.kubeNamespace, repo.kubeName) match {
             case Right(x) => Ok(x)

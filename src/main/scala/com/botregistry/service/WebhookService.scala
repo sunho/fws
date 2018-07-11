@@ -12,17 +12,7 @@ trait WebhookService extends BuildService {
     post(
       "webhook" :: path[String] :: header("X-GitHub-Event") :: jsonBody[Json]) {
       (token: String, event: String, body: Json) =>
-        val tok = tokenStore.get(token) match {
-          case Some(x) => x
-          case None =>
-            throw new IllegalArgumentException("invalid token in url")
-        }
-
-        val user = userStore.get(tok.name) match {
-          case Some(x) => x
-          case None    => throw new IllegalStateException("user is not found")
-        }
-
+        val user = getUser(token)
         event match {
           case "push" => {
             val cursor = body.hcursor

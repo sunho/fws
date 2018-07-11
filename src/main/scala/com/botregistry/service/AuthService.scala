@@ -10,11 +10,11 @@ trait AuthService extends StorageService with ConfigService {
       return User("", true, Set[Int]())
     val tok = tokenStore.get(token) match {
       case Some(x) => x
-      case None    => throw new IllegalArgumentException
+      case None    => throw new IllegalArgumentException("invalid token")
     }
     userStore.get(tok.name) match {
       case Some(x) => x
-      case None    => throw new NoSuchElementException
+      case None    => throw new IllegalStateException("internal error")
     }
   }
 
