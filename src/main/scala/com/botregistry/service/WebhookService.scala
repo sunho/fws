@@ -17,6 +17,10 @@ trait WebhookService extends BuildService {
           case "push" => {
             val cursor = body.hcursor
             val url = JsonUtil.parse[String](cursor, "repository", "html_url")
+            val ref = JsonUtil.parse[String](cursor, "ref")
+            if (!ref.contains("master")){
+              throw new IllegalArgumentException("invalid branch")
+            }
             val repo =
               user.repos.flatMap(repoStore.get).find(_.repoURL == url) match {
                 case Some(x) => x
