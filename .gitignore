@@ -1,3 +1,21 @@
 /.idea
 target
 *.json
+
+/public/dist
+/public/tmp
+/public/out-tsc
+
+/public/node_modules
+
+# misc
+/public/.sass-cache
+/public/connect.lock
+/public/coverage
+/public/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/public/typings
+
+createScreenInstance
