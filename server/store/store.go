@@ -1,6 +1,6 @@
 package store
 
-import "github.com/sunho/bot-registry/model"
+import "github.com/sunho/bot-registry/server/model"
 
 type Store interface {
 	GetBot(id int) (*model.Bot, error)

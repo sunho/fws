@@ -3,7 +3,7 @@ package runtime
 import (
 	"io"
 
-	"github.com/sunho/bot-registry/model"
+	"github.com/sunho/bot-registry/server/model"
 )
 
 type BuildCallback func(bool, string)

@@ -1,8 +1,8 @@
 package botreg
 
 import (
-	"github.com/sunho/bot-registry/runtime"
-	"github.com/sunho/bot-registry/store"
+	"github.com/sunho/bot-registry/server/runtime"
+	"github.com/sunho/bot-registry/server/store"
 )
 
 type BotReg struct {
