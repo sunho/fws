@@ -1,13 +1,9 @@
-/.idea
-target
+/server/server
 
 /public/dist
 /public/tmp
 /public/out-tsc
-
 /public/node_modules
-
-# misc
 /public/.sass-cache
 /public/connect.lock
 /public/coverage
@@ -16,5 +12,4 @@ npm-debug.log
 yarn-error.log
 testem.log
 /public/typings
-
 createScreenInstance
