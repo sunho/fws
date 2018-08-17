@@ -1,6 +1,5 @@
 /.idea
 target
-*.json
 
 /public/dist
 /public/tmp
