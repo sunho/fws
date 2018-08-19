@@ -3,15 +3,20 @@ package model
 import "time"
 
 type User struct {
-	ID       int
-	Username string
-	Passhash string
+	ID       int    `json:"id"`
+	Username string `json:"username"`
+	Passhash string `json:"passhash"`
+}
+
+type UserInvite struct {
+	Username string `json:"username"`
+	Key      string `json:"key"`
 }
 
 type Bot struct {
-	ID     int
-	Name   string
-	GitURL string
+	ID     int    `json:"id"`
+	Name   string `json:"name"`
+	GitURL string `json:"git_url"`
 }
 
 type Webhook struct {

@@ -9,9 +9,14 @@ type Store interface {
 	DeleteBot(bot *model.Bot) error
 
 	GetUser(id int) (*model.User, error)
+	GetUserByUsername(username string) (*model.User, error)
 	CreateUser(user *model.User) (*model.User, error)
 	UpdateUser(user *model.User) error
 	DeleteUser(user *model.User) error
+
+	GetUserInvite(username string) (*model.UserInvite, error)
+	CreateUserInvite(req *model.UserInvite) (*model.UserInvite, error)
+	DeleteUserInvite(req *model.UserInvite) error
 
 	ListUserBot(id int) ([]*model.Bot, error)
 	CreateUserBot(id int, botid int) error
