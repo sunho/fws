@@ -27,8 +27,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/app/sass/styles.scss"
+              "src/app/sass/main.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/sass"
+              ]
+            },
             "scripts": []
           },
           "configurations": {

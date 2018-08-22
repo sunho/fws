@@ -1,10 +1,20 @@
 <div class="login-form">
-  <h1>Welcome!</h1>
-  <form>
-    <label for="username">Username</label>
-    <input type="text" required>
-    <label for="password">Password</label>
-    <input type="password" required>
-    <button type="submit">Login</button>
-  </form>
+  <div class="login-form__heading">
+    Welcome!
+  </div>
+  <div class="login-form__body">
+    <form>
+      <div class="login-form__body__inputs">
+        <input type="text" class="form--control" placeholder="Username" required>
+        <input type="password" class="form--control" placeholder="Password" required>
+      </div>
+      <div class="login-form__body__remember">
+        <label class="form--checklabel">
+        </label>
+      </div>
+      <div class="login-from__body__submit">
+        <input type="submit" class="form--control" value="Login">
+      </div>
+    </form>
+  </div>
 </div>

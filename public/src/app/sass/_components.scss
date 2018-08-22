@@ -1,0 +1,44 @@
+@import "base";
+@import "variables";
+@import "mixins";
+
+.form--control{
+	font-family: $font-family;
+	&[type="text"],
+	&[type="password"] {
+		display: block;
+		width: 100%;
+		height: $input-height;
+
+		font-size: $font-size;
+
+		outline: none;
+		border: none;
+		border-bottom: 1px solid #7F8489;
+
+		@include placeholder {
+			font-weight: 500;
+			color: #7F8489;
+		}
+	}
+
+	&[type="button"],
+	&[type="submit"] {
+		font-size: $font-size;
+		position: relative;
+		display: inline-block;
+		border: none;
+		padding: 0 1rem;
+		vertical-align: middle;
+		outline: none;
+		border-radius: .2rem;
+		height: 3rem;
+		color: white;
+		font-weight: 700;
+		background: #0097D6;
+		box-shadow: 0 .1rem .4rem rgba(0, 0, 0, .5);
+	 }
+ }
+
+.form--checklabel {
+}

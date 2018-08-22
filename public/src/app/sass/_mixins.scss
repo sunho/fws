@@ -1,0 +1,22 @@
+@mixin absolute-center($top){
+	position: absolute;
+	top: $top;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+@mixin placeholder {
+	&::placeholder {@content}
+	&::-webkit-input-placeholder {@content}
+	&:-moz-placeholder           {@content}
+	&::-moz-placeholder          {@content}
+	&:-ms-input-placeholder      {@content}
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

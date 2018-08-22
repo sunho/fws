@@ -26,21 +26,21 @@ type Webhook struct {
 }
 
 type Volume struct {
-	BotID int
-	Name  string
-	Size  int64
-	Path  string
+	BotID int    `json:"bot_id"`
+	Name  string `json:"name"`
+	Size  int64  `json:"size"`
+	Path  string `json:"path"`
 }
 
 type Config struct {
-	BotID int
-	Name  string
-	Path  string
+	BotID int    `json:"bot_id"`
+	Name  string `json:"name"`
+	Path  string `json:"path"`
 }
 
 type Env struct {
-	BotID int
-	Name  string
+	BotID int    `json:"bot_id"`
+	Name  string `json:"name"`
 }
 
 type Build struct {

@@ -1,0 +1,47 @@
+@import "mixins";
+@import "components";
+
+$login-form-heading-height: 5rem;
+$login-form-padding: 1.25rem;
+
+.login-form {
+	height: 21rem;
+	width: 30rem;
+
+	overflow: hidden;
+
+	background: #fff;
+
+	box-shadow: 0 0 1.5rem rgba(0, 0, 0, .2);
+	border-radius: .3rem;
+
+	&__heading {
+		display: block;
+		height: $login-form-heading-height;
+		line-height: $login-form-heading-height;
+		padding-left: $login-form-padding;
+
+		font-weight: 600;
+		font-size: 2rem;
+
+		color: #263446;
+	}
+
+	&__body {
+		@include clearfix;
+		padding: $login-form-padding;
+
+		&__inputs {
+			input {
+				&:not(:first-child) {
+					margin-top: 2rem;
+				}
+			}
+		}
+
+		&__submit {
+			margin-top: 2rem;
+			float: right;
+		}
+	}
+}
