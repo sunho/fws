@@ -17,7 +17,7 @@ type contextKey struct {
 }
 
 func (k *contextKey) String() string {
-	return "sunho/bot-registry/api context value " + k.name
+	return "sunho/fws/api context value " + k.name
 }
 
 func getUser(r *http.Request) *model.User {

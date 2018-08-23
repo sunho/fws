@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './core/pages/login/login.component';
+import { InviteComponent } from './core/pages/invite/invite.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/', pathMatch: 'full'},
-  {path: '', component: LoginComponent}
+  {path: '', component: LoginComponent},
+  {path: 'invite', component: InviteComponent},
 ];
 
 @NgModule({

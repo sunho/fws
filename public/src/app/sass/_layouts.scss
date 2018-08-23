@@ -1,0 +1,36 @@
+@import "variables";
+
+.small {
+	width: $small-width;
+
+	overflow: hidden;
+
+	background: $color-white;
+
+	box-shadow: 0 .1rem 1rem $color-shadow;
+	border-radius: $small-radius;
+
+	&__heading {
+		display: block;
+		height: $small-heading-height;
+		line-height: $small-heading-height;
+		padding-left: $small-padding;
+
+		font-weight: 600;
+		font-size: $font-size * 1.4;
+
+		color: $color-white;
+		background-color: $color-primary;
+	}
+
+	&__body {
+		margin-top: $small-body-margin-top;
+		padding: $small-padding;
+
+		* {
+			&:not(:last-child){
+				margin-bottom: 2rem;
+			}
+		}
+	}
+}

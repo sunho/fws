@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/go-chi/chi"
 	"github.com/sunho/fws/server/store"
 )
 
@@ -23,8 +24,9 @@ func New(in ApiInterface) *Api {
 	return &Api{in}
 }
 
-func (a *Api) Http() {
-	r := chi.New()
+func (a *Api) Http() http.Handler {
+	r := chi.NewRouter()
+	return r
 }
 
 func (a *Api) httpError(w http.ResponseWriter, code int, org error) {

@@ -3,11 +3,6 @@ package store
 import "github.com/sunho/fws/server/model"
 
 type Store interface {
-	GetBot(id int) (*model.Bot, error)
-	CreateBot(bot *model.Bot) (*model.Bot, error)
-	UpdateBot(bot *model.Bot) error
-	DeleteBot(bot *model.Bot) error
-
 	GetUser(id int) (*model.User, error)
 	GetUserByUsername(username string) (*model.User, error)
 	CreateUser(user *model.User) (*model.User, error)
@@ -15,34 +10,39 @@ type Store interface {
 	DeleteUser(user *model.User) error
 
 	GetUserInvite(username string) (*model.UserInvite, error)
-	CreateUserInvite(req *model.UserInvite) (*model.UserInvite, error)
-	DeleteUserInvite(req *model.UserInvite) error
+	CreateUserInvite(i *model.UserInvite) (*model.UserInvite, error)
+	DeleteUserInvite(i *model.UserInvite) error
 
-	ListUserBot(id int) ([]*model.Bot, error)
-	CreateUserBot(id int, botid int) error
-	DeleteUserBot(userid int, botid int) error
+	//GetBot(id int) (*model.Bot, error)
+	//CreateBot(bot *model.Bot) (*model.Bot, error)
+	//UpdateBot(bot *model.Bot) error
+	//DeleteBot(bot *model.Bot) error
 
-	ListBotConfig(id int) ([]*model.Config, error)
-	CreateBotConfig(id int, config *model.Config) (*model.Config, error)
-	UpdateBotConfig(id int, config *model.Config) error
-	DeleteBotConfig(id int, config *model.Config) error
+	//ListUserBot(id int) ([]*model.Bot, error)
+	//CreateUserBot(id int, botid int) error
+	//DeleteUserBot(userid int, botid int) error
 
-	ListBotVolume(id int) ([]*model.Volume, error)
-	CreateBotVolume(id int, volume *model.Volume) (*model.Volume, error)
-	UpdateBotVolume(id int, volume *model.Volume) error
-	DeleteBotVolume(id int, volume *model.Volume) error
+	//ListBotConfig(id int) ([]*model.Config, error)
+	//CreateBotConfig(id int, config *model.Config) (*model.Config, error)
+	//UpdateBotConfig(id int, config *model.Config) error
+	//DeleteBotConfig(id int, config *model.Config) error
 
-	ListBotEnv(id int) ([]*model.Env, error)
-	CreateBotEnv(id int, env *model.Env) (*model.Env, error)
-	UpdateBotEnv(id int, env *model.Env) error
-	DeleteBotEnv(id int, env *model.Env) error
+	//ListBotVolume(id int) ([]*model.Volume, error)
+	//CreateBotVolume(id int, volume *model.Volume) (*model.Volume, error)
+	//UpdateBotVolume(id int, volume *model.Volume) error
+	//DeleteBotVolume(id int, volume *model.Volume) error
 
-	ListBotBuild(id int) ([]*model.Build, error)
-	CreateBotBuild(id int, build *model.Build) (*model.Build, error)
-	DeleteBotBuild(id int, build *model.Build) error
-	GetBotBuildLog(id int, build *model.Build) (string, error)
+	//ListBotEnv(id int) ([]*model.Env, error)
+	//CreateBotEnv(id int, env *model.Env) (*model.Env, error)
+	//UpdateBotEnv(id int, env *model.Env) error
+	//DeleteBotEnv(id int, env *model.Env) error
 
-	GetWebhook(hash string) (*model.Webhook, error)
-	CreateWebhook(hook *model.Webhook) (*model.Webhook, error)
-	DeleteWebhook(hook *model.Webhook) error
+	//ListBotBuild(id int) ([]*model.Build, error)
+	//CreateBotBuild(id int, build *model.Build) (*model.Build, error)
+	//DeleteBotBuild(id int, build *model.Build) error
+	//GetBotBuildLog(id int, build *model.Build) (string, error)
+
+	//GetWebhook(hash string) (*model.Webhook, error)
+	//CreateWebhook(hook *model.Webhook) (*model.Webhook, error)
+	//DeleteWebhook(hook *model.Webhook) error
 }

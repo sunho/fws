@@ -4,7 +4,9 @@ import "time"
 
 type User struct {
 	ID       int    `json:"id"`
+	Admin    bool   `json:"admin"`
 	Username string `json:"username"`
+	Nickname string `json:"nickname"`
 	Passhash string `json:"passhash"`
 }
 

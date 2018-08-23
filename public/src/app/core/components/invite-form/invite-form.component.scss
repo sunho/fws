@@ -1,0 +1,15 @@
+@import "variables";
+
+.invite-form {
+	&__heading {
+		b {
+			font-weight: 500;
+		}
+		font-size: $font-size;
+		color: $color-black;
+	}
+
+	&__submit {
+		margin-top: 1rem;
+	}
+}

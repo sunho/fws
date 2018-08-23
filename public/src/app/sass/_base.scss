@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins";
 
 *,
 *::before,
@@ -11,6 +12,18 @@
 html {
 	box-sizing: border-box;
 	font-size: 62.5%;
+
+	@include respond(tab-land) {
+        font-size: 56.25%;
+    }
+
+    @include respond(tab-port) {
+        font-size: 50%;
+    }
+
+    @include respond(big-desktop) {
+        font-size: 75%;
+    }
 }
 
 body {

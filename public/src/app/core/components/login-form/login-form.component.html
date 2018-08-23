@@ -1,22 +1,14 @@
-<div class="login-form">
-  <div class="login-form__heading">
-    FWS
-  </div>
-  <div class="login-form__body">
+<div class="small login-form">
+  <app-small-header></app-small-header>
+  <div class="small__body">
     <form>
-      <div class="login-form__body__inputs">
-        <input type="text" class="form--control" placeholder="Username" required>
-        <input type="password" class="form--control" placeholder="Password" required>
-      </div>
-      <div class="login-form__body__submit">
-        <input type="submit" class="form--control" value="Login">
-      </div>
-      <div class="login-form__body__remember">
-        <label class="form--checklabel">
-          <input type="checkbox">
-          <span> remember me</span>
-        </label>
-      </div>
+      <input type="text" class="form--text" placeholder="Username" required>
+      <input type="password" class="form--text" placeholder="Password" required>
+      <input type="submit" class="form--button form--full-button" value="Login">
+      <label class="form--checklabel">
+        <input type="checkbox">
+        <span> remember me</span>
+      </label>
     </form>
   </div>
 </div>
