@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/sunho/bot-registry/server/store"
+	"github.com/sunho/fws/server/store"
 )
 
 type ApiInterface interface {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/sunho/bot-registry/server/model"
+	"github.com/sunho/fws/server/model"
 )
 
 var (

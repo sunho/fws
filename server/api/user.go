@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 
-	"github.com/sunho/bot-registry/server/model"
+	"github.com/sunho/fws/server/model"
 )
 
 func (a *Api) postUserInvite(w http.ResponseWriter, r *http.Request) {
