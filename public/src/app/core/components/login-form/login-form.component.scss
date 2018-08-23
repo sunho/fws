@@ -1,18 +1,18 @@
 @import "mixins";
 @import "components";
 
-$login-form-heading-height: 5rem;
+$login-form-heading-height: 5.5rem;
 $login-form-padding: 1.25rem;
 
 .login-form {
-	height: 21rem;
+	height: 25rem;
 	width: 30rem;
 
 	overflow: hidden;
 
-	background: #fff;
+	background: $color-white;
 
-	box-shadow: 0 0 1.5rem rgba(0, 0, 0, .2);
+	box-shadow: 0 .1rem 1rem $color-shadow;
 	border-radius: .3rem;
 
 	&__heading {
@@ -22,9 +22,9 @@ $login-form-padding: 1.25rem;
 		padding-left: $login-form-padding;
 
 		font-weight: 600;
-		font-size: 2rem;
+		font-size: $font-size * 1.4;
 
-		color: #263446;
+		color: $color-black;
 	}
 
 	&__body {
@@ -39,8 +39,12 @@ $login-form-padding: 1.25rem;
 			}
 		}
 
+		&__remember {
+			margin-top: 1.5rem;
+		}
+
 		&__submit {
-			margin-top: 2rem;
+			margin-top: 1.5rem;
 			float: right;
 		}
 	}

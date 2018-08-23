@@ -2,43 +2,109 @@
 @import "variables";
 @import "mixins";
 
-.form--control{
+.form--control {
 	font-family: $font-family;
 	&[type="text"],
 	&[type="password"] {
 		display: block;
 		width: 100%;
-		height: $input-height;
+		height: $form-text-height;
 
 		font-size: $font-size;
+		color: $color-black;
 
 		outline: none;
 		border: none;
-		border-bottom: 1px solid #7F8489;
+		border-bottom: $form-text-border solid $color-gray;
 
 		@include placeholder {
 			font-weight: 500;
-			color: #7F8489;
+			color: $color-gray;
 		}
 	}
 
 	&[type="button"],
 	&[type="submit"] {
-		font-size: $font-size;
 		position: relative;
 		display: inline-block;
+		padding: 0 $form-button-h-padding;
+		height: $form-button-height;
+
 		border: none;
-		padding: 0 1rem;
-		vertical-align: middle;
 		outline: none;
-		border-radius: .2rem;
-		height: 3rem;
-		color: white;
-		font-weight: 700;
-		background: #0097D6;
-		box-shadow: 0 .1rem .4rem rgba(0, 0, 0, .5);
+		border-radius: $form-button-radius;
+
+		vertical-align: middle;
+		font-size: $font-size;
+		font-weight: $form-button-font-weight;
+
+		color: $color-white;
+		background: $color-skyblue;
+		box-shadow: 0 .1rem .4rem $color-shadow;
 	 }
  }
 
 .form--checklabel {
+	color: $color-black;
+	display: inline-block;
+	position: relative;
+
+	font-size: $form-checklabel-font-size;
+	line-height: $form-checklabel-font-size;
+
+	cursor: pointer;
+	user-select: none;
+
+	& > input {
+		position: absolute;
+		display: block;
+		width: $form-checklabel-size;
+		height: $form-checklabel-size;
+		left: 0;
+		top: 0;
+
+		appearance: none;
+		outline: none;
+		opacity: 0;
+		z-index: -1;
+	}
+
+	& > span::before {
+		display: inline-block;
+		width: $form-checklabel-size;
+		height: $form-checklabel-size;
+		margin-right: $form-checklabel-spacing;
+
+		content: "";
+		border: solid $form-checklabel-border $color-gray;
+		border-radius: $form-checklabel-radius;
+
+		vertical-align: middle;
+	}
+
+	& > input:checked + span::before {
+		border-color: $color-skyblue;
+		background-color: $color-skyblue;
+	}
+
+
+	& > span::after {
+		display: inline-block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: .5rem;
+		height: .8rem;
+
+		content: "";
+		border: solid .2rem transparent;
+		border-left: none;
+		border-top: none;
+
+		transform: translate(.5rem, .4rem) rotate(45deg);
+	}
+
+	& > input:checked + span::after {
+		border-color: $color-white;
+	}
 }
