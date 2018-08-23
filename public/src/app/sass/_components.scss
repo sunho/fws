@@ -17,17 +17,28 @@
 		border: none;
 		border-bottom: $form-text-border solid $color-gray;
 
+		transition: border-color .3s;
+
 		@include placeholder {
 			font-weight: 500;
 			color: $color-gray;
+			transition: color .3s;
 		}
+
+		&:focus{
+			border-color: $color-primary;
+			@include placeholder {
+				color: $color-primary;
+			}
+		}
+
 	}
 
 	&[type="button"],
 	&[type="submit"] {
 		position: relative;
 		display: inline-block;
-		padding: 0 $form-button-h-padding;
+		padding: $form-button-padding;
 		height: $form-button-height;
 
 		border: none;
@@ -38,11 +49,18 @@
 		font-size: $font-size;
 		font-weight: $form-button-font-weight;
 
+		cursor: pointer;
+
 		color: $color-white;
-		background: $color-skyblue;
-		box-shadow: 0 .1rem .4rem $color-shadow;
-	 }
- }
+		background-color: $color-primary;
+
+		transition: background-color .2s, color .2s;
+		&:hover {
+			color: darken($color-white,5);
+			background-color: darken($color-primary, 5);
+		}
+	}
+}
 
 .form--checklabel {
 	color: $color-black;
@@ -79,12 +97,16 @@
 		border: solid $form-checklabel-border $color-gray;
 		border-radius: $form-checklabel-radius;
 
+		background-color: $color-white;
+
 		vertical-align: middle;
+
+		transition: border-color .3s, background-color .3s;
 	}
 
 	& > input:checked + span::before {
-		border-color: $color-skyblue;
-		background-color: $color-skyblue;
+		border-color: $color-primary;
+		background-color: $color-primary;
 	}
 
 
@@ -102,6 +124,8 @@
 		border-top: none;
 
 		transform: translate(.5rem, .4rem) rotate(45deg);
+
+		transition: border-color .3s;
 	}
 
 	& > input:checked + span::after {

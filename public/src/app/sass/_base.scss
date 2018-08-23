@@ -3,18 +3,18 @@
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
 }
 
 html {
-    box-sizing: border-box;
-    font-size: 62.5%;
+	box-sizing: border-box;
+	font-size: 62.5%;
 }
 
 body {
-    box-sizing: border-box;
+	box-sizing: border-box;
 	@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 	font-family: $font-family;
 }
