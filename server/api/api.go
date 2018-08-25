@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
+	"github.com/go-chi/cors"
 	"github.com/sunho/fws/server/store"
 )
 
@@ -14,6 +15,8 @@ type ApiInterface interface {
 	HashPassword(password string) string
 	CreateToken(id int, username string) string
 	ParseToken(tok string) (int, string, bool)
+	GetDistFolder() http.FileSystem
+	GetIndex() []byte
 }
 
 type Api struct {
@@ -26,7 +29,33 @@ func New(in ApiInterface) *Api {
 
 func (a *Api) Http() http.Handler {
 	r := chi.NewRouter()
+	a.cors(r)
+	a.fileServer(r, "/", a.in.GetDistFolder())
+	r.Route("/api", a.apiRoute)
+
 	return r
+}
+
+func (a *Api) apiRoute(r chi.Router) {
+	r.Route("/invite", func(s chi.Router) {
+		s.Post("/{username}", a.postUserInvite)
+		s.Get("/{username}", a.getUserInvite)
+	})
+
+	r.Post("/register", a.register)
+	r.Post("/login", a.login)
+}
+
+func (a *Api) cors(r chi.Router) {
+	cors := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: true,
+		MaxAge:           300,
+	})
+	r.Use(cors.Handler)
 }
 
 func (a *Api) httpError(w http.ResponseWriter, code int, org error) {

@@ -10,6 +10,14 @@
 	box-shadow: 0 .1rem 1rem $color-shadow;
 	border-radius: $small-radius;
 
+	&__headline {
+		b {
+			font-weight: 500;
+		}
+		font-size: $font-size;
+		color: $color-black;
+	}
+
 	&__heading {
 		display: block;
 		height: $small-heading-height;
@@ -26,11 +34,5 @@
 	&__body {
 		margin-top: $small-body-margin-top;
 		padding: $small-padding;
-
-		* {
-			&:not(:last-child){
-				margin-bottom: 2rem;
-			}
-		}
 	}
 }

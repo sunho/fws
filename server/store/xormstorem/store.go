@@ -1,16 +1,10 @@
 package xormstore
 
 import (
-	"errors"
-
 	"github.com/go-xorm/core"
 	"github.com/go-xorm/xorm"
 	"github.com/sunho/fws/server/model"
 	"github.com/sunho/fws/server/store/xormstorem/migrations"
-)
-
-var (
-	ErrNoEntry = errors.New("xormstore: no such entry")
 )
 
 type XormStore struct {

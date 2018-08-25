@@ -1,6 +1,9 @@
 package xormstore
 
-import "github.com/sunho/fws/server/model"
+import (
+	"github.com/sunho/fws/server/model"
+	"github.com/sunho/fws/server/store"
+)
 
 func (x *XormStore) GetUser(id int) (*model.User, error) {
 	u := &model.User{
@@ -8,7 +11,7 @@ func (x *XormStore) GetUser(id int) (*model.User, error) {
 	}
 	has, err := x.e.Get(u)
 	if !has {
-		return nil, ErrNoEntry
+		return nil, store.ErrNoEntry
 	}
 	return u, err
 }
@@ -19,7 +22,18 @@ func (x *XormStore) GetUserByUsername(username string) (*model.User, error) {
 	}
 	has, err := x.e.Get(u)
 	if !has {
-		return nil, ErrNoEntry
+		return nil, store.ErrNoEntry
+	}
+	return u, err
+}
+
+func (x *XormStore) GetUserByNickname(nickname string) (*model.User, error) {
+	u := &model.User{
+		Nickname: nickname,
+	}
+	has, err := x.e.Get(u)
+	if !has {
+		return nil, store.ErrNoEntry
 	}
 	return u, err
 }

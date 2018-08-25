@@ -35,6 +35,20 @@
 		}
 	}
 
+	&--hidden {
+		opacity: 0;
+	}
+
+	&--error {
+		font-weight: 500;
+		margin-top: .2rem;
+		color: $color-error;
+		animation-duration: .3s;
+		font-size: $font-size * .6;
+
+		transition: opacity .2s;
+	}
+
 	&--button {
 		position: relative;
 		display: inline-block;

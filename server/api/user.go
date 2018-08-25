@@ -12,7 +12,7 @@ func (a *Api) getUserInvite(w http.ResponseWriter, r *http.Request) {
 	key := r.URL.Query().Get("key")
 
 	o, err := a.in.GetStore().GetUserInvite(username)
-	if err == nil {
+	if err != nil {
 		a.httpError(w, 404, err)
 		return
 	}
@@ -25,134 +25,29 @@ func (a *Api) getUserInvite(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *Api) postUserInvite(w http.ResponseWriter, r *http.Request) {
-	req := struct {
-		Username string `json:"username"`
-	}{}
-	if !a.jsonDecode(w, r, &req) {
-		return
-	}
+	username := chi.URLParam(r, "username")
 
-	_, err := a.in.GetStore().GetUserInvite(req.Username)
+	_, err := a.in.GetStore().GetUserInvite(username)
 	if err == nil {
 		a.httpError(w, 409, nil)
 		return
 	}
-	_, err = a.in.GetStore().GetUserByUsername(req.Username)
+	_, err = a.in.GetStore().GetUserByUsername(username)
 	if err == nil {
 		a.httpError(w, 409, nil)
 		return
 	}
 
 	n := &model.UserInvite{
-		Username: req.Username,
-		Key:      a.in.CreateInviteKey(req.Username),
+		Username: username,
+		Admin:    false,
+		Key:      a.in.CreateInviteKey(username),
 	}
 	_, err = a.in.GetStore().CreateUserInvite(n)
 	if err != nil {
 		a.httpError(w, 500, err)
 		return
 	}
-	w.WriteHeader(201)
-}
 
-func (a *Api) userMiddleWare(next http.Handler) http.Handler {
-	fn := func(w http.ResponseWriter, r *http.Request) {
-		c, err := r.Cookie("token")
-		if err != nil {
-			a.httpError(w, 401, nil)
-			return
-		}
-
-		tok := c.Value
-		id, username, ok := a.in.ParseToken(tok)
-		if !ok {
-			a.httpError(w, 401, nil)
-			return
-		}
-
-		u, err := a.in.GetStore().GetUser(id)
-		if err != nil {
-			a.httpError(w, 500, err)
-			return
-		}
-
-		if username != u.Username {
-			a.httpError(w, 401, nil)
-			return
-		}
-
-		next.ServeHTTP(w, withUser(r, u))
-	}
-	return http.HandlerFunc(fn)
-}
-
-func (a *Api) adminMiddleWare(next http.Handler) http.Handler {
-	fn := func(w http.ResponseWriter, r *http.Request) {
-		u := getUser(r)
-		if !u.Admin {
-			a.httpError(w, 401, nil)
-			return
-		}
-		next.ServeHTTP(w, r)
-	}
-	return http.HandlerFunc(fn)
-}
-
-func (a *Api) register(w http.ResponseWriter, r *http.Request) {
-	req := struct {
-		Username  string `json:"username"`
-		InviteKey string `jsom:"invite_key"`
-		Password  string `jsom:"password"`
-	}{}
-	if !a.jsonDecode(w, r, &req) {
-		return
-	}
-
-	o, err := a.in.GetStore().GetUserInvite(req.Username)
-	if err == nil {
-		a.httpError(w, 404, nil)
-		return
-	}
-	if req.InviteKey != o.Key {
-		a.httpError(w, 403, nil)
-		return
-	}
-
-	n := &model.User{
-		Username: req.Username,
-		Passhash: a.in.HashPassword(req.Password),
-	}
-	_, err = a.in.GetStore().CreateUser(n)
-	if err != nil {
-		a.httpError(w, 500, err)
-		return
-	}
-	w.WriteHeader(201)
-}
-
-func (a *Api) login(w http.ResponseWriter, r *http.Request) {
-	req := struct {
-		Username string `json:"username"`
-		Password string `jsom:"password"`
-	}{}
-	if !a.jsonDecode(w, r, &req) {
-		return
-	}
-
-	o, err := a.in.GetStore().GetUserByUsername(req.Username)
-	if err == nil {
-		a.httpError(w, 404, nil)
-		return
-	}
-	if a.in.HashPassword(req.Password) != o.Passhash {
-		a.httpError(w, 403, nil)
-		return
-	}
-
-	http.SetCookie(w, &http.Cookie{
-		Name:     "token",
-		Value:    a.in.CreateToken(o.ID, o.Username),
-		HttpOnly: true,
-	})
 	w.WriteHeader(201)
 }

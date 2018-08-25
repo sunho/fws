@@ -1,14 +1,26 @@
-<div class="small login-form">
-  <app-small-header></app-small-header>
-  <div class="small__body">
-    <form>
-      <input type="text" class="form--text" placeholder="Username" required>
-      <input type="password" class="form--text" placeholder="Password" required>
-      <input type="submit" class="form--button form--full-button" value="Login">
-      <label class="form--checklabel">
-        <input type="checkbox">
-        <span> remember me</span>
-      </label>
-    </form>
+<form class="login-form" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+  <input name="username" #username="ngModel" ngModel type="text"
+    class="form--text" placeholder="username" required>
+  <div class="form--error" *ngIf="wrongUsername">
+    The user doesn't exist.
   </div>
-</div>
+  <div class="form--error" *ngIf="username.invalid && f.submitted">
+    Username is required.
+  </div>
+
+  <input name="password" #password="ngModel" ngModel type="password"
+    class="form--text" placeholder="password" required>
+  <div class="form--error" *ngIf="wrongPassword">
+    Wrong Password.
+  </div>
+  <div class="form--error" *ngIf="password.invalid && f.submitted">
+    Password is required.
+  </div>
+
+  <button type="submit" class="form--button form--full-button">Login</button>
+
+  <label class="form--checklabel">
+    <input name="remember" ngModel type="checkbox">
+    <span> remember me</span>
+  </label>
+</form>

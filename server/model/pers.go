@@ -5,13 +5,14 @@ import "time"
 type User struct {
 	ID       int    `json:"id"`
 	Admin    bool   `json:"admin"`
-	Username string `json:"username"`
-	Nickname string `json:"nickname"`
+	Username string `json:"username" xorm:"unique"`
+	Nickname string `json:"nickname" xorm:"unique"`
 	Passhash string `json:"passhash"`
 }
 
 type UserInvite struct {
-	Username string `json:"username"`
+	Username string `json:"username" xorm:"pk"`
+	Admin    bool   `json:"admin"`
 	Key      string `json:"key"`
 }
 

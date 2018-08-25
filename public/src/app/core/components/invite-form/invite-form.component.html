@@ -1,11 +1,13 @@
-<div class="small invite-form">
-  <app-small-header></app-small-header>
-  <div class="small__body">
-    <div class="invite-form__heading"> Hello <b>{{ username }}</b>. Welcome to FWS! To create your account, fill in the form and press Register.</div>
-    <form>
-      <input type="text" class="form--text" placeholder="Nickname" required>
-      <input type="password" class="form--text" placeholder="Password" required>
-      <input type="submit" class="invite-form__submit form--button form--full-button" value="Register">
-    </form>
+<form class="invite-form" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+  <input name="nickname" #nickname="ngModel" ngModel type="text"
+    class="form--text" placeholder="Nickname" required>
+  <div class="form--error" *ngIf="nickname.invalid && f.submitted">
+    Nickname is required.
   </div>
-</div>
+  <input name="password" #password="ngModel" ngModel type="password"
+    class="form--text" placeholder="Password" required>
+  <div class="form--error" *ngIf="password.invalid && f.submitted">
+    Password is required.
+  </div>
+  <button type="submit" class="form--button form--full-button">Register</button>
+</form>

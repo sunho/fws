@@ -16,4 +16,9 @@
 	&__center-box {
 		@include absolute-center(40%);
 	}
+
+}
+
+app-login-form {
+	margin-top: $small-child-margin;
 }

@@ -1,10 +1,19 @@
 package store
 
-import "github.com/sunho/fws/server/model"
+import (
+	"errors"
+
+	"github.com/sunho/fws/server/model"
+)
+
+var (
+	ErrNoEntry = errors.New("store: no such entry")
+)
 
 type Store interface {
 	GetUser(id int) (*model.User, error)
 	GetUserByUsername(username string) (*model.User, error)
+	GetUserByNickname(nickname string) (*model.User, error)
 	CreateUser(user *model.User) (*model.User, error)
 	UpdateUser(user *model.User) error
 	DeleteUser(user *model.User) error

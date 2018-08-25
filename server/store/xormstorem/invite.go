@@ -1,6 +1,9 @@
 package xormstore
 
-import "github.com/sunho/fws/server/model"
+import (
+	"github.com/sunho/fws/server/model"
+	"github.com/sunho/fws/server/store"
+)
 
 func (x *XormStore) GetUserInvite(username string) (*model.UserInvite, error) {
 	i := &model.UserInvite{
@@ -8,7 +11,7 @@ func (x *XormStore) GetUserInvite(username string) (*model.UserInvite, error) {
 	}
 	has, err := x.e.Get(i)
 	if !has {
-		return nil, ErrNoEntry
+		return nil, store.ErrNoEntry
 	}
 	return i, err
 }
