@@ -20,19 +20,17 @@
 
 	&__heading {
 		display: block;
-		height: $small-heading-height;
-		line-height: $small-heading-height;
-		padding-left: $small-padding;
+		padding: $small-heading-padding $small-padding-horizontal;
 
 		font-weight: 600;
 		font-size: $font-size * 1.4;
 
-		color: $color-white;
-		background-color: $color-primary;
+		color: $color-primary;
 	}
 
 	&__body {
 		margin-top: $small-body-margin-top;
-		padding: $small-padding;
+		padding: $small-padding-vertical $small-padding-horizontal;
+		padding-top: .5rem;
 	}
 }

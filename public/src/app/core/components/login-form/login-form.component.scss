@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins";
 
 .login-form {
 	& > *:not(:first-child) {
@@ -6,10 +7,13 @@
 	}
 
 	.form--button {
-		margin-top: $small-child-margin * 1.5;
+		margin-top: $small-child-margin * 1.2;
 	}
 
 	.form--error {
-		margin-top: 0;
+		margin: auto;
+	}
+
+	.form--button {
 	}
 }

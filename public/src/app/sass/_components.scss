@@ -4,34 +4,57 @@
 
 .form {
 	&--text {
-		display: block;
-		width: 100%;
-		height: $form-text-height;
-
-		font-family: $font-family;
-		font-size: $font-size;
-
+		position: relative;
 		color: $color-black;
 
-		outline: none;
-		border: none;
-		border-bottom: $form-text-border solid $color-gray;
+		input {
+			position: relative;
+			width: 100%;
+			height: $form-text-height;
+			z-index: 1;
 
-		transition: border-color .3s;
-
-		@include placeholder {
-			font-weight: 500;
+			font-weight: 400;
 			font-family: $font-family;
+			font-size: $font-size;
 
-			color: $color-gray;
-			transition: color .3s;
+			border: 0;
+			color: #212121;
+			outline: none;
+			background: none;
+
+			&:focus {
+				~ label {
+					color: #9d9d9d;
+					transform: translate(-13.5%, -50%) scale(0.75);
+				}
+			}
+			&:valid {
+				~ label {
+					color: #9d9d9d;
+					transform: translate(-13.5%, -50%) scale(0.75);
+				}
+			}
 		}
 
-		&:focus{
-			border-color: $color-primary;
-			@include placeholder {
-				color: $color-primary;
-			}
+		label {
+			font-family: $font-family;
+			font-size: $font-size;
+			line-height: $form-text-height;
+			position: absolute;
+			color: #9d9d9d;
+			top: 0;
+			left: 0;
+			@include transition(.2s ease);
+		}
+
+		.bar {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			background: #757575;
+			width: 100%;
+			font-size:0px;
+			height: 1px;
 		}
 	}
 
@@ -78,7 +101,6 @@
 
 	&--full-button {
 		width: 100%;
-		height: 3.5rem;
 	}
 
 	&--checklabel {

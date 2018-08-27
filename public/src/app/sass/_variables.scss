@@ -11,13 +11,13 @@ $color-gray: #7F8489;
 $color-white: #fff;
 $color-shadow: rgba(#000, 0.25);
 
-$form-text-height: 3rem;
+$form-text-height: 4rem;
 $form-text-border: .1rem;
 
 $form-button-font-weight: 700;
-$form-button-height: 3rem;
+$form-button-height: 4.5rem;
 $form-button-radius: .4rem;
-$form-button-padding: 0 2rem;
+$form-button-padding: 0 7rem;
 
 $form-checklabel-font-size: 1.5rem;
 $form-checklabel-size: 1.5rem;
@@ -26,8 +26,9 @@ $form-checklabel-radius: .2rem;
 $form-checklabel-spacing: .3rem;
 
 $small-body-margin-top: -1rem;
-$small-heading-height: 6rem;
-$small-width: 35rem;
-$small-padding: 3rem;
-$small-radius: .4rem;
-$small-child-margin: 2rem;
+$small-heading-padding: 3rem;
+$small-padding-horizontal: 4rem;
+$small-padding-vertical: 3rem;
+$small-width: 30rem;
+$small-radius: .8rem;
+$small-child-margin: 2.5rem;
