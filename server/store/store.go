@@ -22,10 +22,10 @@ type Store interface {
 	CreateUserInvite(i *model.UserInvite) (*model.UserInvite, error)
 	DeleteUserInvite(i *model.UserInvite) error
 
-	//GetBot(id int) (*model.Bot, error)
-	//CreateBot(bot *model.Bot) (*model.Bot, error)
-	//UpdateBot(bot *model.Bot) error
-	//DeleteBot(bot *model.Bot) error
+	GetBot(id int) (*model.Bot, error)
+	CreateBot(bot *model.Bot) (*model.Bot, error)
+	UpdateBot(bot *model.Bot) error
+	DeleteBot(bot *model.Bot) error
 
 	//ListUserBot(id int) ([]*model.Bot, error)
 	//CreateUserBot(id int, botid int) error

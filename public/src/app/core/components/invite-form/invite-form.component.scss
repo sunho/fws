@@ -7,10 +7,11 @@
 	}
 
 	.form--button {
-		margin-top: $small-child-margin * 2;
+		margin-top: $small-child-margin * 1.5;
 	}
 
 	.form--error {
 		margin-top: 0;
+		font-size: 15rem;
 	}
 }

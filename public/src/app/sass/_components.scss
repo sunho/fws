@@ -18,19 +18,27 @@
 			font-size: $font-size;
 
 			border: 0;
-			color: #212121;
+			color: $color-black;
 			outline: none;
 			background: none;
 
 			&:focus {
 				~ label {
-					color: #9d9d9d;
+					color: $color-light-gray;
 					transform: translate(-13.5%, -50%) scale(0.75);
 				}
+				~ .bar {
+					&:before,
+					&:after {
+						opacity: 1;
+						width: 50%;
+					}
+				}
 			}
+
 			&:valid {
 				~ label {
-					color: #9d9d9d;
+					color: $color-light-gray;
 					transform: translate(-13.5%, -50%) scale(0.75);
 				}
 			}
@@ -41,20 +49,40 @@
 			font-size: $font-size;
 			line-height: $form-text-height;
 			position: absolute;
-			color: #9d9d9d;
+			color: $color-gray;
 			top: 0;
 			left: 0;
-			@include transition(.2s ease);
+			transform: translate(0) scale(1);
+			@include transition(transform .2s ease);
 		}
 
 		.bar {
 			position: absolute;
 			left: 0;
 			bottom: 0;
-			background: #757575;
+			background: $color-gray;
 			width: 100%;
 			font-size:0px;
 			height: 1px;
+
+			&:before,
+			&:after {
+				content: '';
+				position: absolute;
+				background: $color-primary;
+				height: 2px;
+				opacity: 0;
+				width: 5%;
+				@include transition(width .2s ease, opacity .2s ease);
+			}
+
+			&:before {
+				left: 50%;
+			}
+
+			&:after {
+				right: 50%;
+			}
 		}
 	}
 
@@ -66,10 +94,7 @@
 		font-weight: 500;
 		margin-top: .2rem;
 		color: $color-error;
-		animation-duration: .3s;
-		font-size: $font-size * .6;
-
-		transition: opacity .2s;
+		font-size: $font-size * .7;
 	}
 
 	&--button {
@@ -92,10 +117,10 @@
 		color: $color-white;
 		background-color: $color-primary;
 
-		transition: background-color .2s, color .2s;
+		@include transition(background-color .2s, color .2s);
 		&:hover {
-			color: darken($color-white,5);
-			background-color: darken($color-primary, 5);
+			color: darken($color-white,7);
+			background-color: darken($color-primary, 7);
 		}
 	}
 

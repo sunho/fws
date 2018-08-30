@@ -11,7 +11,7 @@ type BuildCallback func(bool, string)
 type Builder interface {
 	Build(bot *model.Bot, cb BuildCallback) error
 	Stop(bot *model.Bot) error
-	BotStatus(bot *model.Bot) (model.BuildStatus, error)
+	Status(bot *model.Bot) (model.BuildStatus, error)
 }
 
 type Runner interface {

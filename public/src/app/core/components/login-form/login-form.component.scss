@@ -2,18 +2,11 @@
 @import "mixins";
 
 .login-form {
-	& > *:not(:first-child) {
+	.form--text:not(:first-child) {
 		margin-top: $small-child-margin;
 	}
 
 	.form--button {
-		margin-top: $small-child-margin * 1.2;
-	}
-
-	.form--error {
-		margin: auto;
-	}
-
-	.form--button {
+		margin-top: $small-child-margin * 1.4;
 	}
 }
