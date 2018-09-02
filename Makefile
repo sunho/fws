@@ -9,7 +9,8 @@ clean:
 
 prepare:
 	mkdir out && \
-	(cd public && npm install)
+	(cd public && npm install) && \
+	(cd server && dep ensure -vendor-only)
 
 build-public:
 	cd public && \

@@ -2,6 +2,7 @@
 
 /server/server
 /server/dist
+/server/vendor
 
 /public/dist
 /public/tmp
