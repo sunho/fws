@@ -1,6 +1,8 @@
-/server/server
+/out
 
+/server/server
 /server/dist
+
 /public/dist
 /public/tmp
 /public/out-tsc
@@ -9,8 +11,9 @@
 /public/connect.lock
 /public/coverage
 /public/libpeerconnection.log
+/public/typings
+
 npm-debug.log
 yarn-error.log
 testem.log
-/public/typings
 createScreenInstance

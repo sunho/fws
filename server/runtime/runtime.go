@@ -1,12 +1,18 @@
 package runtime
 
 import (
+	"errors"
 	"io"
 
 	"github.com/sunho/fws/server/model"
 )
 
-type BuildCallback func(bool, string)
+var (
+	ErrAlreadyBuilding = errors.New("runtime: already building")
+	ErrNotExists       = errors.New("runtime: doesn't exists")
+)
+
+type BuildCallback func(error)
 
 type Builder interface {
 	Build(bot *model.Bot, cb BuildCallback) error

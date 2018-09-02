@@ -1,11 +1,9 @@
 package model
 
-type BuildStatus int
-
-const (
-	BuildStatusBuilding BuildStatus = iota
-	BuildStatusNone
-)
+type BuildStatus struct {
+	Running bool
+	Step    string
+}
 
 type RunStatus int
 
