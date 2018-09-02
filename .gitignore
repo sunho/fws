@@ -13,6 +13,8 @@
 /public/libpeerconnection.log
 /public/typings
 
+fws.db
+config.yaml
 npm-debug.log
 yarn-error.log
 testem.log
