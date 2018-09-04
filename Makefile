@@ -19,6 +19,6 @@ build-public:
 	rm -r dist
 
 build-server:
-	cd server && \
-	go build -o ../out/fws-server
+	cd out && \
+	go build ../server
 
