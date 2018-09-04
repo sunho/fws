@@ -1,29 +1,41 @@
 package api
 
 import (
+	"encoding/json"
 	"net/http"
+	"strconv"
 
+	"github.com/go-chi/chi"
 	"github.com/sunho/fws/server/model"
 )
 
+func (a *Api) botMiddleWare(next http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		id_ := chi.URLParam(r, "bot")
+		id, _ := strconv.Atoi(id_)
+
+		b, err := a.in.GetStore().GetBot(id)
+		if err != nil {
+			a.httpError(w, 404, err)
+			return
+		}
+
+		next.ServeHTTP(w, withBot(r, b))
+	}
+	return http.HandlerFunc(fn)
+}
+
 func (a *Api) getBot(w http.ResponseWriter, r *http.Request) {
-	req := struct {
-		Name   string `json:"name"`
-		GitURL string `json:"git_url"`
-	}{}
-	if !a.jsonDecode(w, r, &req) {
+	id_ := chi.URLParam(r, "bot")
+	id, _ := strconv.Atoi(id_)
+
+	b, err := a.in.GetStore().GetBot(id)
+	if err != nil {
+		a.httpError(w, 404, err)
 		return
 	}
 
-	_, err := a.in.GetStore().CreateBot(&model.Bot{
-		Name:   req.Name,
-		GitURL: req.GitURL,
-	})
-	if err != nil {
-		a.httpError(w, 500, err)
-		return
-	}
-	w.WriteHeader(201)
+	json.NewEncoder(w).Encode(b)
 }
 
 func (a *Api) postBot(w http.ResponseWriter, r *http.Request) {

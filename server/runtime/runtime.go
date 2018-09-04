@@ -12,24 +12,27 @@ var (
 	ErrNotExists       = errors.New("runtime: doesn't exists")
 )
 
-type BuildCallback func(error)
+type BuildCallback func(err error, logged []byte)
 
 type Builder interface {
-	Build(bot *model.Bot, cb BuildCallback) error
-	Stop(bot *model.Bot) error
-	Status(bot *model.Bot) (model.BuildStatus, error)
+	Build(bot *model.Bot, cb BuildCallback) (Building, error)
+}
+
+type Building interface {
+	Stop() error
+	Step() string
 }
 
 type Runner interface {
 	CreateBot(bot *model.RunBot) error
 	UpdateBot(bot *model.RunBot) error
-	DeleteBot(id int) error
+	DeleteBot(bot *model.Bot) error
 
-	RunBot(id int) error
-	RestartBot(id int) error
-	StopBot(id int) error
-	BotStatus(id int) (model.RunStatus, error)
-	BotLog(id int) (string, error)
+	RunBot(bot *model.Bot) error
+	RestartBot(bot *model.Bot) error
+	StopBot(bot *model.Bot) error
+	BotStatus(bot *model.Bot) (model.RunStatus, error)
+	BotLog(bot *model.Bot) ([]byte, error)
 
 	DownloadVolume(volume *model.Volume) (io.Reader, error)
 	VolumeUsed(volume *model.Volume) (int64, error)

@@ -3,11 +3,20 @@ package fws
 import (
 	"net/http"
 
+	"github.com/sunho/fws/server/runtime"
 	"github.com/sunho/fws/server/store"
 )
 
 type fwsInterface struct {
 	f *Fws
+}
+
+func (f *fwsInterface) GetBuilder() runtime.Builder {
+	return f.f.builder
+}
+
+func (f *fwsInterface) GetRunner() runtime.Runner {
+	return f.f.runner
 }
 
 func (f *fwsInterface) GetStore() store.Store {

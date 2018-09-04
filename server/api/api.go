@@ -6,11 +6,14 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
+	"github.com/sunho/fws/server/runtime"
 	"github.com/sunho/fws/server/store"
 )
 
 type ApiInterface interface {
 	GetStore() store.Store
+	GetBuilder() runtime.Builder
+	GetRunner() runtime.Runner
 	CreateInviteKey(username string) string
 	HashPassword(password string) string
 	CreateToken(id int, username string) string

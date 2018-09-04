@@ -13,106 +13,54 @@ import (
 	"github.com/sunho/fws/server/runtime"
 )
 
-const maxCurrent = 10
-
-type DefaultBuilder struct {
-	mu        *sync.RWMutex
-	check     chan struct{}
-	current   int
-	buildings map[int]*building
-
+type Builder struct {
 	RegURL    string
 	Workspace string
 }
 
-func (b *DefaultBuilder) Start() {
-	go func() {
-		for {
-			select {
-			case <-b.check:
-			}
-		}
-	}()
-}
-
-func (b *DefaultBuilder) Build(bot *model.Bot, cb runtime.BuildCallback) error {
-	b.mu.Lock()
-	defer b.mu.Unlock()
-
-	if _, ok := b.buildings[bot.ID]; ok {
-		return runtime.ErrAlreadyBuilding
-	}
-
-	b.buildings[bot.ID] = &building{
+func (b *Builder) Build(bot *model.Bot, cb runtime.BuildCallback) (*Building, error) {
+	bui := &Building{
 		parent: b,
 		bot:    bot,
 		cb:     cb,
 		logged: []byte{},
 	}
-	b.check <- struct{}{}
-
-	return nil
+	bui.Start()
+	return bui, nil
 }
 
-func (b *DefaultBuilder) Stop(bot *model.Bot) error {
-	b.mu.RLock()
-	defer b.mu.RUnlock()
-
-	bui, ok := b.buildings[bot.ID]
-	if !ok {
-		return runtime.ErrNotExists
-	}
-	return bui.Stop()
-}
-
-func (b *DefaultBuilder) Status(bot *model.Bot) (model.BuildStatus, error) {
-	b.mu.RLock()
-	defer b.mu.RUnlock()
-
-	bui, ok := b.buildings[bot.ID]
-	if !ok {
-		return model.BuildStatus{}, runtime.ErrNotExists
-	}
-	return bui.Status(), nil
-}
-
-type building struct {
+type Building struct {
 	mu     *sync.RWMutex
-	parent *DefaultBuilder
+	parent *Builder
 	bot    *model.Bot
 	cb     runtime.BuildCallback
 	kill   func()
 
-	running bool
-	step    string
-	logged  []byte
+	step   string
+	logged []byte
 }
 
-func (b *building) Start() {
-	b.running = true
+func (b *Building) Start() {
 	go func() {
 		err := b.work()
-		b.cb(err)
+		b.cb(err, b.logged)
 	}()
 }
 
-func (b *building) Stop() error {
+func (b *Building) Stop() error {
 	//TODO
 	b.kill()
 	return nil
 }
 
-func (b *building) Status() model.BuildStatus {
+func (b *Building) Step() string {
 	b.mu.RLock()
 	defer b.mu.RUnlock()
 
-	return model.BuildStatus{
-		Running: b.running,
-		Step:    b.step,
-	}
+	return b.step
 }
 
-func (b *building) work() error {
+func (b *Building) work() error {
 	path := b.parent.Workspace + "/" + strconv.Itoa(b.bot.ID)
 	img := fmt.Sprintf("%s/%s%d:%d", b.parent.RegURL, b.bot.Name, b.bot.ID, time.Now().Unix())
 
@@ -145,7 +93,7 @@ func (b *building) work() error {
 	return nil
 }
 
-func (b *building) exec(name string, cmd *exec.Cmd) error {
+func (b *Building) exec(name string, cmd *exec.Cmd) error {
 	b.kill = func() {
 		// TODO
 		cmd.Process.Kill()
@@ -184,7 +132,7 @@ func (b *building) exec(name string, cmd *exec.Cmd) error {
 	return nil
 }
 
-func (b *building) streamLog(wg *sync.WaitGroup, r io.Reader) {
+func (b *Building) streamLog(wg *sync.WaitGroup, r io.Reader) {
 	s := bufio.NewScanner(r)
 	s.Split(bufio.ScanLines)
 	for s.Scan() {
@@ -194,14 +142,14 @@ func (b *building) streamLog(wg *sync.WaitGroup, r io.Reader) {
 	wg.Done()
 }
 
-func (b *building) setStep(str string) {
+func (b *Building) setStep(str string) {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 
 	b.step = str
 }
 
-func (b *building) writeLog(buf []byte) {
+func (b *Building) writeLog(buf []byte) {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 
