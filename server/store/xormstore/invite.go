@@ -5,6 +5,12 @@ import (
 	"github.com/sunho/fws/server/store"
 )
 
+func (x *XormStore) ListUserInvite() ([]*model.UserInvite, error) {
+	var us []*model.UserInvite
+	err := x.e.Find(&us)
+	return us, err
+}
+
 func (x *XormStore) GetUserInvite(username string) (*model.UserInvite, error) {
 	var i model.UserInvite
 	has, err := x.e.Where("username = ?", username).Get(&i)

@@ -5,6 +5,12 @@ import (
 	"github.com/sunho/fws/server/store"
 )
 
+func (x *XormStore) ListBot() ([]*model.Bot, error) {
+	var bs []*model.Bot
+	err := x.e.Find(&bs)
+	return bs, err
+}
+
 func (x *XormStore) GetBot(id int) (*model.Bot, error) {
 	var b model.Bot
 	has, err := x.e.ID(id).Get(&b)

@@ -5,6 +5,12 @@ import (
 	"github.com/sunho/fws/server/store"
 )
 
+func (x *XormStore) ListUser() ([]*model.User, error) {
+	var us []*model.User
+	err := x.e.Find(&us)
+	return us, err
+}
+
 func (x *XormStore) GetUser(id int) (*model.User, error) {
 	var u model.User
 	has, err := x.e.ID(id).Get(&u)
@@ -44,5 +50,28 @@ func (x *XormStore) UpdateUser(user *model.User) error {
 
 func (x *XormStore) DeleteUser(user *model.User) error {
 	_, err := x.e.ID(user.ID).Delete(new(model.User))
+	return err
+}
+
+func (x *XormStore) ListUserBot(user int) ([]*model.Bot, error) {
+	var bots []*model.Bot
+	err := x.e.Table("user_bot").
+		Where("user_id = ?", user).
+		Join("INNER", "bot", "user_bot.bot_id = bot.id").
+		Find(&bots)
+	return bots, err
+}
+
+func (x *XormStore) CreateUserBot(user int, bot int) error {
+	_, err := x.e.Insert(&model.UserBot{
+		UserID: user,
+		BotID:  bot,
+	})
+	return err
+}
+
+func (x *XormStore) DeleteUserBot(user int, bot int) error {
+	_, err := x.e.Where("user_id = ? AND bot_id = ?", user, bot).
+		Delete(new(model.UserBot))
 	return err
 }

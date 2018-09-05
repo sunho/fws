@@ -37,12 +37,12 @@ func (x *XormStore) DeleteBotBuild(build *model.Build) error {
 }
 
 func (x *XormStore) GetBotBuildLog(bot int, number int) (*model.BuildLog, error) {
-	var b *model.BuildLog
-	has, err := x.e.Where("bot_id = ? AND number = ?", bot, number).Get(b)
+	var b model.BuildLog
+	has, err := x.e.Where("bot_id = ? AND number = ?", bot, number).Get(&b)
 	if !has {
 		return nil, store.ErrNoEntry
 	}
-	return b, err
+	return &b, err
 }
 
 func (x *XormStore) CreateBotBuildLog(build *model.BuildLog) (*model.BuildLog, error) {

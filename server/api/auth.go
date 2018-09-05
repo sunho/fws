@@ -3,10 +3,11 @@ package api
 import (
 	"net/http"
 
+	"github.com/go-chi/chi"
 	"github.com/sunho/fws/server/model"
 )
 
-func (a *Api) userMiddleWare(next http.Handler) http.Handler {
+func (a *Api) authMiddleWare(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		c, err := r.Cookie("token")
 		if err != nil {
@@ -26,7 +27,6 @@ func (a *Api) userMiddleWare(next http.Handler) http.Handler {
 			a.httpError(w, 500, err)
 			return
 		}
-
 		if username != u.Username {
 			a.httpError(w, 401, nil)
 			return
@@ -35,6 +35,23 @@ func (a *Api) userMiddleWare(next http.Handler) http.Handler {
 		next.ServeHTTP(w, withUser(r, u))
 	}
 	return http.HandlerFunc(fn)
+}
+
+func (a *Api) getUserInvite(w http.ResponseWriter, r *http.Request) {
+	username := chi.URLParam(r, "username")
+	key := r.URL.Query().Get("key")
+
+	o, err := a.in.GetStore().GetUserInvite(username)
+	if err != nil {
+		a.httpError(w, 404, err)
+		return
+	}
+	if o.Key != key {
+		a.httpError(w, 403, nil)
+		return
+	}
+
+	w.WriteHeader(200)
 }
 
 func (a *Api) adminMiddleWare(next http.Handler) http.Handler {
@@ -69,7 +86,6 @@ func (a *Api) register(w http.ResponseWriter, r *http.Request) {
 		a.httpError(w, 403, nil)
 		return
 	}
-
 	_, err = a.in.GetStore().GetUserByNickname(req.Nickname)
 	if err == nil {
 		a.httpError(w, 409, nil)
@@ -87,7 +103,6 @@ func (a *Api) register(w http.ResponseWriter, r *http.Request) {
 		a.httpError(w, 500, err)
 		return
 	}
-
 	err = a.in.GetStore().DeleteUserInvite(o)
 	if err != nil {
 		a.httpError(w, 500, err)

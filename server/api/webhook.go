@@ -80,7 +80,7 @@ func (a *Api) postWebhook(w http.ResponseWriter, r *http.Request) {
 
 	switch con.Event {
 	case "ping":
-		w.WriteHeader(200)
+		w.WriteHeader(201)
 	case "push":
 		payload := make(map[string]interface{})
 		err := json.Unmarshal(con.Payload, &payload)

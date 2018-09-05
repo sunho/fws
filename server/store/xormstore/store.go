@@ -23,7 +23,14 @@ func (x *XormStore) Migrate() error {
 		return err
 	}
 
-	err = x.e.Sync(new(model.User), new(model.UserInvite), new(model.Bot), new(model.Build), new(model.BuildLog))
+	err = x.e.Sync(
+		new(model.User),
+		new(model.UserInvite),
+		new(model.UserBot),
+		new(model.Bot),
+		new(model.Build),
+		new(model.BuildLog),
+	)
 	if err != nil {
 		return err
 	}

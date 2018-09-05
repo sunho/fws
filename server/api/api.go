@@ -42,32 +42,52 @@ func (a *Api) Http() http.Handler {
 }
 
 func (a *Api) apiRoute(r chi.Router) {
-	r.Route("/invite", func(s chi.Router) {
-		s.Post("/{username}", a.postUserInvite)
-		s.Get("/{username}", a.getUserInvite)
-	})
+	r.Get("/invite/{username}", a.getUserInvite)
+	r.Post("/register", a.register)
+	r.Post("/login", a.login)
+
+	r.With(a.botMiddleWare).Post("/hook/{bot}", a.postWebhook)
 
 	r.Route("/bot", func(s chi.Router) {
-		s.Post("/", a.postBot)
-		s.Put("/", a.putBot)
-
-		s.Route("/{bot}", func(ss chi.Router) {
-			ss.Use(a.botMiddleWare)
-			ss.Get("/", a.getBot)
-			ss.Delete("/", a.deleteBot)
-
-			ss.Route("/build", func(sss chi.Router) {
-				sss.Post("/", a.postBuild)
-			})
-
-			ss.Route("/hook", func(sss chi.Router) {
-				sss.Post("/", a.postWebhook)
+		s.Use(a.authMiddleWare)
+		s.Get("/", a.listUserBot)
+		r.Route("/{bot}", func(s chi.Router) {
+			s.Use(a.botMiddleWare)
+			s.Route("/build", func(s chi.Router) {
+				s.Get("/", a.listBuild)
+				s.Post("/", a.postBuild)
+				s.Get("/{number}", a.getBuild)
 			})
 		})
 	})
 
-	r.Post("/register", a.register)
-	r.Post("/login", a.login)
+	r.Route("/admin", func(s chi.Router) {
+		s.Route("/invite", func(s chi.Router) {
+			s.Get("/", a.listUserInvite)
+			s.Post("/", a.postUserInvite)
+		})
+		s.Route("/user", func(s chi.Router) {
+			s.Get("/", a.listUser)
+			s.Route("/{username}", func(s chi.Router) {
+				s.Use(a.userMiddleWare)
+				s.Route("/bot", func(s chi.Router) {
+					s.Get("/", a.listUserBot)
+					s.Post("/", a.postUserBot)
+				})
+			})
+		})
+		s.Route("/bot", func(s chi.Router) {
+			s.Get("/", a.listBot)
+			s.Post("/", a.postBot)
+			s.Route("/{bot}", func(s chi.Router) {
+				s.Use(a.botMiddleWare)
+				s.Get("/", a.getBot)
+				s.Put("/", a.putBot)
+				s.Delete("/", a.deleteBot)
+			})
+		})
+	})
+
 }
 
 func (a *Api) cors(r chi.Router) {

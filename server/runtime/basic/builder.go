@@ -44,6 +44,9 @@ type Building struct {
 func (b *Building) Start() {
 	go func() {
 		err := b.work()
+		if err != nil {
+			b.writeLog([]byte("error:" + err.Error() + "\n"))
+		}
 		b.cb(err, b.logged)
 	}()
 }
@@ -126,7 +129,7 @@ func (b *Building) exec(name string, cmd *exec.Cmd) error {
 		return err
 	}
 
-	b.writeLog([]byte("-----" + name + "-----"))
+	b.writeLog([]byte("-----" + name + "-----\n"))
 
 	var wg sync.WaitGroup
 	go b.streamLog(&wg, r)
