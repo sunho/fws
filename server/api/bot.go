@@ -35,8 +35,9 @@ func (a *Api) postBot(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_, err := a.in.GetStore().CreateBot(&model.Bot{
-		Name:   req.Name,
-		GitURL: req.GitURL,
+		Name:          req.Name,
+		GitURL:        req.GitURL,
+		WebhookSecret: a.in.CreateWebhookSecret(),
 	})
 	if err != nil {
 		a.httpError(w, 500, err)

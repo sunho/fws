@@ -28,6 +28,10 @@ func (f *fwsInterface) GetBuildManager() *runtime.BuildManager {
 	return f.f.buildManager
 }
 
+func (f *fwsInterface) CreateWebhookSecret() string {
+	return "todo"
+}
+
 func (f *fwsInterface) CreateInviteKey(username string) string {
 	return "todo"
 }

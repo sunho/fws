@@ -14,6 +14,7 @@ import (
 type ApiInterface interface {
 	GetStore() store.Store
 	GetBuildManager() *runtime.BuildManager
+	CreateWebhookSecret() string
 	CreateInviteKey(username string) string
 	ComparePassword(password string, hash string) bool
 	HashPassword(password string) string
@@ -49,12 +50,18 @@ func (a *Api) apiRoute(r chi.Router) {
 	r.Route("/bot", func(s chi.Router) {
 		s.Post("/", a.postBot)
 		s.Put("/", a.putBot)
+
 		s.Route("/{bot}", func(ss chi.Router) {
 			ss.Use(a.botMiddleWare)
 			ss.Get("/", a.getBot)
 			ss.Delete("/", a.deleteBot)
+
 			ss.Route("/build", func(sss chi.Router) {
 				sss.Post("/", a.postBuild)
+			})
+
+			ss.Route("/hook", func(sss chi.Router) {
+				sss.Post("/", a.postWebhook)
 			})
 		})
 	})

@@ -52,8 +52,4 @@ type Store interface {
 
 	GetBotBuildLog(bot int, number int) (*model.BuildLog, error)
 	CreateBotBuildLog(build *model.BuildLog) (*model.BuildLog, error)
-
-	//GetWebhook(hash string) (*model.Webhook, error)
-	//CreateWebhook(hook *model.Webhook) (*model.Webhook, error)
-	//DeleteWebhook(hook *model.Webhook) error
 }

@@ -17,15 +17,16 @@ type UserInvite struct {
 }
 
 type Bot struct {
-	ID     int    `json:"id" xorm:"pk autoincr"`
-	Name   string `json:"name"`
-	GitURL string `json:"git_url"`
+	ID            int    `json:"id" xorm:"pk autoincr"`
+	Name          string `json:"name"`
+	WebhookSecret string `json:"webhook_secret"`
+	GitURL        string `json:"git_url"`
 }
 
 type Webhook struct {
-	Hash   string
+	Hash   string `xorm:"pk"`
+	Secret string
 	BotID  int
-	GitURL string
 }
 
 type Volume struct {
