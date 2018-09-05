@@ -8,7 +8,7 @@ interface IAppConfig {
 export let APP_CONFIG = new InjectionToken('app.config');
 
 export const AppConfig: IAppConfig = {
-  siteName: 'SWS',
-  apiUrl: 'http://localhost:8080/api',
+  siteName: 'FWS',
+  apiUrl: '/api',
 };
 

@@ -6,36 +6,30 @@ import (
 )
 
 func (x *XormStore) GetUser(id int) (*model.User, error) {
-	u := &model.User{
-		ID: id,
-	}
-	has, err := x.e.Get(u)
+	var u model.User
+	has, err := x.e.ID(id).Get(&u)
 	if !has {
 		return nil, store.ErrNoEntry
 	}
-	return u, err
+	return &u, err
 }
 
 func (x *XormStore) GetUserByUsername(username string) (*model.User, error) {
-	u := &model.User{
-		Username: username,
-	}
-	has, err := x.e.Get(u)
+	var u model.User
+	has, err := x.e.Where("username = ?", username).Get(&u)
 	if !has {
 		return nil, store.ErrNoEntry
 	}
-	return u, err
+	return &u, err
 }
 
 func (x *XormStore) GetUserByNickname(nickname string) (*model.User, error) {
-	u := &model.User{
-		Nickname: nickname,
-	}
-	has, err := x.e.Get(u)
+	var u model.User
+	has, err := x.e.Where("nickname = ?", nickname).Get(&u)
 	if !has {
 		return nil, store.ErrNoEntry
 	}
-	return u, err
+	return &u, err
 }
 
 func (x *XormStore) CreateUser(user *model.User) (*model.User, error) {

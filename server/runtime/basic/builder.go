@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"os"
 	"os/exec"
 	"strconv"
 	"sync"
@@ -18,7 +19,7 @@ type Builder struct {
 	Workspace string
 }
 
-func (b *Builder) Build(bot *model.Bot, cb runtime.BuildCallback) (*Building, error) {
+func (b *Builder) Build(bot *model.Bot, cb runtime.BuildCallback) (runtime.Building, error) {
 	bui := &Building{
 		parent: b,
 		bot:    bot,
@@ -30,7 +31,7 @@ func (b *Builder) Build(bot *model.Bot, cb runtime.BuildCallback) (*Building, er
 }
 
 type Building struct {
-	mu     *sync.RWMutex
+	mu     sync.RWMutex
 	parent *Builder
 	bot    *model.Bot
 	cb     runtime.BuildCallback
@@ -64,10 +65,21 @@ func (b *Building) work() error {
 	path := b.parent.Workspace + "/" + strconv.Itoa(b.bot.ID)
 	img := fmt.Sprintf("%s/%s%d:%d", b.parent.RegURL, b.bot.Name, b.bot.ID, time.Now().Unix())
 
+	_, err := os.Stat(b.parent.Workspace)
+	if os.IsNotExist(err) {
+		err = os.Mkdir(b.parent.Workspace, 0644)
+		if err != nil {
+			return err
+		}
+	}
+
 	b.setStep("clean")
-	rm := exec.Command("rm", "-rf", path)
-	if err := b.exec("clean", rm); err != nil {
-		return err
+	_, err = os.Stat(path)
+	if err == nil {
+		err = os.RemoveAll(path)
+		if err != nil {
+			return err
+		}
 	}
 
 	b.setStep("download")

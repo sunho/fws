@@ -6,14 +6,12 @@ import (
 )
 
 func (x *XormStore) GetUserInvite(username string) (*model.UserInvite, error) {
-	i := &model.UserInvite{
-		Username: username,
-	}
-	has, err := x.e.Get(i)
+	var i model.UserInvite
+	has, err := x.e.Where("username = ?", username).Get(&i)
 	if !has {
 		return nil, store.ErrNoEntry
 	}
-	return i, err
+	return &i, err
 }
 
 func (x *XormStore) CreateUserInvite(i *model.UserInvite) (*model.UserInvite, error) {

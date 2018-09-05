@@ -14,9 +14,10 @@ import (
 )
 
 type Fws struct {
-	stor    store.Store
-	builder runtime.Builder
-	runner  runtime.Runner
+	stor         store.Store
+	buildManager *runtime.BuildManager
+	builder      runtime.Builder
+	runner       runtime.Runner
 
 	config Config
 	dist   http.FileSystem
@@ -28,10 +29,11 @@ type Fws struct {
 func New(stor store.Store, builder runtime.Builder,
 	runner runtime.Runner, config Config) (*Fws, error) {
 	f := &Fws{
-		stor:    stor,
-		builder: builder,
-		runner:  runner,
-		config:  config,
+		stor:         stor,
+		buildManager: runtime.NewBuildManager(stor, builder),
+		builder:      builder,
+		runner:       runner,
+		config:       config,
 	}
 
 	err := f.initDist()
@@ -78,6 +80,8 @@ func (f *Fws) Start() {
 			}
 		}
 	}()
+
+	f.buildManager.Start()
 
 	_, err := f.stor.GetUserByUsername("admin")
 	if err == store.ErrNoEntry {

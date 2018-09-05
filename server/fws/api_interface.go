@@ -1,42 +1,100 @@
 package fws
 
 import (
+	"crypto/aes"
+	"crypto/cipher"
+	"crypto/rand"
+	"encoding/base64"
+	"io"
 	"net/http"
+	"strconv"
+	"strings"
 
+	"github.com/golang/glog"
 	"github.com/sunho/fws/server/runtime"
 	"github.com/sunho/fws/server/store"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type fwsInterface struct {
 	f *Fws
 }
 
-func (f *fwsInterface) GetBuilder() runtime.Builder {
-	return f.f.builder
-}
-
-func (f *fwsInterface) GetRunner() runtime.Runner {
-	return f.f.runner
-}
-
 func (f *fwsInterface) GetStore() store.Store {
 	return f.f.stor
+}
+
+func (f *fwsInterface) GetBuildManager() *runtime.BuildManager {
+	return f.f.buildManager
 }
 
 func (f *fwsInterface) CreateInviteKey(username string) string {
 	return "todo"
 }
 
+func (f *fwsInterface) ComparePassword(password string, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
+}
+
 func (f *fwsInterface) HashPassword(password string) string {
-	return "todo"
+	buf, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		glog.Fatalf("Something went wrong, err: %v", err)
+	}
+	return string(buf)
 }
 
 func (f *fwsInterface) CreateToken(id int, username string) string {
-	return "todo"
+	plainText := []byte(strconv.Itoa(id) + ":" + username)
+
+	block, err := aes.NewCipher([]byte(f.f.config.Secret))
+	if err != nil {
+		glog.Fatalf("Invalid secret, err: %v", err)
+	}
+
+	cipherText := make([]byte, aes.BlockSize+len(plainText))
+	iv := cipherText[:aes.BlockSize]
+	if _, err = io.ReadFull(rand.Reader, iv); err != nil {
+		glog.Fatalf("Something went wrong, err: %v", err)
+	}
+
+	stream := cipher.NewCFBEncrypter(block, iv)
+	stream.XORKeyStream(cipherText[aes.BlockSize:], plainText)
+
+	return base64.StdEncoding.EncodeToString(cipherText)
 }
 
 func (f *fwsInterface) ParseToken(tok string) (int, string, bool) {
-	return 0, "todo", false
+	cipherText, err := base64.StdEncoding.DecodeString(tok)
+	if err != nil {
+		return 0, "", false
+	}
+
+	block, err := aes.NewCipher([]byte(f.f.config.Secret))
+	if err != nil {
+		glog.Fatalf("Invalid secret, err: %v", err)
+	}
+
+	if len(cipherText) < aes.BlockSize {
+		return 0, "", false
+	}
+
+	iv := cipherText[:aes.BlockSize]
+	cipherText = cipherText[aes.BlockSize:]
+
+	stream := cipher.NewCFBDecrypter(block, iv)
+	stream.XORKeyStream(cipherText, cipherText)
+
+	str := string(cipherText)
+	arr := strings.SplitN(str, ":", 2)
+	id, err := strconv.Atoi(arr[0])
+	if err != nil {
+		return 0, "", false
+	}
+	username := arr[1]
+
+	return id, username, true
 }
 
 func (f *fwsInterface) GetDistFolder() http.FileSystem {

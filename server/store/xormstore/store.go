@@ -4,7 +4,7 @@ import (
 	"github.com/go-xorm/core"
 	"github.com/go-xorm/xorm"
 	"github.com/sunho/fws/server/model"
-	"github.com/sunho/fws/server/store/xormstorem/migrations"
+	"github.com/sunho/fws/server/store/xormstore/migrations"
 )
 
 type XormStore struct {
@@ -23,7 +23,7 @@ func (x *XormStore) Migrate() error {
 		return err
 	}
 
-	err = x.e.Sync(new(model.User), new(model.UserInvite))
+	err = x.e.Sync(new(model.User), new(model.UserInvite), new(model.Bot), new(model.Build), new(model.BuildLog))
 	if err != nil {
 		return err
 	}

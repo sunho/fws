@@ -9,7 +9,7 @@ import (
 func (a *Api) postBuild(w http.ResponseWriter, r *http.Request) {
 	b := getBot(r)
 
-	err := a.in.GetBuilder().Build(b, nil)
+	err := a.in.GetBuildManager().Request(b)
 	if err == runtime.ErrAlreadyBuilding {
 		a.httpErrorWithMsg(w, 409, "already building", err)
 		return

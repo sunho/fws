@@ -8,7 +8,8 @@ import (
 	"github.com/go-xorm/xorm"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/sunho/fws/server/fws"
-	xormstore "github.com/sunho/fws/server/store/xormstorem"
+	"github.com/sunho/fws/server/runtime/basic"
+	xormstore "github.com/sunho/fws/server/store/xormstore"
 )
 
 func main() {
@@ -18,8 +19,9 @@ func main() {
 	}
 
 	fconf := fws.Config{
-		Addr: conf.Addr,
-		Dist: conf.Dist,
+		Addr:   conf.Addr,
+		Secret: conf.Secret,
+		Dist:   conf.Dist,
 	}
 
 	e, err := xorm.NewEngine("sqlite3", conf.SqliteFile)
@@ -34,7 +36,12 @@ func main() {
 		panic(err)
 	}
 
-	f, err := fws.New(x, nil, nil, fconf)
+	builder := &basic.Builder{
+		RegURL:    conf.RegURL,
+		Workspace: conf.Workspace,
+	}
+
+	f, err := fws.New(x, builder, nil, fconf)
 	if err != nil {
 		panic(err)
 	}

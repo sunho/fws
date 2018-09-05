@@ -1,16 +1,18 @@
-# TODO: separate
-
 .PHONY: all
 
-all: clean prepare build-public build-server
+all: clean prepare dep build
 
 clean:
 	rm -rf out
 
 prepare:
-	mkdir out && \
+	mkdir out
+
+dep:
 	(cd public && npm install) && \
 	(cd server && dep ensure -vendor-only)
+
+build: build-public build-server
 
 build-public:
 	cd public && \
@@ -22,3 +24,10 @@ build-server:
 	cd out && \
 	go build ../server
 
+dev: dev-public build-server
+
+dev-public:
+	cd public && \
+	ng build && \
+	mv dist/public ../out/dist && \
+	rm -r dist

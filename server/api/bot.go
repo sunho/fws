@@ -25,19 +25,6 @@ func (a *Api) botMiddleWare(next http.Handler) http.Handler {
 	return http.HandlerFunc(fn)
 }
 
-func (a *Api) getBot(w http.ResponseWriter, r *http.Request) {
-	id_ := chi.URLParam(r, "bot")
-	id, _ := strconv.Atoi(id_)
-
-	b, err := a.in.GetStore().GetBot(id)
-	if err != nil {
-		a.httpError(w, 404, err)
-		return
-	}
-
-	json.NewEncoder(w).Encode(b)
-}
-
 func (a *Api) postBot(w http.ResponseWriter, r *http.Request) {
 	req := struct {
 		Name   string `json:"name"`
@@ -76,6 +63,11 @@ func (a *Api) putBot(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(200)
+}
+
+func (a *Api) getBot(w http.ResponseWriter, r *http.Request) {
+	b := getBot(r)
+	json.NewEncoder(w).Encode(b)
 }
 
 func (a *Api) deleteBot(w http.ResponseWriter, r *http.Request) {

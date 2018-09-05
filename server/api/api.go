@@ -6,15 +6,16 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
+	"github.com/golang/glog"
 	"github.com/sunho/fws/server/runtime"
 	"github.com/sunho/fws/server/store"
 )
 
 type ApiInterface interface {
 	GetStore() store.Store
-	GetBuilder() runtime.Builder
-	GetRunner() runtime.Runner
+	GetBuildManager() *runtime.BuildManager
 	CreateInviteKey(username string) string
+	ComparePassword(password string, hash string) bool
 	HashPassword(password string) string
 	CreateToken(id int, username string) string
 	ParseToken(tok string) (int, string, bool)
@@ -45,6 +46,19 @@ func (a *Api) apiRoute(r chi.Router) {
 		s.Get("/{username}", a.getUserInvite)
 	})
 
+	r.Route("/bot", func(s chi.Router) {
+		s.Post("/", a.postBot)
+		s.Put("/", a.putBot)
+		s.Route("/{bot}", func(ss chi.Router) {
+			ss.Use(a.botMiddleWare)
+			ss.Get("/", a.getBot)
+			ss.Delete("/", a.deleteBot)
+			ss.Route("/build", func(sss chi.Router) {
+				sss.Post("/", a.postBuild)
+			})
+		})
+	})
+
 	r.Post("/register", a.register)
 	r.Post("/login", a.login)
 }
@@ -62,10 +76,12 @@ func (a *Api) cors(r chi.Router) {
 }
 
 func (a *Api) httpError(w http.ResponseWriter, code int, org error) {
+	glog.Infof("Error in http handler, code: %v org: %v", code, org)
 	http.Error(w, http.StatusText(code), code)
 }
 
 func (a *Api) httpErrorWithMsg(w http.ResponseWriter, code int, msg string, org error) {
+	glog.Infof("Error in http handler, code: %v msg: %s org: %v", code, msg, org)
 	http.Error(w, msg, code)
 }
 

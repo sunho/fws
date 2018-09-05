@@ -1,15 +1,9 @@
 package runtime
 
 import (
-	"errors"
 	"io"
 
 	"github.com/sunho/fws/server/model"
-)
-
-var (
-	ErrAlreadyBuilding = errors.New("runtime: already building")
-	ErrNotExists       = errors.New("runtime: doesn't exists")
 )
 
 type BuildCallback func(err error, logged []byte)

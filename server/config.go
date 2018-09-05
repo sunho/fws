@@ -36,7 +36,9 @@ func createConfig() error {
 	conf := Config{
 		Addr:       ":8080",
 		Dist:       "dist",
+		Secret:     "thisshouldbe16lt",
 		SqliteFile: "fws.db",
+		Workspace:  "./workspace",
 	}
 
 	buf, err := yaml.Marshal(conf)
@@ -55,5 +57,8 @@ func createConfig() error {
 type Config struct {
 	Addr       string `yaml:"addr"`
 	Dist       string `yaml:"dist"`
+	Secret     string `yaml:"secret"`
 	SqliteFile string `yaml:"sqlite_file"`
+	RegURL     string `yaml:"reg_url"`
+	Workspace  string `yaml:"workspace"`
 }

@@ -46,10 +46,12 @@ type Store interface {
 	//UpdateBotEnv(id int, env *model.Env) error
 	//DeleteBotEnv(id int, env *model.Env) error
 
-	//ListBotBuild(id int) ([]*model.Build, error)
-	//CreateBotBuild(id int, build *model.Build) (*model.Build, error)
-	//DeleteBotBuild(id int, build *model.Build) error
-	//GetBotBuildLog(id int, build *model.Build) (string, error)
+	ListBotBuild(bot int) ([]*model.Build, error)
+	CreateBotBuild(build *model.Build) (*model.Build, error)
+	DeleteBotBuild(build *model.Build) error
+
+	GetBotBuildLog(bot int, number int) (*model.BuildLog, error)
+	CreateBotBuildLog(build *model.BuildLog) (*model.BuildLog, error)
 
 	//GetWebhook(hash string) (*model.Webhook, error)
 	//CreateWebhook(hook *model.Webhook) (*model.Webhook, error)

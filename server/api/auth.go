@@ -110,13 +110,14 @@ func (a *Api) login(w http.ResponseWriter, r *http.Request) {
 		a.httpError(w, 404, nil)
 		return
 	}
-	if a.in.HashPassword(req.Password) != o.Passhash {
+	if !a.in.ComparePassword(req.Password, o.Passhash) {
 		a.httpError(w, 403, nil)
 		return
 	}
 
 	http.SetCookie(w, &http.Cookie{
 		Name:     "token",
+		Path:     "/",
 		Value:    a.in.CreateToken(o.ID, o.Username),
 		HttpOnly: true,
 	})

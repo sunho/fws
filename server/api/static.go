@@ -2,8 +2,6 @@ package api
 
 import (
 	"net/http"
-	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/go-chi/chi"
@@ -23,8 +21,8 @@ func (a *Api) fileServer(r chi.Router, path string, root http.FileSystem) {
 	path += "*"
 
 	r.Get(path, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		_, err := root.Open(filepath.Clean(r.URL.Path))
-		if os.IsNotExist(err) {
+		_, err := root.Open(r.URL.Path)
+		if err != nil {
 			a.getIndex(w, r)
 			return
 		}

@@ -3,7 +3,7 @@ package model
 import "time"
 
 type User struct {
-	ID       int    `json:"id"`
+	ID       int    `json:"id" xorm:"pk autoincr"`
 	Admin    bool   `json:"admin"`
 	Username string `json:"username" xorm:"unique"`
 	Nickname string `json:"nickname" xorm:"unique"`
@@ -17,7 +17,7 @@ type UserInvite struct {
 }
 
 type Bot struct {
-	ID     int    `json:"id"`
+	ID     int    `json:"id" xorm:"pk autoincr"`
 	Name   string `json:"name"`
 	GitURL string `json:"git_url"`
 }
@@ -47,8 +47,14 @@ type Env struct {
 }
 
 type Build struct {
-	Number  int
-	BotID   int
+	BotID   int `xorm:"pk"`
+	Number  int `xorm:"pk"`
 	Success bool
 	Created time.Time
+}
+
+type BuildLog struct {
+	BotID  int `xorm:"pk"`
+	Number int `xorm:"pk"`
+	Logged []byte
 }

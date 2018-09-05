@@ -6,14 +6,12 @@ import (
 )
 
 func (x *XormStore) GetBot(id int) (*model.Bot, error) {
-	b := &model.Bot{
-		ID: id,
-	}
-	has, err := x.e.Get(b)
+	var b model.Bot
+	has, err := x.e.ID(id).Get(&b)
 	if !has {
 		return nil, store.ErrNoEntry
 	}
-	return b, err
+	return &b, err
 }
 
 func (x *XormStore) CreateBot(bot *model.Bot) (*model.Bot, error) {
@@ -28,8 +26,6 @@ func (x *XormStore) UpdateBot(bot *model.Bot) error {
 }
 
 func (x *XormStore) DeleteBot(bot *model.Bot) error {
-	_, err := x.e.Delete(&model.Bot{
-		ID: bot.ID,
-	})
+	_, err := x.e.ID(bot.ID).Delete(&model.Bot{})
 	return err
 }
