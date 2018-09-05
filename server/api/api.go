@@ -51,12 +51,24 @@ func (a *Api) apiRoute(r chi.Router) {
 	r.Route("/bot", func(s chi.Router) {
 		s.Use(a.authMiddleWare)
 		s.Get("/", a.listUserBot)
-		r.Route("/{bot}", func(s chi.Router) {
+		s.Route("/{bot}", func(s chi.Router) {
 			s.Use(a.botMiddleWare)
 			s.Route("/build", func(s chi.Router) {
 				s.Get("/", a.listBuild)
 				s.Post("/", a.postBuild)
 				s.Get("/{number}", a.getBuild)
+			})
+			s.Route("/volume", func(s chi.Router) {
+				s.Get("/", a.listBotVolume)
+				s.Post("/", a.postBotVolume)
+			})
+			s.Route("/config", func(s chi.Router) {
+				s.Get("/", a.listBotConfig)
+				s.Post("/", a.postBotConfig)
+			})
+			s.Route("/env", func(s chi.Router) {
+				s.Get("/", a.listBotEnv)
+				s.Post("/", a.postBotEnv)
 			})
 		})
 	})

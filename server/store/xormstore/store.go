@@ -28,6 +28,9 @@ func (x *XormStore) Migrate() error {
 		new(model.UserInvite),
 		new(model.UserBot),
 		new(model.Bot),
+		new(model.BotConfig),
+		new(model.BotVolume),
+		new(model.BotEnv),
 		new(model.Build),
 		new(model.BuildLog),
 	)

@@ -15,7 +15,7 @@ const (
 
 type RunBot struct {
 	*Bot
-	Configs []*Config
-	Volumes []*Volume
-	Envs    []*Env
+	Configs []*BotConfig
+	Volumes []*BotVolume
+	Envs    []*BotEnv
 }

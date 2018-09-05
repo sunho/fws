@@ -34,21 +34,21 @@ type Webhook struct {
 	BotID  int
 }
 
-type Volume struct {
+type BotVolume struct {
 	BotID int    `json:"bot_id" xorm:"pk"`
 	Name  string `json:"name" xorm:"pk"`
 	Size  int64  `json:"size"`
 	Path  string `json:"path"`
 }
 
-type Config struct {
+type BotConfig struct {
 	BotID int    `json:"bot_id" xorm:"pk"`
 	Name  string `json:"name" xorm:"pk"`
 	Path  string `json:"path"`
 	Value string `json:"value"`
 }
 
-type Env struct {
+type BotEnv struct {
 	BotID int    `json:"bot_id" xorm:"pk"`
 	Name  string `json:"name" xorm:"pk"`
 	Value string `json:"value"`

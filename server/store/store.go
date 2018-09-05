@@ -30,23 +30,23 @@ type Store interface {
 	UpdateBot(bot *model.Bot) error
 	DeleteBot(bot *model.Bot) error
 
-	ListBotConfig(id int) ([]*model.Config, error)
-	CreateBotConfig(config *model.Config) (*model.Config, error)
-	UpdateBotConfig(config *model.Config) error
-	DeleteBotConfig(config *model.Config) error
+	ListBotConfig(id int) ([]*model.BotConfig, error)
+	CreateBotConfig(config *model.BotConfig) (*model.BotConfig, error)
+	UpdateBotConfig(config *model.BotConfig) error
+	DeleteBotConfig(config *model.BotConfig) error
 
-	ListBotVolume(id int) ([]*model.Volume, error)
-	CreateBotVolume(volume *model.Volume) (*model.Volume, error)
-	UpdateBotVolume(volume *model.Volume) error
-	DeleteBotVolume(volume *model.Volume) error
+	ListBotVolume(id int) ([]*model.BotVolume, error)
+	CreateBotVolume(volume *model.BotVolume) (*model.BotVolume, error)
+	UpdateBotVolume(volume *model.BotVolume) error
+	DeleteBotVolume(volume *model.BotVolume) error
 
-	ListBotEnv(id int) ([]*model.Env, error)
-	CreateBotEnv(env *model.Env) (*model.Env, error)
-	UpdateBotEnv(env *model.Env) error
-	DeleteBotEnv(env *model.Env) error
+	ListBotEnv(id int) ([]*model.BotEnv, error)
+	CreateBotEnv(env *model.BotEnv) (*model.BotEnv, error)
+	UpdateBotEnv(env *model.BotEnv) error
+	DeleteBotEnv(env *model.BotEnv) error
 
 	ListUserBot(user int) ([]*model.Bot, error)
-	GetUserBot(user int, bot int) (bool, error)
+	// GetUserBot(user int, bot int) (bool, error)
 	CreateUserBot(user int, bot int) error
 	DeleteUserBot(user int, bot int) error
 

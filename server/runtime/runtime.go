@@ -28,6 +28,6 @@ type Runner interface {
 	BotStatus(bot *model.Bot) (model.RunStatus, error)
 	BotLog(bot *model.Bot) ([]byte, error)
 
-	DownloadVolume(volume *model.Volume) (io.Reader, error)
-	VolumeUsed(volume *model.Volume) (int64, error)
+	DownloadVolume(volume *model.BotVolume) (io.Reader, error)
+	VolumeUsed(volume *model.BotVolume) (int64, error)
 }
