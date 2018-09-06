@@ -1,14 +1,18 @@
 @import "variables";
 
 .small {
-	width: $small-width;
 
-	overflow: hidden;
+	&__container {
+		max-width: $small-width;
 
-	background: $color-white;
+		padding: $small-padding-vertical $small-padding-horizontal;
+		margin: 8rem auto;
 
-	box-shadow: 0 .1rem 1rem $color-shadow;
-	border-radius: $small-radius;
+		background: $color-white;
+
+		box-shadow: 0 .1rem 1rem $color-shadow;
+		border-radius: $small-radius;
+	}
 
 	&__headline {
 		b {
@@ -19,9 +23,6 @@
 	}
 
 	&__heading {
-		display: block;
-		padding: $small-heading-padding $small-padding-horizontal;
-
 		font-weight: 600;
 		font-size: $font-size * 1.4;
 
@@ -29,8 +30,6 @@
 	}
 
 	&__body {
-		margin-top: $small-body-margin-top;
-		padding: $small-padding-vertical $small-padding-horizontal;
-		padding-top: .5rem;
+		padding-top: $small-body-padding;
 	}
 }

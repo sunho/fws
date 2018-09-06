@@ -1,13 +1,9 @@
-<div class="invite">
-  <div class="invite__color-bar">
-  </div>
-  <div class="invite__center-box">
-  <div class="small">
+<div class="small">
+  <div class="small__container">
     <app-small-header></app-small-header>
     <div class="small__body">
       <div class="small__headline"> Hello <b>{{ username }}</b>. Welcome to FWS! To create your account, fill in the form and press Register.</div>
       <app-invite-form class="small__form" [key]="key" [username]="username" (OnSuccess)="onSuccess()"></app-invite-form>
     </div>
-  </div>
   </div>
 </div>

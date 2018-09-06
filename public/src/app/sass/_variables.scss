@@ -1,5 +1,7 @@
 $font-family: 'Noto Sans KR', sans-serif;
-$font-size: 1.5rem;
+$font-size-big: 1.7rem;
+$font-size-normal: 1.5rem;
+$font-size-small: 1.2rem;
 
 $color-primary: #424242;
 $color-second: #FF80AB;
@@ -15,7 +17,6 @@ $color-white: #fff;
 $color-shadow: rgba(#000, 0.25);
 
 $form-text-height: 4rem;
-$form-text-border: .1rem;
 
 $form-button-font-weight: 700;
 $form-button-height: 4.5rem;
@@ -29,9 +30,9 @@ $form-checklabel-radius: .2rem;
 $form-checklabel-spacing: .3rem;
 
 $small-body-margin-top: -1rem;
-$small-heading-padding: 3.3rem;
+$small-body-padding: 2rem;
 $small-padding-horizontal: 4rem;
-$small-padding-vertical: 3rem;
+$small-padding-vertical: 4rem;
 $small-width: 30rem;
 $small-radius: .8rem;
-$small-child-margin: 2.5rem;
+$small-child-margin: 2rem;

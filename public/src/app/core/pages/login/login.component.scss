@@ -1,24 +1,2 @@
 @import "mixins";
 @import "variables";
-
-.login {
-	&__color-bar {
-		position: absolute;
-		top: 0;
-		width: 100%;
-		height: 100%;
-
-		z-index: -99;
-
-		background-color: $color-white;
-	}
-
-	&__center-box {
-		@include absolute-center(40%);
-	}
-
-}
-
-app-login-form {
-	margin-top: $small-child-margin;
-}
