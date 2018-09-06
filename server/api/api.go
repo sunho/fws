@@ -69,6 +69,7 @@ func (a *Api) apiRoute(r chi.Router) {
 			s.Route("/config", func(s chi.Router) {
 				s.Get("/", a.listBotConfig)
 				s.Post("/", a.postBotConfig)
+				s.Delete("/{name}", a.deleteBotConfig)
 			})
 			s.Route("/env", func(s chi.Router) {
 				s.Get("/", a.listBotEnv)

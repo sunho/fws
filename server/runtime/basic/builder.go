@@ -100,7 +100,7 @@ func (b *Building) work() error {
 	}
 
 	b.setStep("build")
-	build := exec.Command("docker", "build", "-t", b.img)
+	build := exec.Command("docker", "build", "-t", b.img, ".")
 	build.Dir = path
 	if err := b.exec("build", build); err != nil {
 		return err
@@ -137,7 +137,7 @@ func (b *Building) exec(name string, cmd *exec.Cmd) error {
 		return err
 	}
 
-	b.writeLog([]byte("-----" + name + "-----\n"))
+	b.writeLog([]byte("-----" + name + "-----"))
 
 	var wg sync.WaitGroup
 	go b.streamLog(&wg, r)
@@ -176,5 +176,6 @@ func (b *Building) writeLog(buf []byte) {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 
+	buf = append(buf, '\n')
 	b.logged = append(b.logged, buf...)
 }

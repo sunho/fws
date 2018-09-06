@@ -2,6 +2,7 @@ package basic
 
 import (
 	"errors"
+	"path/filepath"
 	"strconv"
 
 	"github.com/sunho/fws/server/model"
@@ -92,7 +93,7 @@ func (r *Runner) makeDeployment(bot *model.RunBot) *appsv1.Deployment {
 		})
 		mounts = append(mounts, apiv1.VolumeMount{
 			Name:      r.kubeConfigName(bot, conf),
-			MountPath: conf.Path,
+			MountPath: filepath.Join(conf.Path, conf.File),
 			SubPath:   conf.File,
 		})
 	}

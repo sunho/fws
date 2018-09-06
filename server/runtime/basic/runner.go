@@ -19,6 +19,23 @@ type Runner struct {
 	Namespace string
 }
 
+func NewRunnerFromFile(namespace string, path string) (*Runner, error) {
+	conf, err := clientcmd.BuildConfigFromFlags("", path)
+	if err != nil {
+		return nil, err
+	}
+
+	cli, err := kubernetes.NewForConfig(conf)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Runner{
+		cli:       cli,
+		Namespace: namespace,
+	}, nil
+}
+
 func NewRunnerFromCluster(namespace string) (*Runner, error) {
 	conf, err := clientcmd.BuildConfigFromFlags("", "")
 	if err != nil {

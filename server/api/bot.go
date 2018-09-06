@@ -69,7 +69,13 @@ func (a *Api) putBotConfig(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *Api) deleteBotConfig(w http.ResponseWriter, r *http.Request) {
-
+	name := chi.URLParam(r, "name")
+	b := getBot(r)
+	err := a.in.GetStore().DeleteBotConfig(&model.BotConfig{BotID: b.ID, Name: name})
+	if err != nil {
+		a.httpError(w, 500, err)
+		return
+	}
 }
 
 func (a *Api) listBotVolume(w http.ResponseWriter, r *http.Request) {
