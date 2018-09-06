@@ -12,7 +12,7 @@ import (
 
 var (
 	ErrAlreadyBuilding = errors.New("runtime: already building")
-	ErrNotExists       = errors.New("runtime: doesn't exists")
+	ErrNotExists       = errors.New("runtime: doesn't exist")
 )
 
 const maxCurrent = 10
@@ -128,11 +128,23 @@ func (b *BuildManager) startPendingBuilds() {
 }
 
 func (b *BuildManager) callback(bot *model.Bot) BuildCallback {
-	return func(err error, logged []byte) {
+	return func(err error, result string, logged []byte) {
 		b.mu.Lock()
 		b.current--
 		delete(b.builds, bot.ID)
 		b.mu.Unlock()
+
+		newbot, err := b.stor.GetBot(bot.ID)
+		if err != nil {
+			glog.Errorf("Error getting bot, err: %v", err)
+			return
+		}
+		newbot.BuildResult = result
+		err = b.stor.UpdateBot(newbot)
+		if err != nil {
+			glog.Errorf("Error updating bot, err: %v", err)
+			return
+		}
 
 		build, err := b.stor.CreateBotBuild(&model.Build{
 			BotID:   bot.ID,

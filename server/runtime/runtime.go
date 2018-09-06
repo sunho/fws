@@ -6,7 +6,7 @@ import (
 	"github.com/sunho/fws/server/model"
 )
 
-type BuildCallback func(err error, logged []byte)
+type BuildCallback func(err error, result string, logged []byte)
 
 type Builder interface {
 	Build(bot *model.Bot, cb BuildCallback) (Building, error)

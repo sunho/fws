@@ -19,6 +19,13 @@ type Builder struct {
 	Workspace string
 }
 
+func NewBuilder(regurl string, workspace string) *Builder {
+	return &Builder{
+		RegURL:    regurl,
+		Workspace: workspace,
+	}
+}
+
 func (b *Builder) Build(bot *model.Bot, cb runtime.BuildCallback) (runtime.Building, error) {
 	bui := &Building{
 		parent: b,
@@ -37,6 +44,7 @@ type Building struct {
 	cb     runtime.BuildCallback
 	kill   func()
 
+	img    string
 	step   string
 	logged []byte
 }
@@ -47,7 +55,7 @@ func (b *Building) Start() {
 		if err != nil {
 			b.writeLog([]byte("error:" + err.Error() + "\n"))
 		}
-		b.cb(err, b.logged)
+		b.cb(err, b.img, b.logged)
 	}()
 }
 
@@ -66,7 +74,7 @@ func (b *Building) Step() string {
 
 func (b *Building) work() error {
 	path := b.parent.Workspace + "/" + strconv.Itoa(b.bot.ID)
-	img := fmt.Sprintf("%s/%s%d:%d", b.parent.RegURL, b.bot.Name, b.bot.ID, time.Now().Unix())
+	b.img = fmt.Sprintf("%s/%s%d:%d", b.parent.RegURL, b.bot.Name, b.bot.ID, time.Now().Unix())
 
 	_, err := os.Stat(b.parent.Workspace)
 	if os.IsNotExist(err) {
@@ -92,7 +100,7 @@ func (b *Building) work() error {
 	}
 
 	b.setStep("build")
-	build := exec.Command("docker", "build", "-t", img)
+	build := exec.Command("docker", "build", "-t", b.img)
 	build.Dir = path
 	if err := b.exec("build", build); err != nil {
 		return err

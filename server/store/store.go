@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	ErrNoEntry = errors.New("store: no such entry")
+	ErrNotExists = errors.New("store: doesn't exist")
 )
 
 type Store interface {

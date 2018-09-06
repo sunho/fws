@@ -5,6 +5,7 @@ import "time"
 type User struct {
 	ID       int    `json:"id" xorm:"pk autoincr"`
 	Admin    bool   `json:"admin"`
+	Version  int    `xorm:"version"`
 	Username string `json:"username" xorm:"unique"`
 	Nickname string `json:"nickname" xorm:"unique"`
 	Passhash string `json:"passhash"`
@@ -19,6 +20,8 @@ type UserInvite struct {
 type Bot struct {
 	ID            int    `json:"id" xorm:"pk autoincr"`
 	Name          string `json:"name"`
+	Version       int    `json:"version" xorm:"version"`
+	BuildResult   string `json:"build_result"`
 	WebhookSecret string `json:"webhook_secret"`
 	GitURL        string `json:"git_url"`
 }
@@ -35,23 +38,27 @@ type Webhook struct {
 }
 
 type BotVolume struct {
-	BotID int    `json:"bot_id" xorm:"pk"`
-	Name  string `json:"name" xorm:"pk"`
-	Size  int64  `json:"size"`
-	Path  string `json:"path"`
+	BotID   int    `json:"bot_id" xorm:"pk"`
+	Name    string `json:"name" xorm:"pk"`
+	Version int    `json:"version" xorm:"version"`
+	Size    int64  `json:"size"`
+	Path    string `json:"path"`
 }
 
 type BotConfig struct {
-	BotID int    `json:"bot_id" xorm:"pk"`
-	Name  string `json:"name" xorm:"pk"`
-	Path  string `json:"path"`
-	Value string `json:"value"`
+	BotID   int    `json:"bot_id" xorm:"pk"`
+	Name    string `json:"name" xorm:"pk"`
+	Version int    `json:"version" xorm:"version"`
+	Path    string `json:"path"`
+	File    string `json:"file"`
+	Value   string `json:"value"`
 }
 
 type BotEnv struct {
-	BotID int    `json:"bot_id" xorm:"pk"`
-	Name  string `json:"name" xorm:"pk"`
-	Value string `json:"value"`
+	BotID   int    `json:"bot_id" xorm:"pk"`
+	Name    string `json:"name" xorm:"pk"`
+	Version int    `json:"version" xorm:"version"`
+	Value   string `json:"value"`
 }
 
 type Build struct {
