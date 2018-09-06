@@ -36,7 +36,7 @@ func NewRunnerFromCluster(namespace string) (*Runner, error) {
 	}, nil
 }
 
-func (r *Runner) CreateBot(bot *model.RunBot) error {
+func (r *Runner) Create(bot *model.RunBot) error {
 	deploy, err := r.getDeployment(bot)
 	if err == nil {
 		return ErrAlreadyExist
@@ -49,17 +49,17 @@ func (r *Runner) CreateBot(bot *model.RunBot) error {
 	if err != nil {
 		return err
 	}
-	if len(configs) != 0 {
+	if len(confs) != 0 {
 		return ErrAlreadyExist
 	}
 
-	configCli := r.cli.Core().ConfigMaps()
-	deployCli := r.cli.Apps().Deployments()
+	configCli := r.cli.Core().ConfigMaps(r.Namespace)
+	deployCli := r.cli.Apps().Deployments(r.Namespace)
 
 	confs = r.makeConfigs(bot)
 	// potential bug
 	for _, conf := range confs {
-		_, err = configCli.Create(conf)
+		_, err = configCli.Create(&conf)
 		if err != nil {
 			return err
 		}
@@ -74,38 +74,38 @@ func (r *Runner) CreateBot(bot *model.RunBot) error {
 	return nil
 }
 
-func (r *Runner) UpdateBot(bot *model.RunBot) error {
+func (r *Runner) Update(bot *model.RunBot) error {
 	return nil
 }
 
-func (r *Runner) DeleteBot(bot *model.Bot) error {
+func (r *Runner) Delete(bot *model.Bot) error {
 	return nil
 }
 
-func (r *Runner) RunBot(bot *model.Bot) error {
+func (r *Runner) Run(bot *model.Bot) error {
 	return nil
 }
 
-func (r *Runner) RestartBot(bot *model.Bot) error {
+func (r *Runner) Restart(bot *model.Bot) error {
 	return nil
 }
 
-func (r *Runner) StopBot(bot *model.Bot) error {
+func (r *Runner) Stop(bot *model.Bot) error {
 	return nil
 }
 
-func (r *Runner) BotStatus(bot *model.Bot) (model.RunStatus, error) {
+func (r *Runner) Status(bot *model.Bot) (model.RunStatus, error) {
 	return 0, nil
 }
 
-func (r *Runner) BotLog(bot *model.Bot) ([]byte, error) {
+func (r *Runner) Log(bot *model.Bot) ([]byte, error) {
 	return nil, nil
 }
 
 func (r *Runner) DownloadVolume(volume *model.BotVolume) (io.Reader, error) {
-
+	return nil, nil
 }
 
 func (r *Runner) VolumeUsed(volume *model.BotVolume) (int64, error) {
-
+	return 0, nil
 }

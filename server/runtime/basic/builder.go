@@ -107,7 +107,7 @@ func (b *Building) work() error {
 	}
 
 	b.setStep("upload")
-	push := exec.Command("docker", "push", img)
+	push := exec.Command("docker", "push", b.img)
 	push.Dir = path
 	if err := b.exec("upload", push); err != nil {
 		return err

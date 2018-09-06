@@ -24,6 +24,10 @@ func (f *fwsInterface) GetStore() store.Store {
 	return f.f.stor
 }
 
+func (f *fwsInterface) GetRunManager() *runtime.RunManager {
+	return f.f.runManager
+}
+
 func (f *fwsInterface) GetBuildManager() *runtime.BuildManager {
 	return f.f.buildManager
 }

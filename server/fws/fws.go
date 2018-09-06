@@ -18,6 +18,7 @@ type Fws struct {
 	buildManager *runtime.BuildManager
 	builder      runtime.Builder
 	runner       runtime.Runner
+	runManager   *runtime.RunManager
 
 	config Config
 	dist   http.FileSystem
@@ -31,6 +32,7 @@ func New(stor store.Store, builder runtime.Builder,
 	f := &Fws{
 		stor:         stor,
 		buildManager: runtime.NewBuildManager(stor, builder),
+		runManager:   runtime.NewRunManager(runner),
 		builder:      builder,
 		runner:       runner,
 		config:       config,
@@ -84,7 +86,7 @@ func (f *Fws) Start() {
 	f.buildManager.Start()
 
 	_, err := f.stor.GetUserByUsername("admin")
-	if err == store.ErrNoEntry {
+	if err == store.ErrNotExists {
 		_, err = f.stor.CreateUserInvite(&model.UserInvite{
 			Username: "admin",
 			Admin:    true,

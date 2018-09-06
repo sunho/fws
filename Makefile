@@ -16,7 +16,7 @@ build: build-public build-server
 
 build-public:
 	cd public && \
-	ng build --prod && \
+	npm run build && \
 	mv dist/public ../out/dist && \
 	rm -r dist
 

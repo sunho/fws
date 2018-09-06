@@ -15,7 +15,7 @@ func (x *XormStore) GetBot(id int) (*model.Bot, error) {
 	var b model.Bot
 	has, err := x.e.ID(id).Get(&b)
 	if !has {
-		return nil, store.ErrNoEntry
+		return nil, store.ErrNotExists
 	}
 	return &b, err
 }

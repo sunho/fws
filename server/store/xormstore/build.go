@@ -40,7 +40,7 @@ func (x *XormStore) GetBotBuildLog(bot int, number int) (*model.BuildLog, error)
 	var b model.BuildLog
 	has, err := x.e.Where("bot_id = ? AND number = ?", bot, number).Get(&b)
 	if !has {
-		return nil, store.ErrNoEntry
+		return nil, store.ErrNotExists
 	}
 	return &b, err
 }

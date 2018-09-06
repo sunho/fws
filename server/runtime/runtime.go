@@ -18,15 +18,15 @@ type Building interface {
 }
 
 type Runner interface {
-	CreateBot(bot *model.RunBot) error
-	UpdateBot(bot *model.RunBot) error
-	DeleteBot(bot *model.Bot) error
+	Create(bot *model.RunBot) error
+	Update(bot *model.RunBot) error
+	Delete(bot *model.Bot) error
 
-	RunBot(bot *model.Bot) error
-	RestartBot(bot *model.Bot) error
-	StopBot(bot *model.Bot) error
-	BotStatus(bot *model.Bot) (model.RunStatus, error)
-	BotLog(bot *model.Bot) ([]byte, error)
+	Run(bot *model.Bot) error
+	Restart(bot *model.Bot) error
+	Stop(bot *model.Bot) error
+	Status(bot *model.Bot) (model.RunStatus, error)
+	Log(bot *model.Bot) ([]byte, error)
 
 	DownloadVolume(volume *model.BotVolume) (io.Reader, error)
 	VolumeUsed(volume *model.BotVolume) (int64, error)

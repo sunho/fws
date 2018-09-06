@@ -1,0 +1,4 @@
+.git
+public/node_modules
+server/vendor
+out

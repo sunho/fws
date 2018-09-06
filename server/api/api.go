@@ -13,6 +13,7 @@ import (
 
 type ApiInterface interface {
 	GetStore() store.Store
+	GetRunManager() *runtime.RunManager
 	GetBuildManager() *runtime.BuildManager
 	CreateWebhookSecret() string
 	CreateInviteKey(username string) string
@@ -57,6 +58,9 @@ func (a *Api) apiRoute(r chi.Router) {
 				s.Get("/", a.listBuild)
 				s.Post("/", a.postBuild)
 				s.Get("/{number}", a.getBuild)
+			})
+			s.Route("/run", func(s chi.Router) {
+				s.Post("/", a.postRun)
 			})
 			s.Route("/volume", func(s chi.Router) {
 				s.Get("/", a.listBotVolume)

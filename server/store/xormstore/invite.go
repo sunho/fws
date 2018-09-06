@@ -15,7 +15,7 @@ func (x *XormStore) GetUserInvite(username string) (*model.UserInvite, error) {
 	var i model.UserInvite
 	has, err := x.e.Where("username = ?", username).Get(&i)
 	if !has {
-		return nil, store.ErrNoEntry
+		return nil, store.ErrNotExists
 	}
 	return &i, err
 }
