@@ -4,8 +4,7 @@ import { AppConfig } from '../../../app.config';
 
 @Component({
   selector: 'app-small-header',
-  templateUrl: './small-header.component.html',
-  styleUrls: ['./small-header.component.scss']
+  templateUrl: './small-header.component.html'
 })
 export class SmallHeaderComponent implements OnInit {
   name: string;

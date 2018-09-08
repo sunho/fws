@@ -5,8 +5,7 @@ import { AuthService, WRONG_CRED, NOT_FOUND } from '../../services/auth.service'
 
 @Component({
   selector: 'app-login-form',
-  templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss']
+  templateUrl: './login-form.component.html'
 })
 export class LoginFormComponent implements OnInit {
   @Output() OnSuccess = new EventEmitter<void>();

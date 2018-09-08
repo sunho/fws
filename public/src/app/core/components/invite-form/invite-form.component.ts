@@ -5,8 +5,7 @@ import { AuthService, DUPLICATE } from '../../services/auth.service';
 
 @Component({
   selector: 'app-invite-form',
-  templateUrl: './invite-form.component.html',
-  styleUrls: ['./invite-form.component.scss']
+  templateUrl: './invite-form.component.html'
 })
 export class InviteFormComponent implements OnInit {
   @Input() key: string;
