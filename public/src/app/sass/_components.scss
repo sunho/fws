@@ -149,3 +149,27 @@
 	// 	}
 	// }
 }
+
+.sidebar {
+	list-style: none;
+	font-size: $font-size-normal;
+
+	&__item {
+		height: 3rem;
+		line-height: 3rem;
+	}
+
+	&__link:link,
+	&__link:visited {
+		text-decoration: none;
+		
+	}
+}
+
+.card {
+	background: white;
+	padding: 2rem;
+	box-shadow: 0 .1rem 1rem $color-shadow;
+	&__header {
+	}
+}

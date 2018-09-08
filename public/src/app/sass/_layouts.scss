@@ -31,3 +31,25 @@
 		padding-top: 2rem;
 	}
 }
+
+.dash {
+	&__header {
+		height: 4rem;
+	}
+
+	&__container {
+		min-height: 50rem;
+		display: flex;
+	}
+
+	&__sidebar {
+		background: orange;
+		padding-left: 1.5rem;
+		flex: 0 0 18%;
+	}
+	
+	&__main {
+		padding: 0 1rem;
+		flex: 1;
+	}
+}
