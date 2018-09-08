@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strconv"
 	"sync"
 	"time"
@@ -73,7 +74,7 @@ func (b *Building) Step() string {
 }
 
 func (b *Building) work() error {
-	path := b.parent.Workspace + "/" + strconv.Itoa(b.bot.ID)
+	path := filepath.Join(b.parent.Workspace, strconv.Itoa(b.bot.ID))
 	b.img = fmt.Sprintf("%s/%s%d:%d", b.parent.RegURL, b.bot.Name, b.bot.ID, time.Now().Unix())
 
 	_, err := os.Stat(b.parent.Workspace)

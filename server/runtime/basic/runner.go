@@ -16,7 +16,8 @@ var (
 type Runner struct {
 	cli *kubernetes.Clientset
 
-	Namespace string
+	Namespace     string
+	volumeManager *VolumeManager
 }
 
 func NewRunnerFromFile(namespace string, path string) (*Runner, error) {

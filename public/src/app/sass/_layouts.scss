@@ -1,35 +1,33 @@
 @import "variables";
 
 .small {
-
 	&__container {
-		max-width: $small-width;
+		max-width: 30rem;
 
-		padding: $small-padding-vertical $small-padding-horizontal;
+		padding: 4rem 4rem;
 		margin: 8rem auto;
 
 		background: $color-white;
 
 		box-shadow: 0 .1rem 1rem $color-shadow;
-		border-radius: $small-radius;
 	}
 
 	&__headline {
 		b {
 			font-weight: 500;
 		}
-		font-size: $font-size;
+		font-size: $font-size-normal;
 		color: $color-black;
 	}
 
 	&__heading {
 		font-weight: 600;
-		font-size: $font-size * 1.4;
+		font-size: $font-size-big;
 
 		color: $color-primary;
 	}
 
 	&__body {
-		padding-top: $small-body-padding;
+		padding-top: 2rem;
 	}
 }

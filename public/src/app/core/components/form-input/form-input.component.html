@@ -1,0 +1,8 @@
+<div class="form--text" [formGroup]="formGroup">
+    <label> {{name}} </label>
+    <input formControlName="{{name}}" name="{{name}}" placeholder="{{name}}" type="text">
+    <div class="bar"></div>
+    <div class="form--error" *ngIf="formGroup.get(name).invalid && form.submitted">
+        {{ name }} is invalid.
+    </div>
+</div>

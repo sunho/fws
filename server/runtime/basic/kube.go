@@ -98,6 +98,22 @@ func (r *Runner) makeDeployment(bot *model.RunBot) *appsv1.Deployment {
 		})
 	}
 
+	for _, vol := range bot.Volumes {
+		vols = append(vols, apiv1.Volume{
+			Name: r.kubeVolumeName(bot, vol),
+			VolumeSource: apiv1.VolumeSource{
+				NFS: &apiv1.NFSVolumeSource{
+					Server: r.volumeManager.NfsAddr,
+					Path:   r.volumeManager.GetPath(vol),
+				},
+			},
+		})
+		mounts = append(mounts, apiv1.VolumeMount{
+			Name:      r.kubeVolumeName(bot, vol),
+			MountPath: vol.Path,
+		})
+	}
+
 	return &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      r.kubeDeploymentName(bot),
@@ -142,6 +158,10 @@ func (r *Runner) kubeDeploymentName(bot *model.RunBot) string {
 
 func (r *Runner) kubeConfigName(bot *model.RunBot, conf *model.BotConfig) string {
 	return r.kubeBotName(bot) + "-config-" + conf.Name
+}
+
+func (r *Runner) kubeVolumeName(bot *model.RunBot, vol *model.BotVolume) string {
+	return r.kubeBotName(bot) + "-volume-" + vol.Name
 }
 
 func (r *Runner) labelIDValue(bot *model.RunBot) string {

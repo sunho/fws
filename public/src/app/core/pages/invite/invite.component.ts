@@ -23,7 +23,7 @@ export class InviteComponent implements OnInit {
         this.authSerivce.keyCheck(this.key, this.username).subscribe(
           data => {},
           error => {
-            this.router.navigate(['/']);
+            // this.router.navigate(['/']);
           }
         );
       }

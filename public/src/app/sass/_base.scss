@@ -10,7 +10,9 @@
 }
 
 html {
-	font-size: 62.5%;
+    @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+    font-size: 62.5%;
 
 	@include respond(tab-land) {
         font-size: 56.25%;
@@ -25,8 +27,8 @@ html {
     }
 }
 
-body {
+body,
+input {
 	box-sizing: border-box;
-	@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 	font-family: $font-family;
 }

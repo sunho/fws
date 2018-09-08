@@ -3,111 +3,63 @@
 @import "mixins";
 
 .form {
-	&--text {
-		position: relative;
-		color: $color-black;
-
-		input {
-			position: relative;
-			height: $form-text-height;
-			width: 100%;
-			z-index: 1;
-
-			font-weight: 400;
-			font-family: $font-family;
-			font-size: $font-size;
-			color: $color-black;
-
-			border: 0;
-			outline: none;
-			background: none;
-
-			&:focus {
-				~ label {
-					color: $color-light-gray;
-					transform: translate(-13.5%, -50%) scale(0.75);
-				}
-				~ .bar {
-					&:before,
-					&:after {
-						opacity: 1;
-						width: 50%;
-					}
-				}
+	&--container {
+		&--small {
+			& > *:not(:first-child) {
+				margin-top: 1.5rem;
 			}
-			&:valid {
-				~ label {
-					color: $color-light-gray;
-					transform: translate(-13.5%, -50%) scale(0.75);
-				}
-			}
-		}
 
-		label {
-			line-height: $form-text-height;
-			height: $form-text-height;
-			position: absolute;
-			top: 0;
-			left: 0;
-
-			font-family: $font-family;
-			font-size: $font-size;
-			color: $color-gray;
-
-			transform: translate(0) scale(1);
-			@include transition(transform .2s ease);
-		}
-
-		.bar {
-			position: absolute;
-			top: $form-text-height;
-			width: 100%;
-			height: 1px;
-			background: $color-light-gray;
-			&:before,
-			&:after {
-				content: '';
-				position: absolute;
-				height: 2px;
-				width: 5%;
-
-				background: $color-primary;
-				opacity: 0;
-				@include transition(width .2s ease, opacity .2s ease);
-			}
-			&:before {
-				left: 50%;
-			}
-			&:after {
-				right: 50%;
+			.form--button {
+				margin-top: 3rem;
 			}
 		}
 	}
+	&--text {
+		label {
+			font-size: $font-size-normal;
+			color: $color-gray;
+		}
 
-	&--hidden {
-		opacity: 0;
+		input {
+			margin-top: .5rem;
+			padding: .875rem .5rem;
+			width: 100%;
+
+			outline: none;
+
+			font-size: $font-size-normal;
+			color: $color-black;
+
+			border: 1px solid $color-light-gray;
+
+			@include placeholder {
+				color: $color-gray;
+			}
+
+			&:focus {
+				border-color: $color-primary;
+			}
+			@include transition(border-color .2s);
+		}
 	}
 
 	&--error {
 		margin-top: .2rem;
 		color: $color-error;
-		font-size: $font-size * .7;
+		font-size: $font-size-small;
 	}
 
 	&--button {
-		position: relative;
 		display: inline-block;
-		padding: $form-button-padding;
-		height: $form-button-height;
+		padding: 0 7rem;
+		height: 5rem;
 
 		border: none;
 		outline: none;
-		border-radius: $form-button-radius;
 
 		vertical-align: middle;
-		font-family: $font-family;
-		font-size: $font-size;
-		font-weight: $form-button-font-weight;
+		font-size: $font-size-normal;
+		font-weight: 700;
 
 		cursor: pointer;
 
@@ -125,75 +77,75 @@
 		width: 100%;
 	}
 
-	&--checklabel {
-		color: $color-black;
-		display: inline-block;
-		position: relative;
+	// &--checklabel {
+	// 	color: $color-black;
+	// 	display: inline-block;
+	// 	position: relative;
 
-		font-family: $font-family;
-		font-size: $form-checklabel-font-size;
-		line-height: $form-checklabel-font-size;
+	// 	font-family: $font-family;
+	// 	font-size: $form-checklabel-font-size;
+	// 	line-height: $form-checklabel-font-size;
 
-		cursor: pointer;
-		user-select: none;
+	// 	cursor: pointer;
+	// 	user-select: none;
 
-		& > input {
-			position: absolute;
-			display: block;
-			width: $form-checklabel-size;
-			height: $form-checklabel-size;
-			left: 0;
-			top: 0;
+	// 	& > input {
+	// 		position: absolute;
+	// 		display: block;
+	// 		width: $form-checklabel-size;
+	// 		height: $form-checklabel-size;
+	// 		left: 0;
+	// 		top: 0;
 
-			appearance: none;
-			outline: none;
-			opacity: 0;
-			z-index: -1;
-		}
+	// 		appearance: none;
+	// 		outline: none;
+	// 		opacity: 0;
+	// 		z-index: -1;
+	// 	}
 
-		& > span::before {
-			display: inline-block;
-			width: $form-checklabel-size;
-			height: $form-checklabel-size;
-			margin-right: $form-checklabel-spacing;
+	// 	& > span::before {
+	// 		display: inline-block;
+	// 		width: $form-checklabel-size;
+	// 		height: $form-checklabel-size;
+	// 		margin-right: $form-checklabel-spacing;
 
-			content: "";
-			border: solid $form-checklabel-border $color-gray;
-			border-radius: $form-checklabel-radius;
+	// 		content: "";
+	// 		border: solid $form-checklabel-border $color-gray;
+	// 		border-radius: $form-checklabel-radius;
 
-			background-color: $color-white;
+	// 		background-color: $color-white;
 
-			vertical-align: middle;
+	// 		vertical-align: middle;
 
-			transition: border-color .3s, background-color .3s;
-		}
+	// 		transition: border-color .3s, background-color .3s;
+	// 	}
 
-		& > input:checked + span::before {
-			border-color: $color-primary;
-			background-color: $color-primary;
-		}
+	// 	& > input:checked + span::before {
+	// 		border-color: $color-primary;
+	// 		background-color: $color-primary;
+	// 	}
 
 
-		& > span::after {
-			display: inline-block;
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: .5rem;
-			height: .8rem;
+	// 	& > span::after {
+	// 		display: inline-block;
+	// 		position: absolute;
+	// 		top: 0;
+	// 		left: 0;
+	// 		width: .5rem;
+	// 		height: .8rem;
 
-			content: "";
-			border: solid .2rem transparent;
-			border-left: none;
-			border-top: none;
+	// 		content: "";
+	// 		border: solid .2rem transparent;
+	// 		border-left: none;
+	// 		border-top: none;
 
-			transform: translate(.5rem, .4rem) rotate(45deg);
+	// 		transform: translate(.5rem, .4rem) rotate(45deg);
 
-			transition: border-color .3s;
-		}
+	// 		transition: border-color .3s;
+	// 	}
 
-		& > input:checked + span::after {
-			border-color: $color-white;
-		}
-	}
+	// 	& > input:checked + span::after {
+	// 		border-color: $color-white;
+	// 	}
+	// }
 }
