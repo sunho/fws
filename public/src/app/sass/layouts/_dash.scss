@@ -1,0 +1,28 @@
+@import "variables";
+@import "mixins";
+
+.dash {
+	height: 100vh;
+	overflow: auto;
+	background: $color-bg;
+	display: flex;
+
+	&__sidebar {
+		flex: 0 0 15%;
+	}
+
+	&__container {
+		flex: 1;
+		min-height: 50rem;
+	}
+
+	&__header {
+		background: $color-white;
+		border-bottom: 1px solid $color-light-gray;
+	}
+
+	&__main {
+		margin-top: 1rem;
+		padding: 0 1rem;
+	}
+}

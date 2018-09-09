@@ -1,0 +1,27 @@
+@import "variables";
+@import "mixins";
+
+$header-height: 6rem;
+
+.header {
+	display: flex;
+	height: $header-height;
+	padding: 0 2rem;
+	justify-content: space-between;
+	align-items: center;
+
+	&__bot {
+		font-size: $font-size-normal;
+		display: flex;
+		align-items: center;
+		app-icon {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
+
+		.form--select {
+			margin-left: 1rem;
+			font-size: $font-size-normal;
+		}
+	}
+}

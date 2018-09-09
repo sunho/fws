@@ -1,0 +1,15 @@
+@import "variables";
+@import "mixins";
+
+.card {
+	background: white;
+	padding: 2rem;
+	box-shadow: 0 .1rem .5rem $color-shadow;
+	&__header {
+		font-size: $font-size-big;
+	}
+	&__main {
+		margin-top: 2rem;
+		font-size: $font-size-normal;
+	}
+}

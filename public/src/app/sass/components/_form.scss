@@ -1,4 +1,3 @@
-@import "base";
 @import "variables";
 @import "mixins";
 
@@ -77,6 +76,48 @@
 		width: 100%;
 	}
 
+	&--select {
+		position: relative; 
+		vertical-align: top;
+
+		select {
+			font-size: inherit;
+			-moz-appearance: none;
+			-webkit-appearance: none;
+			border-color: $color-gray;
+			outline: none;
+			position: relative; 
+			display: block;
+			padding: .5em .5em;
+			padding-right: 2.5em;
+		}
+
+		&::after {
+			font-size: inherit;
+			position: absolute; 
+			width: .5em;
+			height: .5em;
+			top: 50%;
+			right: 0.7em;
+			z-index: 4;
+			margin-top: -.35em;
+
+			display: block;
+			border: 2px solid transparent;
+			border-right: 0;
+			border-top: 0;
+			border-color: $color-gray;
+
+			content: " ";
+			pointer-events: none;
+
+			-webkit-transform: rotate(-45deg);
+			-webkit-transform-origin: center;
+			transform-origin: center;
+			transform: rotate(-45deg);
+		}
+	}
+
 	// &--checklabel {
 	// 	color: $color-black;
 	// 	display: inline-block;
@@ -148,28 +189,4 @@
 	// 		border-color: $color-white;
 	// 	}
 	// }
-}
-
-.sidebar {
-	list-style: none;
-	font-size: $font-size-normal;
-
-	&__item {
-		height: 3rem;
-		line-height: 3rem;
-	}
-
-	&__link:link,
-	&__link:visited {
-		text-decoration: none;
-		
-	}
-}
-
-.card {
-	background: white;
-	padding: 2rem;
-	box-shadow: 0 .1rem 1rem $color-shadow;
-	&__header {
-	}
 }

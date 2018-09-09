@@ -10,6 +10,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { InviteComponent } from './pages/invite/invite.component';
 import { InviteFormComponent } from './components/invite-form/invite-form.component';
 import { SmallHeaderComponent } from './components/small-header/small-header.component';
+import { IconComponent } from './components/icon/icon.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { SmallHeaderComponent } from './components/small-header/small-header.com
   ],
   declarations: [
     FormInputComponent,
+    IconComponent,
     LoginComponent,
     LoginFormComponent,
     InviteComponent,
@@ -31,7 +33,9 @@ import { SmallHeaderComponent } from './components/small-header/small-header.com
   ],
   exports: [
     LoginComponent,
-    InviteComponent
+    InviteComponent,
+    FormInputComponent,
+    IconComponent
   ]
 })
 export class CoreModule { }
