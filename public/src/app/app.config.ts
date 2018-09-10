@@ -1,4 +1,4 @@
-import {InjectionToken} from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
 interface IAppConfig {
   siteName: string;
@@ -11,4 +11,3 @@ export const AppConfig: IAppConfig = {
   siteName: 'FWS',
   apiUrl: '/api',
 };
-

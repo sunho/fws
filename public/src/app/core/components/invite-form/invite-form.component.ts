@@ -5,38 +5,46 @@ import { AuthService, DUPLICATE } from '../../services/auth.service';
 
 @Component({
   selector: 'app-invite-form',
-  templateUrl: './invite-form.component.html'
+  templateUrl: './invite-form.component.html',
 })
 export class InviteFormComponent implements OnInit {
-  @Input() key: string;
-  @Input() username: string;
-  @Output() OnSuccess = new EventEmitter<void>();
+  @Input()
+  key: string;
+  @Input()
+  username: string;
+  @Output()
+  OnSuccess = new EventEmitter<void>();
 
   formGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authSerivce: AuthService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authSerivce: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       nickname: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
   onSubmit(f: NgForm): void {
     if (f.valid) {
-      this.authSerivce.register(this.key, this.username, f.value.nickname, f.value.password).subscribe(
-        data => {
-          this.OnSuccess.emit();
-        },
-        error => {
-          if (error === DUPLICATE) {
-            // this.wrongNickname = true;
-          } else {
-            // alert
+      this.authSerivce
+        .register(this.key, this.username, f.value.nickname, f.value.password)
+        .subscribe(
+          data => {
+            this.OnSuccess.emit();
+          },
+          error => {
+            if (error === DUPLICATE) {
+              // this.wrongNickname = true;
+            } else {
+              // alert
+            }
           }
-        }
-      );
+        );
     }
   }
 }

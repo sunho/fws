@@ -7,33 +7,33 @@ import { DashComponent } from './pages/dash/dash.component';
 import { HomeComponent } from './pages/home/home.component';
 
 const routeChildren = [
-    { path: '', component: HomeComponent },
-    { path: 'build', component: BuildComponent },
+  { path: '', component: HomeComponent },
+  { path: 'build', component: BuildComponent },
 ];
 
 const routes: Routes = [
-    {
-        path: '',
-        component: DashComponent,
-        resolve: {
-            bot: FirstBotResolver,
-        },
-        children: routeChildren
+  {
+    path: '',
+    component: DashComponent,
+    resolve: {
+      bot: FirstBotResolver,
     },
-    {
-        path: ':id',
-        component: DashComponent,
-        resolve: {
-            bot: BotResolver,
-        },
-        children: routeChildren
-    }
+    children: routeChildren,
+  },
+  {
+    path: ':id',
+    component: DashComponent,
+    resolve: {
+      bot: BotResolver,
+    },
+    children: routeChildren,
+  },
 ];
 
 export const routeName = 'dashboard';
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class DashBoardRoutingModule {}

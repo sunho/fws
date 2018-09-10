@@ -19,7 +19,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     ReactiveFormsModule,
     HttpClientModule,
     HttpModule,
-    FormsModule
+    FormsModule,
   ],
   declarations: [
     FormInputComponent,
@@ -28,15 +28,9 @@ import { AuthGuardService } from './services/auth-guard.service';
     LoginFormComponent,
     InviteComponent,
     InviteFormComponent,
-    SmallHeaderComponent
+    SmallHeaderComponent,
   ],
-  providers: [
-  ],
-  exports: [
-    LoginComponent,
-    InviteComponent,
-    FormInputComponent,
-    IconComponent
-  ]
+  providers: [],
+  exports: [LoginComponent, InviteComponent, FormInputComponent, IconComponent],
 })
-export class CoreModule { }
+export class CoreModule {}

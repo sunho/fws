@@ -5,18 +5,17 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router, private authSerivce: AuthService) {
-  }
+  constructor(private router: Router, private authSerivce: AuthService) {}
 
   ngOnInit(): void {
     this.authSerivce.getUser().subscribe(
       _ => {
         this.router.navigate([dashboardRouteName]);
       },
-      _ => { });
+      _ => {}
+    );
   }
-
 }

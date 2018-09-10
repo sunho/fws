@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-build',
-    templateUrl: './build.component.html'
+  selector: 'app-build',
+  templateUrl: './build.component.html',
 })
 export class BuildComponent implements OnInit {
-    constructor() { }
+  constructor() {}
 
-    ngOnInit(): void { }
+  ngOnInit(): void {}
 }

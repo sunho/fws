@@ -11,21 +11,16 @@ import { BuildComponent } from './pages/build/build.component';
 import { DashComponent } from './pages/dash/dash.component';
 
 @NgModule({
-    declarations: [
-        BotSelectComponent,
-        DashComponent,
-        HeaderComponent,
-        BuildComponent,
-        HomeComponent,
-        SideBarComponent
-    ],
-    imports: [
-        DashBoardRoutingModule,
-        RouterModule,
-        CoreModule,
-        CommonModule
-    ],
-    exports: [],
-    providers: [],
+  declarations: [
+    BotSelectComponent,
+    DashComponent,
+    HeaderComponent,
+    BuildComponent,
+    HomeComponent,
+    SideBarComponent,
+  ],
+  imports: [DashBoardRoutingModule, RouterModule, CoreModule, CommonModule],
+  exports: [],
+  providers: [],
 })
-export class DashBoardModule { }
+export class DashBoardModule {}
