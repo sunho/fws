@@ -1,38 +1,38 @@
-@import "variables";
-@import "mixins";
+@import 'variables';
+@import 'mixins';
 
 .small {
-	height: 100vh;
-	overflow: auto;
-	background: $color-bg;
+  height: 100vh;
+  overflow: auto;
+  background: $color-bg;
 
-	&__container {
-		max-width: 30rem;
+  &__container {
+    max-width: 30rem;
 
-		padding: 4rem 4rem;
-		margin: 8rem auto;
+    padding: 4rem 4rem;
+    margin: 8rem auto;
 
-		background: $color-white;
+    background: $color-white;
 
-		box-shadow: 0 .1rem 1rem $color-shadow;
-	}
+    box-shadow: 0 0.1rem 1rem $color-shadow;
+  }
 
-	&__headline {
-		b {
-			font-weight: 500;
-		}
-		font-size: $font-size-normal;
-		color: $color-black;
-	}
+  &__headline {
+    b {
+      font-weight: 500;
+    }
+    font-size: $font-size-normal;
+    color: $color-black;
+  }
 
-	&__heading {
-		font-weight: 600;
-		font-size: $font-size-big;
+  &__heading {
+    font-weight: 600;
+    font-size: $font-size-big;
 
-		color: $color-primary;
-	}
+    color: $color-primary;
+  }
 
-	&__body {
-		padding-top: 2rem;
-	}
+  &__body {
+    padding-top: 2rem;
+  }
 }

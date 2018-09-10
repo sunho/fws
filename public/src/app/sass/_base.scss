@@ -1,34 +1,34 @@
-@import "variables";
-@import "mixins";
+@import 'variables';
+@import 'mixins';
 
 *,
 *::before,
 *::after {
-	margin: 0;
-	padding: 0;
-	box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
 
 html {
-    @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+  @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-    font-size: 62.5%;
+  font-size: 62.5%;
 
-	@include respond(tab-land) {
-        font-size: 56.25%;
-    }
+  @include respond(tab-land) {
+    font-size: 56.25%;
+  }
 
-    @include respond(tab-port) {
-        font-size: 50%;
-    }
+  @include respond(tab-port) {
+    font-size: 50%;
+  }
 
-    @include respond(big-desktop) {
-        font-size: 75%;
-    }
+  @include respond(big-desktop) {
+    font-size: 75%;
+  }
 }
 
 body,
 input {
-	box-sizing: border-box;
-	font-family: $font-family;
+  box-sizing: border-box;
+  font-family: $font-family;
 }
