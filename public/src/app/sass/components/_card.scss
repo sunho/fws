@@ -38,13 +38,22 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 	
 	&--okay {
-		background: linear-gradient(to top, $color-green, $color-light-green);
+		background: linear-gradient(to top, $color-blue-green-1, $color-blue-green-2);
 	}
 
 	&--bad {
 		background: $color-error;
+	}
+
+	&--progress {
+		background: linear-gradient(to top, $color-pink-yellow-1, $color-pink-yellow-2);
+	}
+	
+	&--none {
+		background: $color-light-gray;
 	}
 
 	&__title {

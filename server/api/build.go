@@ -10,6 +10,19 @@ import (
 	"github.com/sunho/fws/server/runtime"
 )
 
+func (a *Api) getBuildStatus(w http.ResponseWriter, r *http.Request) {
+	status, err := a.in.GetBuildManager().Status(getBot(r))
+	if err == runtime.ErrNotExists {
+		a.httpError(w, 404, err)
+		return
+	} else if err != nil {
+		a.httpError(w, 500, err)
+		return
+	}
+
+	json.NewEncoder(w).Encode(status)
+}
+
 func (a *Api) requestBuild(w http.ResponseWriter, b *model.Bot) {
 	err := a.in.GetBuildManager().Request(b)
 	if err == runtime.ErrAlreadyBuilding {

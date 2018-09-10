@@ -1,14 +1,10 @@
 <header class="header">
     <div class="header__bot">
         <app-icon icon="robot"></app-icon>
-        <div class="form--select">
-            <select>
-                <option>sdfsdaf</option>
-            </select>       
-        </div>
+        <app-bot-select></app-bot-select>
     </div>
     <div class="header__actions">
-        <button type="submit" class="form--button form--small-button">Rebuild</button>
-        <button type="submit" class="form--button form--small-button">Restart</button>
+        <button (click)="onRebuildClick()" class="form--button form--small-button">Rebuild</button>
+        <button class="form--button form--small-button">Restart</button>
     </div>
 </header>

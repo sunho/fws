@@ -16,14 +16,14 @@ export class InviteFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private authSerivce: AuthService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       nickname: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  onSubmit(f: NgForm) {
+  onSubmit(f: NgForm): void {
     if (f.valid) {
       this.authSerivce.register(this.key, this.username, f.value.nickname, f.value.password).subscribe(
         data => {

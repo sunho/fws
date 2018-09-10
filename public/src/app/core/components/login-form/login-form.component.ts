@@ -14,14 +14,14 @@ export class LoginFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private authSerivce: AuthService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  onSubmit(f: NgForm) {
+  onSubmit(f: NgForm): void {
     if (f.valid) {
       this.authSerivce.login(f.value.username, f.value.password).subscribe(
         _ => {

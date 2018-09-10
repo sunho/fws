@@ -105,6 +105,10 @@ func (f *fwsInterface) ParseToken(tok string) (int, string, bool) {
 	return id, username, true
 }
 
+func (f *fwsInterface) GetDistAddr() string {
+	return f.f.config.Dist
+}
+
 func (f *fwsInterface) GetDistFolder() http.FileSystem {
 	return f.f.dist
 }

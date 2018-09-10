@@ -11,34 +11,57 @@
                 for 5 hours
             </div>
         </div>
-        <div class="health health--bad col__half">
-            <div class="health__title">
-                Build Status
+        <ng-container *ngIf="$buildStatus | async as buildStatus" [ngSwitch]="buildStatus.type">
+            <div *ngSwitchCase="'none'" class="health health--none col__half">
+                <div class="health__title">
+                    Build Status
+                </div>
+                <div class="health__content">
+                    None
+                </div>
             </div>
-            <div class="health__content">
-                Failed
+            <div *ngSwitchCase="'building'" class="health health--progress col__half">
+                <div class="health__title">
+                    Build Status
+                </div>
+                <div class="health__content">
+                    Building
+                </div>
+                <div class="health__aux">
+                    {{buildStatus.step}}
+                </div> 
             </div>
-            <div class="health__aux">
-                5 hours ago
+            <div *ngSwitchCase="'built'" class="health col__half" 
+                [class.health--okay]="buildStatus.success" 
+                [class.health--bad]="!buildStatus.success">
+                <div class="health__title">
+                    Build Status
+                </div>
+                <div class="health__content">
+                    {{buildStatus.success ? "Succes":"Failed"}}
+                </div>
+                <div class="health__aux">
+                    {{buildStatus.created}}
+                </div>
             </div>
-        </div>
+        </ng-container>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="$current | async as current">
         <div class="card col__full">
             <div class="card__header">Details</div>
             <div class="card__main">
                 <div class="card__entry">
                     <div class="card__entry__title">Name:</div>
-                    <div class="card__entry__content">dasfdafdsfa</div>
+                    <div class="card__entry__content">{{current.name}}</div>
                 </div>
                 <div class="card__entry">
                     <div class="card__entry__title">RepoURL:</div>
-                    <div class="card__entry__content">dasfdafdsfa</div>
+                    <div class="card__entry__content">{{current.git_url}}</div>
                 </div>
                 <div class="card__entry">
                     <div class="card__entry__title">WebhookSecret:</div>
-                    <div class="card__entry__content">dasfdafdsfa</div>
+                    <div class="card__entry__content">{{current.webhook_secret}}</div>
                 </div>
             </div>
         </div>

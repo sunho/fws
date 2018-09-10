@@ -1,0 +1,5 @@
+<div class="form--select">
+  <select (change)="onChange($event.target.value)">
+      <option *ngFor="let bot of bots" [value]="bot.id" [selected]="bot.id == current.id">{{bot.name}}</option>
+  </select>
+</div>

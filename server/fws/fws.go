@@ -50,7 +50,7 @@ func New(stor store.Store, builder runtime.Builder,
 
 func (f *Fws) initApiServer() {
 	a := api.New(&fwsInterface{f})
-	handler := a.Http()
+	handler := a.Http(f.config.Dev)
 	f.server = &http.Server{
 		Addr:    f.config.Addr,
 		Handler: handler,
@@ -58,19 +58,21 @@ func (f *Fws) initApiServer() {
 }
 
 func (f *Fws) initDist() error {
-	f.dist = http.Dir(f.config.Dist)
+	if !f.config.Dev {
+		f.dist = http.Dir(f.config.Dist)
 
-	i, err := f.dist.Open("index.html")
-	if err != nil {
-		return err
+		i, err := f.dist.Open("index.html")
+		if err != nil {
+			return err
+		}
+
+		buf, err := ioutil.ReadAll(i)
+		if err != nil {
+			return err
+		}
+
+		f.index = buf
 	}
-
-	buf, err := ioutil.ReadAll(i)
-	if err != nil {
-		return err
-	}
-
-	f.index = buf
 	return nil
 }
 

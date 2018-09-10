@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private authSerivce: AuthService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.authSerivce.getUser().subscribe(
       _ => {
         this.router.navigate([dashboardRouteName]);

@@ -15,7 +15,7 @@ export class InviteComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private authSerivce: AuthService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.queryParams.subscribe(
       params => {
         this.key = params['key'];
@@ -30,7 +30,7 @@ export class InviteComponent implements OnInit {
     );
   }
 
-  onSuccess() {
+  onSuccess(): void {
     this.router.navigate(['/']);
   }
 }

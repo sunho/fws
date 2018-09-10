@@ -95,16 +95,35 @@ func (b *BuildManager) Status(bot *model.Bot) (model.BuildStatus, error) {
 
 	bui, ok := b.builds[bot.ID]
 	if !ok {
-		return model.BuildStatus{}, ErrNotExists
-	}
+		histories, err := b.stor.ListBotBuild(bot.ID)
+		if err != nil {
+			return nil, err
+		}
 
-	if bui.running() {
-		return model.BuildStatus{
-			Running: true,
-			Step:    bui.building.Step(),
+		recent := new(model.Build)
+		for _, history := range histories {
+			if recent.Number < history.Number {
+				recent = history
+			}
+		}
+
+		if recent.BotID == 0 {
+			return nil, ErrNotExists
+		}
+
+		return &model.BuildStatusBuilt{
+			Type:    "built",
+			Success: recent.Success,
+			Number:  recent.Number,
+			Created: recent.Created,
 		}, nil
 	}
-	return model.BuildStatus{}, nil
+
+	return &model.BuildStatusBuilding{
+		Type:    "building",
+		Pending: !bui.running(),
+		Step:    bui.building.Step(),
+	}, nil
 }
 
 func (b *BuildManager) startPendingBuilds() {
@@ -133,6 +152,7 @@ func (b *BuildManager) callback(bot *model.Bot) BuildCallback {
 		b.current--
 		delete(b.builds, bot.ID)
 		b.mu.Unlock()
+		success := err == nil
 
 		newbot, err := b.stor.GetBot(bot.ID)
 		if err != nil {
@@ -148,7 +168,7 @@ func (b *BuildManager) callback(bot *model.Bot) BuildCallback {
 
 		build, err := b.stor.CreateBotBuild(&model.Build{
 			BotID:   bot.ID,
-			Success: err == nil,
+			Success: success,
 			Created: time.Now(),
 		})
 		if err != nil {

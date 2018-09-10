@@ -22,6 +22,7 @@ func main() {
 		Addr:   conf.Addr,
 		Secret: conf.Secret,
 		Dist:   conf.Dist,
+		Dev:    conf.Dev,
 	}
 
 	e, err := xorm.NewEngine("sqlite3", conf.SqliteFile)

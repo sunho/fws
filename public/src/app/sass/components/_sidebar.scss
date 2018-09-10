@@ -45,7 +45,7 @@ $header-height: 6rem;
 
 	&__link:hover {
 		color: lighten($color-white, 5);
-		background-color: lighten($color-dark-blue, 5);
+		background-color: lighten($color-dark-blue, 2);
 	}
 
 	&__link--active:link,

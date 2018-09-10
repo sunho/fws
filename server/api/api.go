@@ -21,6 +21,7 @@ type ApiInterface interface {
 	HashPassword(password string) string
 	CreateToken(id int, username string) string
 	ParseToken(tok string) (int, string, bool)
+	GetDistAddr() string
 	GetDistFolder() http.FileSystem
 	GetIndex() []byte
 }
@@ -33,10 +34,14 @@ func New(in ApiInterface) *Api {
 	return &Api{in}
 }
 
-func (a *Api) Http() http.Handler {
+func (a *Api) Http(dev bool) http.Handler {
 	r := chi.NewRouter()
-	a.cors(r)
-	a.fileServer(r, "/", a.in.GetDistFolder())
+	if dev {
+		a.cors(r)
+		a.devServer(r, "/", a.in.GetDistAddr())
+	} else {
+		a.fileServer(r, "/", a.in.GetDistFolder())
+	}
 	r.Route("/api", a.apiRoute)
 
 	return r
@@ -55,6 +60,10 @@ func (a *Api) apiRoute(r chi.Router) {
 		s.Get("/", a.listUserBot)
 		s.Route("/{bot}", func(s chi.Router) {
 			s.Use(a.botMiddleWare)
+			s.Route("/status", func(s chi.Router) {
+				s.Get("/build", a.getBuildStatus)
+				// s.Get("/run", a.getRunStatus)
+			})
 			s.Route("/build", func(s chi.Router) {
 				s.Get("/", a.listBuild)
 				s.Post("/", a.postBuild)

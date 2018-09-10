@@ -13,6 +13,5 @@ export class SmallHeaderComponent implements OnInit {
     this.name = AppConfig.siteName;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit(): void {}
 }

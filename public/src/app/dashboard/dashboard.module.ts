@@ -1,3 +1,4 @@
+import { BotSelectComponent } from './components/bot-select/bot-select.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { SideBarComponent } from './components/sidebar/sidebar.component';
@@ -11,6 +12,7 @@ import { DashComponent } from './pages/dash/dash.component';
 
 @NgModule({
     declarations: [
+        BotSelectComponent,
         DashComponent,
         HeaderComponent,
         BuildComponent,
