@@ -17,6 +17,7 @@ build: build-public build-server
 build-public:
 	cd public && \
 	npm run build && \
+	rm -rf ../out/dist && \
 	mv dist/public ../out/dist && \
 	rm -r dist
 
@@ -29,5 +30,6 @@ dev: dev-public build-server
 dev-public:
 	cd public && \
 	ng build && \
+	rm -rf ../out/dist && \
 	mv dist/public ../out/dist && \
 	rm -r dist

@@ -11,6 +11,7 @@ import { InviteComponent } from './pages/invite/invite.component';
 import { InviteFormComponent } from './components/invite-form/invite-form.component';
 import { SmallHeaderComponent } from './components/small-header/small-header.component';
 import { IconComponent } from './components/icon/icon.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
   imports: [

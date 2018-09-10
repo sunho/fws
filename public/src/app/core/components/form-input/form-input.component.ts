@@ -8,6 +8,7 @@ import { NgForm, FormGroup } from '@angular/forms';
     styles: ['app-form-input { display: block; }'],
 })
 export class FormInputComponent implements OnInit {
+    @Input() type: string;
     @Input() name: string;
     @Input() form: NgForm;
     @Input() formGroup: FormGroup;

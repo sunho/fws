@@ -1,10 +1,11 @@
+import { AppConfig } from './../../app.config';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
-import { AppConfig } from '../../app.config';
+import { User } from '../models/user';
 
 
 export const NOT_FOUND = 'not found';
@@ -40,8 +41,12 @@ export class AuthService {
     return throwError('unknown error');
   }
 
+  getUser() {
+    return this.http.get<User>(`${AppConfig.apiUrl}/user`, this.options).
+      pipe(catchError(this.handleError));
+  }
+
   login(username: string, password: string) {
-    console.log(username, password);
     return this.http.post(`${AppConfig.apiUrl}/login`,
       {username: username, password: password}, this.options).
       pipe(catchError(this.handleError));
@@ -57,5 +62,4 @@ export class AuthService {
     return this.http.get(`${AppConfig.apiUrl}/invite/${username}?key=${key}`).
       pipe(catchError(this.handleError));
   }
-
 }

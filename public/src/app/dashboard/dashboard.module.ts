@@ -7,9 +7,11 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { CoreModule } from '../core/core.module';
 import { BuildComponent } from './pages/build/build.component';
+import { DashComponent } from './pages/dash/dash.component';
 
 @NgModule({
     declarations: [
+        DashComponent,
         HeaderComponent,
         BuildComponent,
         HomeComponent,

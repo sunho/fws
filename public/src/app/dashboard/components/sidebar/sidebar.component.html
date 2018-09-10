@@ -1,7 +1,7 @@
 <ul class="sidebar">
     <li class="sidebar__logo">FWS</li>
     <li *ngFor="let item of items" class="sidebar__item">
-        <a routerLink="{{item.href}}" class="sidebar__link" [ngClass]="{'sidebar__link--active': item.title == current}">
+        <a routerLink="{{item.href}}" class="sidebar__link" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="sidebar__link--active">
             <app-icon icon="{{item.icon}}"></app-icon>
             <span>{{item.title}}</span>
         </a>

@@ -46,6 +46,7 @@ func (a *Api) apiRoute(r chi.Router) {
 	r.Get("/invite/{username}", a.getUserInvite)
 	r.Post("/register", a.register)
 	r.Post("/login", a.login)
+	r.With(a.authMiddleWare).Get("/user", a.getUser)
 
 	r.With(a.botMiddleWare).Post("/hook/{bot}", a.postWebhook)
 

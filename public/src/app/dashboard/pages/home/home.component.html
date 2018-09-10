@@ -1,16 +1,46 @@
-<div class="dash">
-    <nav class="dash__sidebar">
-        <app-sidebar current="home"></app-sidebar>
-    </nav>
-    <div class="dash__container">
-        <div class="dash__header">
-            <app-header></app-header>
-        </div>
-        <main class="dash__main">
-            <div class="card">
-                <div class="card__header">Main</div>
-                <div class="card__main">Hello world</div>
+<div class="container">
+    <div class="row">
+        <div class="health health--okay col__half">
+            <div class="health__title">
+                Run Status
             </div>
-        </main>
+            <div class="health__content">
+                Running
+            </div>
+            <div class="health__aux">
+                for 5 hours
+            </div>
+        </div>
+        <div class="health health--bad col__half">
+            <div class="health__title">
+                Build Status
+            </div>
+            <div class="health__content">
+                Failed
+            </div>
+            <div class="health__aux">
+                5 hours ago
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card col__full">
+            <div class="card__header">Details</div>
+            <div class="card__main">
+                <div class="card__entry">
+                    <div class="card__entry__title">Name:</div>
+                    <div class="card__entry__content">dasfdafdsfa</div>
+                </div>
+                <div class="card__entry">
+                    <div class="card__entry__title">RepoURL:</div>
+                    <div class="card__entry__content">dasfdafdsfa</div>
+                </div>
+                <div class="card__entry">
+                    <div class="card__entry__title">WebhookSecret:</div>
+                    <div class="card__entry__content">dasfdafdsfa</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

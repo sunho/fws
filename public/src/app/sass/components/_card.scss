@@ -5,11 +5,61 @@
 	background: white;
 	padding: 2rem;
 	box-shadow: 0 .1rem .5rem $color-shadow;
+
 	&__header {
 		font-size: $font-size-big;
 	}
+
 	&__main {
 		margin-top: 2rem;
+	}
+
+	&__entry {
+		display: flex;
+		font-size: $font-size-small;
+		&:not(:first-child) {
+			margin-top: 1rem;
+		}
+		&__title {
+			flex: 0;
+			font-weight: 600;
+		}
+		&__content {
+			flex: 1;
+			margin-left: .5rem;
+		}
+	}
+}
+
+.health {
+	padding: 2rem;
+	box-shadow: 0 .1rem .5rem $color-shadow;
+	min-height: 12rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+	&--okay {
+		background: linear-gradient(to top, $color-green, $color-light-green);
+	}
+
+	&--bad {
+		background: $color-error;
+	}
+
+	&__title {
+		color: $color-white;
+		font-size: $font-size-normal;
+	}
+
+	&__content {
+		color: $color-white;
+		font-size: $font-size-big;
+		font-weight: 600;
+	}
+
+	&__aux {
+		color: $color-white;
 		font-size: $font-size-normal;
 	}
 }

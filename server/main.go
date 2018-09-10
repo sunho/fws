@@ -37,12 +37,12 @@ func main() {
 	}
 
 	builder := basic.NewBuilder(conf.RegURL, conf.Workspace)
-	runner, err := basic.NewRunnerFromCluster("bot")
-	if err != nil {
-		panic(err)
-	}
+	// runner, err := basic.NewRunnerFromCluster("bot")
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	f, err := fws.New(x, builder, runner, fconf)
+	f, err := fws.New(x, builder, nil, fconf)
 	if err != nil {
 		panic(err)
 	}

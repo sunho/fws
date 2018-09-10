@@ -4,11 +4,11 @@ import "time"
 
 type User struct {
 	ID       int    `json:"id" xorm:"pk autoincr"`
-	Admin    bool   `json:"admin"`
-	Version  int    `xorm:"version"`
+	Admin    bool   `json:"admin" json:"admin"`
+	Version  int    `json:"version" xorm:"version"`
 	Username string `json:"username" xorm:"unique"`
 	Nickname string `json:"nickname" xorm:"unique"`
-	Passhash string `json:"passhash"`
+	Passhash string `json:"-"`
 }
 
 type UserInvite struct {
@@ -29,12 +29,6 @@ type Bot struct {
 type UserBot struct {
 	UserID int `xorm:"pk"`
 	BotID  int `xorm:"pk"`
-}
-
-type Webhook struct {
-	Hash   string `xorm:"pk"`
-	Secret string
-	BotID  int
 }
 
 type BotVolume struct {

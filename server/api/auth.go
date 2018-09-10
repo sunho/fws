@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -137,4 +138,9 @@ func (a *Api) login(w http.ResponseWriter, r *http.Request) {
 		HttpOnly: true,
 	})
 	w.WriteHeader(201)
+}
+
+func (a *Api) getUser(w http.ResponseWriter, r *http.Request) {
+	u := getUser(r)
+	json.NewEncoder(w).Encode(u)
 }
