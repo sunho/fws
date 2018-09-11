@@ -3,26 +3,50 @@
 
 .dash {
   height: 100vh;
-  overflow: auto;
   background: $color-bg;
   display: flex;
 
+  @include respond(phone) {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
   &__sidebar {
-    flex: 0 0 15%;
+    overflow-y: hidden;
+    position: relative;
+    z-index: $z-index-2;
+    flex: 0 0 17%;
+    
+    @include respond(phone) {
+      flex: 0 0 auto;
+    }
   }
 
   &__container {
+    height: 100vh;
     flex: 1;
-    min-height: 50rem;
   }
 
   &__header {
+    position: relative;
+    z-index: $z-index-1;
     background: $color-white;
-    border-bottom: 1px solid $color-light-gray;
   }
 
   &__main {
-    margin-top: 2rem;
-    padding: 0 2rem;
+    height: calc(100vh - #{$header-height});
+    overflow-y: auto;
+
+    &__content {
+      min-height: 40rem;
+      margin-top: 2rem;
+      padding: 0 2rem;
+      padding-bottom: 5rem;
+    }
+
+    @include respond(phone) {
+      height: auto;
+      overflow-y: initial;
+    }
   }
 }

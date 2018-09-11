@@ -1,3 +1,4 @@
+import { ConfigComponent } from './pages/config/config.component';
 import { BotSelectComponent } from './components/bot-select/bot-select.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
@@ -9,9 +10,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { CoreModule } from '../core/core.module';
 import { BuildComponent } from './pages/build/build.component';
 import { DashComponent } from './pages/dash/dash.component';
+import { VolumeComponent } from './pages/volume/volume.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
+    UserProfileComponent,
+    VolumeComponent,
+    ConfigComponent,
     BotSelectComponent,
     DashComponent,
     HeaderComponent,

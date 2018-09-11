@@ -1,56 +1,83 @@
 @import 'variables';
 @import 'mixins';
 
-$header-height: 6rem;
-
 .sidebar {
   list-style: none;
-  height: 100%;
   font-size: $font-size-small;
   background: $color-blue;
+  overflow: hidden;
+  height: 100%;
 
-  &__logo {
-    display: inline-block;
-    font-size: $font-size-big;
-    color: $color-white;
-    font-weight: 00;
-    height: $header-height;
-    line-height: $header-height;
-    margin-left: 2rem;
+  @include respond(phone) {
+    height: 100vh;
+    width: 100%;
+    max-height: $header-height;
   }
 
-  &__item {
+  &--menu-on {
+    position: fixed;
+    max-height: 100vh;
   }
 
-  &__link:link,
-  &__link:visited {
-    color: $color-light-gray;
-    text-decoration: none;
+  &__header {
+    padding: 0 2rem;
     display: flex;
+    height: $header-height;
     align-items: center;
-    padding: 1rem 2rem;
-    app-icon {
-      fill: currentColor;
-      width: 1.7rem;
-      height: 1.7rem;
-    }
+    justify-content: space-between;
 
-    span {
+    &__logo {
+      font-size: $font-size-big;
+      color: $color-white;
       font-weight: 300;
-      margin-left: 1rem;
     }
 
-    @include transition(color 0.2s, background-color 0.2s);
+    &__toggle {
+      .form--button {
+        background: none;
+      }
+
+      display: none;
+      @include respond(phone) {
+        display: initial;
+      }
+    }
   }
 
-  &__link:hover {
-    color: lighten($color-white, 5);
-    background-color: lighten($color-dark-blue, 2);
-  }
+  &__menu {
+    &__item {
+    }
 
-  &__link--active:link,
-  &__link--active:visited {
-    color: $color-white;
-    background-color: $color-dark-blue;
+    &__link:link,
+    &__link:visited {
+      color: $color-light-gray;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      app-icon {
+        fill: currentColor;
+        width: 1.7rem;
+        height: 1.7rem;
+      }
+
+      span {
+        font-weight: 300;
+        margin-left: 1rem;
+      }
+
+      @include transition(color 0.2s, background-color 0.2s);
+    }
+
+    &__link:hover {
+      color: lighten($color-white, 5);
+      background-color: lighten($color-dark-blue, 2);
+    }
+
+    &__link--active:link,
+    &__link--active:visited {
+      color: $color-white;
+      background-color: $color-dark-blue;
+    }
   }
 }

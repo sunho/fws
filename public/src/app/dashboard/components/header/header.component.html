@@ -1,10 +1,8 @@
 <header class="header">
-    <div class="header__bot">
-        <app-icon icon="robot"></app-icon>
-        <app-bot-select></app-bot-select>
-    </div>
+    <app-bot-select></app-bot-select>
     <div class="header__actions">
-        <button (click)="onRebuildClick()" class="form--button form--small-button">Rebuild</button>
-        <button class="form--button form--small-button">Restart</button>
+        <button title="rebuild" (click)="onRebuildClick()" class="form--button form--icon-button"><app-icon icon="hammer"></app-icon></button>
+        <button title="restart" class="form--button form--icon-button"><app-icon icon="reload"></app-icon></button>
     </div>
+    <app-user-profile></app-user-profile>
 </header>

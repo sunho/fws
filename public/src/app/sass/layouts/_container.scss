@@ -15,6 +15,13 @@
 
     &__half {
       flex: 0 0 calc(50% - 1rem);
+
+      @include respond(phone) {
+        flex: 0 0 100%;
+        &:not(:first-child) {
+          margin-top: 2rem;
+        }
+      }
     }
   }
 }

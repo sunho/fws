@@ -7,12 +7,23 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './sidebar.component.html',
 })
 export class SideBarComponent implements OnInit {
+  show: boolean;
   items: SideBarItem[] = [
     { title: 'home', icon: 'home', href: `./` },
-    { title: 'volumes', icon: 'hdd', href: `volumes` },
-    { title: 'configs', icon: 'document', href: `configs` },
+    { title: 'volume', icon: 'hdd', href: `volume` },
+    { title: 'config', icon: 'document', href: `config` },
   ];
   constructor() {}
 
   ngOnInit(): void {}
+
+  onToggleClick(): void {
+    this.show = !this.show;
+  }
+
+  onItemClick(): void {
+    this.show = false;
+    // should find another way to make it generic
+    document.querySelector('.dash').scrollTo(0, 0);
+  }
 }

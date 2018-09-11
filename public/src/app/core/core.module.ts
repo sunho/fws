@@ -12,6 +12,7 @@ import { InviteFormComponent } from './components/invite-form/invite-form.compon
 import { SmallHeaderComponent } from './components/small-header/small-header.component';
 import { IconComponent } from './components/icon/icon.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { FormDropdownComponent } from './components/form-dropdown/form-dropdown.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     FormsModule,
   ],
   declarations: [
+    FormDropdownComponent,
     FormInputComponent,
     IconComponent,
     LoginComponent,
@@ -31,6 +33,6 @@ import { AuthGuardService } from './services/auth-guard.service';
     SmallHeaderComponent,
   ],
   providers: [],
-  exports: [LoginComponent, InviteComponent, FormInputComponent, IconComponent],
+  exports: [LoginComponent, InviteComponent, FormInputComponent, FormDropdownComponent, IconComponent],
 })
 export class CoreModule {}

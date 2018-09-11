@@ -67,8 +67,8 @@
 
     @include transition(background-color 0.2s, color 0.2s);
     &:hover {
-      color: darken($color-white, 7);
-      background-color: darken($color-primary, 7);
+      color: darken($color-white, 10);
+      background-color: darken($color-primary, 10);
     }
   }
 
@@ -78,6 +78,21 @@
 
     font-size: $font-size-small;
     font-weight: 400;
+  }
+
+  &--icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 3.25rem;
+    height: 3.25rem;
+    app-icon {
+      fill: $color-white;
+      stroke-width: 10;
+      width: 1.7rem;
+      height: 1.7rem;
+    }
   }
 
   &--full-button {
@@ -123,6 +138,41 @@
       -webkit-transform-origin: center;
       transform-origin: center;
       transform: rotate(-45deg);
+    }
+  }
+
+  &--dropdown {
+    &__menu {
+      &--on {
+        opacity: 1;
+      }
+      width: 100vw;
+      max-width: 25rem;
+
+      position: absolute;
+      z-index: $z-index-2;
+      top: 4rem ;
+      right: 0;
+      opacity: 0;
+
+      background: $color-white;
+      box-shadow: $shadow-2;
+      font-size: $font-size-small;
+
+      @include transition(opacity .2s);
+
+      ul {
+        list-style: none;
+
+        li {
+          a:link {
+            text-decoration: none;
+            display: block;
+            padding: 1rem;
+            color: $color-black;
+          }
+        }
+      }
     }
   }
 

@@ -1,0 +1,20 @@
+.table {
+    font-size: $font-size-small;
+    border-collapse: collapse;
+    width: 100%;
+
+    th {
+        text-align: left;
+        font-weight: 400;
+
+        padding: 1rem .5rem;
+        border-bottom: 1px solid $color-light-gray;
+    }
+
+    td {
+        text-align: left;
+        font-weight: 300;
+
+        padding: .7rem .5rem;
+    }
+}

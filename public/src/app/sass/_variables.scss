@@ -5,7 +5,7 @@ $font-size-small: 1.3rem;
 
 $radius-big: 0.7rem;
 
-$color-primary: #435b6b;
+$color-primary: #616161;
 $color-second: #ff80ab;
 $color-third: #424242;
 
@@ -18,7 +18,8 @@ $color-black: #424242;
 $color-blue: #334755;
 $color-dark-blue: #2c3c47;
 
-$color-gray: #6b6b6b;
+$color-gray: #4e4e4e;
+$color-pale-gray: #c0c0c0;
 $color-light-gray: #ced4da;
 
 $color-blue-green-1: #d5f193;
@@ -28,10 +29,16 @@ $color-pink-yellow-1: #e4e6ef;
 $color-pink-yellow-2: #93a5cf;
 
 $color-white: #fff;
-$color-shadow: rgba(#000, 0.25);
+$shadow-1: 0 .25rem 1rem 0 rgba(0, 0, 0, 0.1);
+$shadow-2: 0 .5rem 2rem 0 rgba(0, 0, 0, 0.3);
 
 // $form-checklabel-font-size: 1.5rem;
 // $form-checklabel-size: 1.5rem;
 // $form-checklabel-border: .2rem;
 // $form-checklabel-radius: .2rem;
 // $form-checklabel-spacing: .3rem;
+
+$header-height: 6rem;
+
+$z-index-1: 100;
+$z-index-2: 200;

@@ -5,10 +5,14 @@ import { NgModule } from '@angular/core';
 import { BuildComponent } from './pages/build/build.component';
 import { DashComponent } from './pages/dash/dash.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ConfigComponent } from './pages/config/config.component';
+import { VolumeComponent } from './pages/volume/volume.component';
 
 const routeChildren = [
   { path: '', component: HomeComponent },
   { path: 'build', component: BuildComponent },
+  { path: 'volume', component: VolumeComponent },
+  { path: 'config', component: ConfigComponent },
 ];
 
 const routes: Routes = [

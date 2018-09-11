@@ -1,9 +1,18 @@
-<ul class="sidebar">
-    <li class="sidebar__logo">FWS</li>
-    <li *ngFor="let item of items" class="sidebar__item">
-        <a routerLink="{{item.href}}" class="sidebar__link" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="sidebar__link--active">
-            <app-icon icon="{{item.icon}}"></app-icon>
-            <span>{{item.title}}</span>
-        </a>
-    </li>
-</ul>
+<div class="sidebar" [class.sidebar--menu-on]="show">
+    <div class="sidebar__header">
+        <div class="sidebar__header__logo">FWS</div>
+        <div class="sidebar__header__toggle">
+            <button title="menu" class="form--button form--icon-button" (click)="onToggleClick()">
+                <app-icon [icon]="show?'close':'menu'"></app-icon>
+            </button>
+        </div>
+    </div>
+    <ul class="sidebar__menu">
+        <li *ngFor="let item of items" class="sidebar__menu__item">
+            <a (click)="onItemClick()" routerLink="{{item.href}}" class="sidebar__menu__link" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="sidebar__menu__link--active">
+                <app-icon icon="{{item.icon}}"></app-icon>
+                <span>{{item.title}}</span>
+            </a>
+        </li>
+    </ul>
+</div>
