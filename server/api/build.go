@@ -1,7 +1,6 @@
 package api
 
 import (
-	"encoding/json"
 	"net/http"
 	"strconv"
 
@@ -20,7 +19,7 @@ func (a *Api) getBuildStatus(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(status)
+	a.jsonEncode(w, status)
 }
 
 func (a *Api) requestBuild(w http.ResponseWriter, b *model.Bot) {
@@ -46,7 +45,7 @@ func (a *Api) listBuild(w http.ResponseWriter, r *http.Request) {
 		a.httpError(w, 500, err)
 		return
 	}
-	json.NewEncoder(w).Encode(bs)
+	a.jsonEncode(w, bs)
 }
 
 func (a *Api) getBuild(w http.ResponseWriter, r *http.Request) {

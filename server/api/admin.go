@@ -1,7 +1,6 @@
 package api
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -14,7 +13,7 @@ func (a *Api) listBot(w http.ResponseWriter, r *http.Request) {
 		a.httpError(w, 500, err)
 		return
 	}
-	json.NewEncoder(w).Encode(bots)
+	a.jsonEncode(w, bots)
 }
 
 func (a *Api) postBot(w http.ResponseWriter, r *http.Request) {
@@ -40,7 +39,7 @@ func (a *Api) postBot(w http.ResponseWriter, r *http.Request) {
 
 func (a *Api) getBot(w http.ResponseWriter, r *http.Request) {
 	b := getBot(r)
-	json.NewEncoder(w).Encode(b)
+	a.jsonEncode(w, b)
 }
 
 func (a *Api) putBot(w http.ResponseWriter, r *http.Request) {
@@ -79,7 +78,7 @@ func (a *Api) listUserInvite(w http.ResponseWriter, r *http.Request) {
 		a.httpError(w, 500, err)
 		return
 	}
-	json.NewEncoder(w).Encode(bots)
+	a.jsonEncode(w, bots)
 }
 
 func (a *Api) postUserInvite(w http.ResponseWriter, r *http.Request) {
@@ -134,7 +133,7 @@ func (a *Api) listUser(w http.ResponseWriter, r *http.Request) {
 		a.httpError(w, 500, err)
 		return
 	}
-	json.NewEncoder(w).Encode(bots)
+	a.jsonEncode(w, bots)
 }
 
 func (a *Api) postUserBot(w http.ResponseWriter, r *http.Request) {

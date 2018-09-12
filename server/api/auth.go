@@ -1,7 +1,6 @@
 package api
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -152,5 +151,5 @@ func (a *Api) logout(w http.ResponseWriter, r *http.Request) {
 
 func (a *Api) getUser(w http.ResponseWriter, r *http.Request) {
 	u := getUser(r)
-	json.NewEncoder(w).Encode(u)
+	a.jsonEncode(w, u)
 }

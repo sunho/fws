@@ -34,9 +34,12 @@
 
     font-size: $font-size-normal;
 
+    text-align: center;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+
+    padding: 0 3rem;
   }
 
   &__buttons {

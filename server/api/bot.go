@@ -1,7 +1,6 @@
 package api
 
 import (
-	"encoding/json"
 	"net/http"
 	"strconv"
 
@@ -33,7 +32,7 @@ func (a *Api) listUserBot(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(bots)
+	a.jsonEncode(w, bots)
 }
 
 func (a *Api) listBotConfig(w http.ResponseWriter, r *http.Request) {
@@ -44,7 +43,7 @@ func (a *Api) listBotConfig(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(confs)
+	a.jsonEncode(w, confs)
 }
 
 func (a *Api) postBotConfig(w http.ResponseWriter, r *http.Request) {
@@ -86,7 +85,7 @@ func (a *Api) listBotVolume(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(vols)
+	a.jsonEncode(w, vols)
 }
 
 func (a *Api) postBotVolume(w http.ResponseWriter, r *http.Request) {
@@ -122,7 +121,7 @@ func (a *Api) listBotEnv(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(envs)
+	a.jsonEncode(w, envs)
 }
 
 func (a *Api) postBotEnv(w http.ResponseWriter, r *http.Request) {

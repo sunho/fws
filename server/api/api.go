@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"net/http"
+	"reflect"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
@@ -138,6 +139,16 @@ func (a *Api) httpError(w http.ResponseWriter, code int, org error) {
 func (a *Api) httpErrorWithMsg(w http.ResponseWriter, code int, msg string, org error) {
 	glog.Infof("Error in http handler, code: %v msg: %s org: %v", code, msg, org)
 	http.Error(w, msg, code)
+}
+
+func (a *Api) jsonEncode(w http.ResponseWriter, i interface{}) {
+	v := reflect.ValueOf(i)
+	if v.Kind() == reflect.Slice && v.Len() == 0 {
+		w.Write([]byte("[]"))
+		return
+	}
+
+	json.NewEncoder(w).Encode(i)
 }
 
 func (a *Api) jsonDecode(w http.ResponseWriter, r *http.Request, i interface{}) bool {
