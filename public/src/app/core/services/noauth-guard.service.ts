@@ -1,9 +1,9 @@
+import { environment } from './../../../environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { AppConfig } from '../../app.config';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class NoAuthGuardService implements CanActivate {
         _ => {
           observer.next(false);
           observer.complete();
-          this.router.navigate(['/' + AppConfig.dashboardRoute]);
+          this.router.navigate(['/' + environment.dashboardRoute]);
         },
         _ => {
           observer.next(true);

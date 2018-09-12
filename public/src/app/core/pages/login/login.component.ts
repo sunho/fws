@@ -1,8 +1,5 @@
+import { environment } from './../../../../environments/environment.prod';
 import { NOT_FOUND, WRONG_CRED } from './../../services/auth.service';
-import {
-  routeName as dashboardRouteName,
-  routeName,
-} from './../../../dashboard/dashboard-routing.module';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -22,6 +19,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSuccess(): void {
-    this.router.navigate(['/' + routeName]);
+    this.router.navigate(['/' + environment.dashboardRoute]);
   }
 }

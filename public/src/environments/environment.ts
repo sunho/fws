@@ -3,6 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  dashboardRoute: 'dashboard',
+  apiUrl: '/api',
   production: false,
 };
 

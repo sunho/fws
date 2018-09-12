@@ -1,8 +1,8 @@
 <div class="form--text" [formGroup]="formGroup">
     <label> {{name}} </label>
-    <input formControlName="{{name}}" name="{{name}}" placeholder="{{name}}" type="{{type}}">
+    <input [formControlName]="key" [name]="key" [placeholder]="name" [type]="type">
     <div class="bar"></div>
-    <div class="form--error" *ngIf="formGroup.get(name).invalid && form.submitted">
+    <div i18n class="form--error" *ngIf="formGroup.get(key).invalid && form.submitted">
         {{ name }} is invalid.
     </div>
 </div>

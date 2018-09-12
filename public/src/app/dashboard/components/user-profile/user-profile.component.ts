@@ -3,6 +3,7 @@ import { DropdownItem } from './../../../core/components/form-dropdown/form-drop
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopupService } from '../../../core/services/popup.service';
+import { STRINGS } from '../../../../locale/strings';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,11 +20,11 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       {
-        title: 'Change Password',
+        title: STRINGS.CHANGE_PASSWORD,
         func: this.changePassword.bind(this),
       },
       {
-        title: 'Log Out',
+        title: STRINGS.LOG_OUT,
         func: this.logout.bind(this),
       },
     ];

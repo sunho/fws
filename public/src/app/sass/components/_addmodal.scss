@@ -1,0 +1,44 @@
+@import 'variables';
+@import 'mixins';
+
+.addmodal {
+    &--hidden {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    z-index: $z-index-3;
+    opacity: 1;
+    background: rgba($color-black, 0.1);
+    position: fixed;
+    width: 100vw;
+    overflow-y: auto;
+    height: 100%;
+
+    &__box {
+        padding: 4rem;
+        background: $color-white;
+        box-shadow: $shadow-2;
+        margin: 5rem auto;
+        width: 75%;
+        max-width: 30rem;
+
+        &__form {
+            app-form-input:not(:first-child) {
+                margin-top: 1rem;
+            }
+
+            &__buttons {
+                display: flex;
+                margin-top: 4rem;
+                justify-content: space-between;
+                width: 100%;
+                .form--button {
+                    padding: 0;
+                    flex: 0 0 calc(50% - .5rem);
+                }
+            }
+        }
+    }
+
+}

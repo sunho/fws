@@ -53,6 +53,19 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "ko": {
+              "fileReplacements": [
+                {
+                  "replace": "src/locale/strings.ts",
+                  "with": "src/locale/strings.ko.ts"
+                }
+              ],
+              "aot": true,
+              "outputPath": "dist/public-ko",
+              "i18nFile": "src/locale/messages.ko.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "ko"
             }
           }
         },
@@ -64,6 +77,9 @@
           "configurations": {
             "production": {
               "browserTarget": "public:build:production"
+            },
+            "ko": {
+              "browserTarget": "public:build:ko"
             }
           }
         },

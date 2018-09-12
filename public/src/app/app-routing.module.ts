@@ -1,17 +1,17 @@
-import { AppConfig } from './app.config';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { LoginComponent } from './core/pages/login/login.component';
 import { InviteComponent } from './core/pages/invite/invite.component';
 import { AuthGuardService as AuthGuard } from './core/services/auth-guard.service';
 import { NoAuthGuardService as NoAuthGuard } from './core/services/noauth-guard.service';
+import { environment } from '../environments/environment.prod';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '', canActivate: [NoAuthGuard], component: LoginComponent },
   { path: 'invite', canActivate: [NoAuthGuard], component: InviteComponent },
   {
-    path: AppConfig.dashboardRoute,
+    path: environment.dashboardRoute,
     canActivate: [AuthGuard],
     loadChildren: './dashboard/dashboard.module#DashBoardModule',
   },

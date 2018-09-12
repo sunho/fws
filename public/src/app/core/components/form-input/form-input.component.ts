@@ -13,6 +13,8 @@ export class FormInputComponent implements OnInit {
   @Input()
   name: string;
   @Input()
+  key: string;
+  @Input()
   form: NgForm;
   @Input()
   formGroup: FormGroup;

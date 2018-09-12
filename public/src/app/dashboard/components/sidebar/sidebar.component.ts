@@ -1,3 +1,4 @@
+import { STRINGS } from '../../../../locale/strings';
 import { SideBarItem } from './../../models/sidebar';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -8,9 +9,9 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SideBarComponent implements OnInit {
   show = false;
   items: SideBarItem[] = [
-    { title: 'home', icon: 'home', href: 'home' },
-    { title: 'volume', icon: 'hdd', href: 'volume' },
-    { title: 'config', icon: 'document', href: 'config' },
+    { title: STRINGS.HOME, icon: 'home', href: 'home' },
+    { title: STRINGS.VOLUME, icon: 'hdd', href: 'volume' },
+    { title: STRINGS.CONFIG, icon: 'document', href: 'config' },
   ];
   constructor() {}
 

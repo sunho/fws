@@ -11,10 +11,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { CoreModule } from '../core/core.module';
-import { BuildComponent } from './pages/build/build.component';
 import { DashComponent } from './pages/dash/dash.component';
 import { VolumeComponent } from './pages/volume/volume.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,11 +27,10 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     BotSelectComponent,
     DashComponent,
     HeaderComponent,
-    BuildComponent,
     HomeComponent,
     SideBarComponent,
   ],
-  imports: [DashBoardRoutingModule, RouterModule, CoreModule, CommonModule],
+  imports: [DashBoardRoutingModule, ReactiveFormsModule, FormsModule, RouterModule, CoreModule, CommonModule],
   exports: [],
   providers: [],
 })

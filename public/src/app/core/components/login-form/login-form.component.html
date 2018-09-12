@@ -3,8 +3,8 @@
       [formGroup]="formGroup"
       (ngSubmit)="onSubmit(form)" 
       novalidate>
-  <app-form-input type="text" [formGroup]="formGroup" [form]="form" name="username"></app-form-input>
-  <app-form-input type="password" [formGroup]="formGroup" [form]="form" name="password"></app-form-input>
+  <app-form-input i18n-name type="text" [formGroup]="formGroup" [form]="form" key="username" name="username"></app-form-input>
+  <app-form-input i18n-name type="password" [formGroup]="formGroup" [form]="form" key="password" name="password"></app-form-input>
 
-  <button type="submit" class="form--button form--full-button">Login</button>
+  <button i18n type="submit" class="form--button form--full-button">Login</button>
 </form>

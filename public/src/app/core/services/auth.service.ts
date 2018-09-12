@@ -1,4 +1,4 @@
-import { AppConfig } from './../../app.config';
+import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
@@ -41,19 +41,19 @@ export class AuthService {
     }
 
     console.error(error);
-    return throwError('unknown error');
+    return throwError(error.message);
   }
 
   getUser(): Observable<User> {
     return this.http
-      .get<User>(`${AppConfig.apiUrl}/user`, this.options)
+      .get<User>(`${environment.apiUrl}/user`, this.options)
       .pipe(catchError(this.handleError));
   }
 
   login(username: string, password: string): Observable<void> {
     return this.http
       .post(
-        `${AppConfig.apiUrl}/login`,
+        `${environment.apiUrl}/login`,
         { username: username, password: password },
         this.options
       )
@@ -64,7 +64,7 @@ export class AuthService {
   }
 
   logout(): Observable<void> {
-    return this.http.delete(`${AppConfig.apiUrl}/login`).pipe(
+    return this.http.delete(`${environment.apiUrl}/login`).pipe(
       catchError(this.handleError),
       map(_ => {})
     );
@@ -78,7 +78,7 @@ export class AuthService {
   ): Observable<void> {
     return this.http
       .post(
-        `${AppConfig.apiUrl}/register`,
+        `${environment.apiUrl}/register`,
         {
           key: key,
           username: username,
@@ -95,7 +95,7 @@ export class AuthService {
 
   keyCheck(key: string, username: string): Observable<void> {
     return this.http
-      .get(`${AppConfig.apiUrl}/invite/${username}?key=${key}`)
+      .get(`${environment.apiUrl}/invite/${username}?key=${key}`)
       .pipe(
         catchError(this.handleError),
         map(_ => {})

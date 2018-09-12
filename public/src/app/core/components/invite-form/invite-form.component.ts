@@ -3,6 +3,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService, DUPLICATE } from '../../services/auth.service';
+import { STRINGS } from '../../../../locale/strings';
 
 @Component({
   selector: 'app-invite-form',
@@ -41,9 +42,9 @@ export class InviteFormComponent implements OnInit {
           },
           error => {
             if (error === DUPLICATE) {
-              this.popupService.createMsg('nickname is already in use');
+              this.popupService.createMsg(STRINGS.NICKNAME_IN_USE);
             } else {
-              this.popupService.createMsg(`unknown error(${error})`);
+              this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
             }
           }
         );

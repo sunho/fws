@@ -1,4 +1,4 @@
-import { AppConfig } from './../../../app.config';
+import { environment } from './../../../../environments/environment';
 import { BotService } from './../../services/bot.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Bot } from '../../models/bot';
@@ -22,7 +22,7 @@ export class BotSelectComponent implements OnInit {
   }
 
   onChange(value: string): void {
-    const r = this.router.url.replace(`${AppConfig.dashboardRoute}/${this.current}`, `${AppConfig.dashboardRoute}/${value}`);
+    const r = this.router.url.replace(`${environment.dashboardRoute}/${this.current}`, `${environment.dashboardRoute}/${value}`);
     this.router.navigate([r]);
   }
 }

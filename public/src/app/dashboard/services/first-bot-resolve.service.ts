@@ -1,4 +1,3 @@
-import { AppConfig } from './../../app.config';
 import { BotService } from './bot.service';
 import { Injectable } from '@angular/core';
 import {
@@ -9,6 +8,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PopupService } from '../../core/services/popup.service';
 import { AuthService } from '../../core/services/auth.service';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +31,7 @@ export class FirstBotRedirectService implements CanActivate {
           );
           return false;
         }
-        this.router.navigate(['/' + AppConfig.dashboardRoute, bots[0].id]);
+        this.router.navigate(['/' + environment.dashboardRoute, bots[0].id]);
         return false;
       })
     );

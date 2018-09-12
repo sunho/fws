@@ -1,0 +1,15 @@
+<div class="addmodal" [class.addmodal--hidden]="!current">
+    <div class="addmodal__box">
+        <form class="addmodal__box__form"
+            #form="ngForm" 
+            [formGroup]="formGroup"
+            (ngSubmit)="onSubmit(form)" 
+            novalidate>
+            <app-form-input type="text" [formGroup]="formGroup" [form]="form" name="username" key="username"></app-form-input>
+            <div class="addmodal__box__form__buttons">
+                <button i18n class="form--button form--full-button form--cancel-button">Cancel</button>
+                <button i18n class="form--button form--full-button">Ok</button>
+            </div>
+        </form>
+    </div>
+</div>

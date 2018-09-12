@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="3c729a484cbb858ff2ac697e354ecc47a42abd3c" datatype="html">
+        <source> Hello <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{ username }}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>. Welcome to FWS! To create your account, fill in the form and press Register.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/pages/invite/invite.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e8d49e31c3ed06df945240ecb3d242f80bce0731" datatype="html">
+        <source>
+        <x id="INTERPOLATION" equiv-text="{{ name }}"/> is invalid.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/components/form-input/form-input.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7195bf669e39ebfa7a11b72146b42a1c010846ef" datatype="html">
+        <source>username</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/components/login-form/login-form.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d8b81951d25439864e92f750f7c99d7426d6517c" datatype="html">
+        <source>password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/components/login-form/login-form.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/components/invite-form/invite-form.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6765b4c916060f6bc42d9bb69e80377dbcb5e4e9" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/components/login-form/login-form.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a2f99e38e5a29471e0bea0a7e7c9f357f31addf0" datatype="html">
+        <source>nickname</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/components/invite-form/invite-form.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cfc2f436ec2beffb042e7511a73c89c372e86a6c" datatype="html">
+        <source>Register</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/components/invite-form/invite-form.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8b7795542dd9299b8a4f551503d89b0e2389a5d1" datatype="html">
+        <source>
+                Run Status
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c5c6051af126e0a81a5ef151ecba197de0aa38be" datatype="html">
+        <source>
+                Running
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d5a0d7a5888c59042d4ed8a94169e8c112cc6d37" datatype="html">
+        <source>
+                    Build Status
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ebe9a00475f922f75f4b68c844f299194289aba5" datatype="html">
+        <source>
+                    None
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b1d1065aaac492324139d319b149f035cefa5946" datatype="html">
+        <source>
+                    Building
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="71acb7d767312ab3c4ed739050a2c1de7d9fe5a4" datatype="html">
+        <source>
+                    <x id="INTERPOLATION" equiv-text="{{buildStatus.success ? &quot;Succes&quot;:&quot;Failed&quot;}}"/>
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4f8b2bb476981727ab34ed40fde1218361f92c45" datatype="html">
+        <source>Details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="616e206cb4f25bd5885fc35925365e43cf5fb929" datatype="html">
+        <source>Name:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f778aa56e5b2cccd5721eed9427406fb42656376" datatype="html">
+        <source>RepoURL:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e8f70c0eae775890985493c2a5937b0c97b0ebe6" datatype="html">
+        <source>WebhookSecret:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/pages/home/home.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/components/add-modal/add-modal.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="be5c752b58791dd799bc5d5482d4351e06f18673" datatype="html">
+        <source>Ok</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/components/add-modal/add-modal.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="76e31364bfbe8e1f142d7f8baf309dc259f6e55e" datatype="html">
+        <source>rebuild</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/components/header/header.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5a4a1a27e520bd432a953d457db0ed05e3a9c629" datatype="html">
+        <source>restart</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dashboard/components/header/header.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

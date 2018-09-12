@@ -1,5 +1,4 @@
 import { catchError, map } from 'rxjs/operators';
-import { AppConfig } from './../../app.config';
 import { Bot, BuildStatus, Volume, Env, Config } from './../models/bot';
 import { Injectable } from '@angular/core';
 import {
@@ -8,6 +7,7 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export const NOT_FOUND = 'not found';
 export const CONFLICT = 'conflict';
@@ -37,31 +37,31 @@ export class BotService {
 
   getVolumes(id: number): Observable<Volume[]> {
     return this.http
-      .get<Volume[]>(`${AppConfig.apiUrl}/bot/${id}/volume`)
+      .get<Volume[]>(`${environment.apiUrl}/bot/${id}/volume`)
       .pipe(catchError(this.handleError));
   }
 
   getConfigs(id: number): Observable<Config[]> {
     return this.http
-      .get<Config[]>(`${AppConfig.apiUrl}/bot/${id}/config`)
+      .get<Config[]>(`${environment.apiUrl}/bot/${id}/config`)
       .pipe(catchError(this.handleError));
   }
 
   getEnvs(id: number): Observable<Env[]> {
     return this.http
-      .get<Env[]>(`${AppConfig.apiUrl}/bot/${id}/env`)
+      .get<Env[]>(`${environment.apiUrl}/bot/${id}/env`)
       .pipe(catchError(this.handleError));
   }
 
   getBots(): Observable<Bot[]> {
     return this.http
-      .get<Bot[]>(`${AppConfig.apiUrl}/bot`)
+      .get<Bot[]>(`${environment.apiUrl}/bot`)
       .pipe(catchError(this.handleError));
   }
 
   rebuildBot(id: number): Observable<void> {
     return this.http
-      .post(`${AppConfig.apiUrl}/bot/${id}/build`, this.options)
+      .post(`${environment.apiUrl}/bot/${id}/build`, this.options)
       .pipe(
         catchError(this.handleError),
         map(_ => {})
@@ -70,7 +70,7 @@ export class BotService {
 
   getBotBuildStatus(id: number): Observable<BuildStatus> {
     return this.http
-      .get<BuildStatus>(`${AppConfig.apiUrl}/bot/${id}/status/build`)
+      .get<BuildStatus>(`${environment.apiUrl}/bot/${id}/status/build`)
       .pipe(catchError(this.handleError));
   }
 }

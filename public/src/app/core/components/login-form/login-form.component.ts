@@ -7,6 +7,7 @@ import {
   WRONG_CRED,
   NOT_FOUND,
 } from '../../services/auth.service';
+import { STRINGS } from '../../../../locale/strings';
 
 @Component({
   selector: 'app-login-form',
@@ -38,11 +39,11 @@ export class LoginFormComponent implements OnInit {
         },
         error => {
           if (error === NOT_FOUND) {
-            this.popupService.createMsg('no such account');
+            this.popupService.createMsg(STRINGS.NO_SUCH_ACCOUNT);
           } else if (error === WRONG_CRED) {
-            this.popupService.createMsg('wrong password');
+            this.popupService.createMsg(STRINGS.WRONG_PASSWORD);
           } else {
-            this.popupService.createMsg(`unknown error(${error})`);
+            this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
           }
         }
       );
