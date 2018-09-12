@@ -1,53 +1,53 @@
-import { AppConfig } from './../../app.config';
-import { Injectable } from '@angular/core';
+import { AppConfig } from "./../../app.config"
+import { Injectable } from "@angular/core"
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
-} from '@angular/common/http';
+} from "@angular/common/http"
 
-import { catchError, map } from 'rxjs/operators';
-import { throwError, Observable } from 'rxjs';
+import { catchError, map } from "rxjs/operators"
+import { throwError, Observable } from "rxjs"
 
-import { User } from '../models/user';
+import { User } from "../models/user"
 
-export const NOT_FOUND = 'not found';
-export const DUPLICATE = 'duplicate';
-export const WRONG_CRED = 'wrong cred';
+export const NOT_FOUND = "not found"
+export const DUPLICATE = "duplicate"
+export const WRONG_CRED = "wrong cred"
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
 
   options = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     }),
-  };
+  }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 404) {
-      return throwError(NOT_FOUND);
+      return throwError(NOT_FOUND)
     }
 
     if (error.status === 403) {
-      return throwError(WRONG_CRED);
+      return throwError(WRONG_CRED)
     }
 
     if (error.status === 409) {
-      return throwError(DUPLICATE);
+      return throwError(DUPLICATE)
     }
 
-    console.error(error);
-    return throwError('unknown error');
+    console.error(error)
+    return throwError("unknown error")
   }
 
   getUser(): Observable<User> {
     return this.http
       .get<User>(`${AppConfig.apiUrl}/user`, this.options)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError))
   }
 
   login(username: string, password: string): Observable<void> {
@@ -60,11 +60,14 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         map(_ => {})
-      );
+      )
   }
 
   logout(): Observable<void> {
-    return this.http.delete(`${AppConfig.apiUrl}/login`).pipe(catchError(this.handleError), map(_ => {}));
+    return this.http.delete(`${AppConfig.apiUrl}/login`).pipe(
+      catchError(this.handleError),
+      map(_ => {})
+    )
   }
 
   register(
@@ -87,7 +90,7 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         map(_ => {})
-      );
+      )
   }
 
   keyCheck(key: string, username: string): Observable<void> {
@@ -96,6 +99,6 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         map(_ => {})
-      );
+      )
   }
 }

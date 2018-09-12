@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core"
 
 @Component({
-    selector: 'app-config',
-    templateUrl: './config.component.html'
+  selector: "app-config",
+  templateUrl: "./config.component.html",
 })
 export class ConfigComponent implements OnInit {
-    constructor() { }
+  constructor() {}
 
-    ngOnInit(): void { }
+  ngOnInit(): void {}
 }

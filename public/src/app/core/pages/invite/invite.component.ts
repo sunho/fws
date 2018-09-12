@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core"
+import { ActivatedRoute, Router } from "@angular/router"
 
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from "../../services/auth.service"
 
 @Component({
-  selector: 'app-invite',
-  templateUrl: './invite.component.html',
-  styleUrls: ['./invite.component.scss'],
+  selector: "app-invite",
+  templateUrl: "./invite.component.html",
+  styleUrls: ["./invite.component.scss"],
 })
 export class InviteComponent implements OnInit {
-  key: string;
-  username: string;
+  key: string
+  username: string
 
   constructor(
     private route: ActivatedRoute,
@@ -20,18 +20,18 @@ export class InviteComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.key = params['key'];
-      this.username = params['username'];
+      this.key = params["key"]
+      this.username = params["username"]
       this.authSerivce.keyCheck(this.key, this.username).subscribe(
         _ => {},
         error => {
-          this.router.navigate(['/']);
+          this.router.navigate(["/"])
         }
-      );
-    });
+      )
+    })
   }
 
   onSuccess(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(["/"])
   }
 }

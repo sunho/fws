@@ -1,5 +1,5 @@
-@import 'variables';
-@import 'mixins';
+@import "variables";
+@import "mixins";
 
 .form {
   &--container {
@@ -116,7 +116,7 @@
       padding-right: 2.5em;
       border-radius: 0;
 
-      @include transition(border-color .2s);
+      @include transition(border-color 0.2s);
       &:focus {
         border-color: $color-primary;
       }
@@ -138,7 +138,7 @@
       border-top: 0;
       border-color: $color-gray;
 
-      content: ' ';
+      content: " ";
       pointer-events: none;
 
       -webkit-transform: rotate(-45deg);
@@ -159,7 +159,7 @@
 
       position: absolute;
       z-index: $z-index-2;
-      top: 4rem ;
+      top: 4rem;
       right: 0;
 
       visibility: hidden;
@@ -169,7 +169,7 @@
       box-shadow: $shadow-2;
       font-size: $font-size-small;
 
-      @include transition(opacity .2s);
+      @include transition(opacity 0.2s);
 
       ul {
         list-style: none;
@@ -182,7 +182,7 @@
             padding: 1rem;
             color: $color-black;
 
-            @include transition(background-color .2s);
+            @include transition(background-color 0.2s);
           }
 
           a:hover {

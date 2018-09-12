@@ -1,22 +1,22 @@
-import { PopupService } from './../../services/popup.service';
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PopupService } from "./../../services/popup.service"
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core"
+import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms"
 
-import { AuthService, DUPLICATE } from '../../services/auth.service';
+import { AuthService, DUPLICATE } from "../../services/auth.service"
 
 @Component({
-  selector: 'app-invite-form',
-  templateUrl: './invite-form.component.html',
+  selector: "app-invite-form",
+  templateUrl: "./invite-form.component.html",
 })
 export class InviteFormComponent implements OnInit {
   @Input()
-  key: string;
+  key: string
   @Input()
-  username: string;
+  username: string
   @Output()
-  OnSuccess = new EventEmitter<void>();
+  OnSuccess = new EventEmitter<void>()
 
-  formGroup: FormGroup;
+  formGroup: FormGroup
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,9 +26,9 @@ export class InviteFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      nickname: ['', Validators.required],
-      password: ['', Validators.required],
-    });
+      nickname: ["", Validators.required],
+      password: ["", Validators.required],
+    })
   }
 
   onSubmit(f: NgForm): void {
@@ -37,16 +37,16 @@ export class InviteFormComponent implements OnInit {
         .register(this.key, this.username, f.value.nickname, f.value.password)
         .subscribe(
           _ => {
-            this.OnSuccess.emit();
+            this.OnSuccess.emit()
           },
           error => {
             if (error === DUPLICATE) {
-              this.popupService.createMsg('nickname is already in use');
+              this.popupService.createMsg("nickname is already in use")
             } else {
-              this.popupService.createMsg(`unknown error(${error})`);
+              this.popupService.createMsg(`unknown error(${error})`)
             }
           }
-        );
+        )
     }
   }
 }

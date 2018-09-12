@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core"
 
-import { AppConfig } from '../../../app.config';
+import { AppConfig } from "../../../app.config"
 
 @Component({
-  selector: 'app-small-header',
-  templateUrl: './small-header.component.html',
+  selector: "app-small-header",
+  templateUrl: "./small-header.component.html",
 })
 export class SmallHeaderComponent implements OnInit {
-  name: string;
+  name: string
 
   constructor() {
-    this.name = AppConfig.siteName;
+    this.name = AppConfig.siteName
   }
 
   ngOnInit(): void {}

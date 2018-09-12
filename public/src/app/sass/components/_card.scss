@@ -1,5 +1,5 @@
-@import 'variables';
-@import 'mixins';
+@import "variables";
+@import "mixins";
 
 .card {
   background: white;
@@ -47,7 +47,6 @@
       $color-blue-green-2
     );
   }
-
   &--bad {
     background: $color-error;
   }
@@ -63,18 +62,15 @@
   &--none {
     background: $color-light-gray;
   }
-
   &__title {
     color: $color-white;
     font-size: $font-size-normal;
   }
-
   &__content {
     color: $color-white;
     font-size: $font-size-big;
     font-weight: 600;
   }
-
   &__aux {
     color: $color-white;
     font-size: $font-size-normal;
