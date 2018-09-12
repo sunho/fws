@@ -1,21 +1,21 @@
-import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core"
-import { NgForm, FormGroup } from "@angular/forms"
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { NgForm, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: "app-form-input",
-  templateUrl: "./form-input.component.html",
+  selector: 'app-form-input',
+  templateUrl: './form-input.component.html',
   encapsulation: ViewEncapsulation.None,
-  styles: ["app-form-input { display: block; }"],
+  styles: ['app-form-input { display: block; }'],
 })
 export class FormInputComponent implements OnInit {
   @Input()
-  type: string
+  type: string;
   @Input()
-  name: string
+  name: string;
   @Input()
-  form: NgForm
+  form: NgForm;
   @Input()
-  formGroup: FormGroup
+  formGroup: FormGroup;
 
   constructor() {}
 

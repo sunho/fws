@@ -1,17 +1,17 @@
-import { BotService } from "./bot.service"
-import { Injectable } from "@angular/core"
+import { BotService } from './bot.service';
+import { Injectable } from '@angular/core';
 import {
   Resolve,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router,
-} from "@angular/router"
-import { Bot } from "../models/bot"
-import { Observable } from "rxjs"
-import { map } from "rxjs/operators"
+} from '@angular/router';
+import { Bot } from '../models/bot';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class BotResolverService implements Resolve<Bot> {
   constructor(private botService: BotService, private router: Router) {}
@@ -22,12 +22,12 @@ export class BotResolverService implements Resolve<Bot> {
   ): Observable<Bot> {
     return this.botService.getBots().pipe(
       map(bots => {
-        const bot = bots.find(b => b.id === parseInt(route.params.id, 10))
+        const bot = bots.find(b => b.id === parseInt(route.params.id, 10));
         if (!bot) {
-          this.router.navigate([".."])
+          this.router.navigate(['..']);
         }
-        return bot
+        return bot;
       })
-    )
+    );
   }
 }

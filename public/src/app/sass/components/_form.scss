@@ -1,5 +1,5 @@
-@import "variables";
-@import "mixins";
+@import 'variables';
+@import 'mixins';
 
 .form {
   &--container {
@@ -138,7 +138,7 @@
       border-top: 0;
       border-color: $color-gray;
 
-      content: " ";
+      content: ' ';
       pointer-events: none;
 
       -webkit-transform: rotate(-45deg);

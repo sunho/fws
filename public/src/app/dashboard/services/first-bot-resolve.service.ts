@@ -1,16 +1,16 @@
-import { BotService } from "./bot.service"
-import { Injectable } from "@angular/core"
+import { BotService } from './bot.service';
+import { Injectable } from '@angular/core';
 import {
   Resolve,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-} from "@angular/router"
-import { Bot } from "../models/bot"
-import { Observable } from "rxjs"
-import { map } from "rxjs/operators"
+} from '@angular/router';
+import { Bot } from '../models/bot';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class FirstBotResolverService implements Resolve<Bot> {
   constructor(private botService: BotService) {}
@@ -22,10 +22,10 @@ export class FirstBotResolverService implements Resolve<Bot> {
     return this.botService.getBots().pipe(
       map(bots => {
         if (bots.length === 0) {
-          throw new Error("no bot")
+          throw new Error('no bot');
         }
-        return bots[0]
+        return bots[0];
       })
-    )
+    );
   }
 }
