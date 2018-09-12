@@ -10,6 +10,7 @@ import {
 import { throwError, Observable } from 'rxjs';
 
 export const NOT_FOUND = 'not found';
+export const CONFLICT = 'conflict';
 
 @Injectable({
   providedIn: 'root',
@@ -26,10 +27,12 @@ export class BotService {
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 404) {
       return throwError(NOT_FOUND);
+    } else if (error.status === 409) {
+      return throwError(CONFLICT);
     }
 
     console.error(error);
-    return throwError('unknown error');
+    return throwError(error.message);
   }
 
   getBots(): Observable<Bot[]> {

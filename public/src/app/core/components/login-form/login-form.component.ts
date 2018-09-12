@@ -1,3 +1,4 @@
+import { PopupService } from './../../services/popup.service';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -18,7 +19,8 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authSerivce: AuthService
+    private authSerivce: AuthService,
+    private popupService: PopupService
   ) {}
 
   ngOnInit(): void {
@@ -36,11 +38,11 @@ export class LoginFormComponent implements OnInit {
         },
         error => {
           if (error === NOT_FOUND) {
-            // this.wrongUsername = true;
+            this.popupService.createMsg('no such account');
           } else if (error === WRONG_CRED) {
-            // this.wrongPassword = true;
+            this.popupService.createMsg('wrong password');
           } else {
-            // alert
+            this.popupService.createMsg(`unknown error(${error})`);
           }
         }
       );

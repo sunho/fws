@@ -14,9 +14,8 @@
   &__sidebar {
     overflow-y: hidden;
     position: relative;
-    z-index: $z-index-2;
     flex: 0 0 17%;
-    
+
     @include respond(phone) {
       flex: 0 0 auto;
     }

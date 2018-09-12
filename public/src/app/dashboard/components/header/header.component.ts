@@ -1,5 +1,6 @@
+import { PopupService } from './../../../core/services/popup.service';
 import { ActivatedRoute } from '@angular/router';
-import { BotService } from './../../services/bot.service';
+import { BotService, CONFLICT } from './../../services/bot.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Bot } from '../../models/bot';
 
@@ -10,7 +11,7 @@ import { Bot } from '../../models/bot';
 export class HeaderComponent implements OnInit {
   current: Bot;
 
-  constructor(private botService: BotService, private route: ActivatedRoute) {}
+  constructor(private botService: BotService, private route: ActivatedRoute, private popupService: PopupService) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(
@@ -22,8 +23,10 @@ export class HeaderComponent implements OnInit {
   }
 
   onRebuildClick(): void {
-    // TODO
-    console.log(this.current.id);
-    this.botService.rebuildBot(this.current.id).subscribe(_ => {}, err => {});
+    this.botService.rebuildBot(this.current.id).subscribe(_ => {}, error => {
+      if (error === CONFLICT) {
+        this.popupService.createMsg('a build is already in progress');
+      }
+    });
   }
 }

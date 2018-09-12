@@ -24,9 +24,10 @@ export class FormDropdownComponent implements OnInit {
     }
 
     @HostListener('document:click', ['$event'])
-    onclick(e: MouseEvent): void {
+    onClick(e: MouseEvent): void {
         this.show = false;
     }
+
     constructor() { }
 
     ngOnInit(): void { }

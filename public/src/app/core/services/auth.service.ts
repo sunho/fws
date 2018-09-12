@@ -63,6 +63,10 @@ export class AuthService {
       );
   }
 
+  logout(): Observable<void> {
+    return this.http.delete(`${AppConfig.apiUrl}/login`).pipe(catchError(this.handleError), map(_ => {}));
+  }
+
   register(
     key: string,
     username: string,

@@ -3,6 +3,7 @@ import { BotService } from './../../services/bot.service';
 import { Component, OnInit } from '@angular/core';
 import { Bot } from '../../models/bot';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PopupService } from '../../../core/services/popup.service';
 
 @Component({
   selector: 'app-bot-select',
@@ -14,7 +15,8 @@ export class BotSelectComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private botService: BotService
+    private botService: BotService,
+    private popupService: PopupService
   ) {}
 
   ngOnInit(): void {
@@ -23,8 +25,8 @@ export class BotSelectComponent implements OnInit {
       bots => {
         this.bots = bots;
       },
-      err => {
-        console.error(err);
+      error => {
+        this.popupService.createMsg(`unknown error(${error})`);
       }
     );
   }

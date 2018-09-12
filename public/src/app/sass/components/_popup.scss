@@ -1,0 +1,51 @@
+@import 'variables';
+@import 'mixins';
+
+.popup {
+    &--hidden {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    z-index: $z-index-3;
+    opacity: 1;
+    position: fixed;
+    background: rgba($color-black, 0.1);
+    width: 100vw;
+    height: 100vh;
+
+    @include transition(opacity .2s);
+
+    &__box {
+        display: flex;
+        flex-direction: column; 
+
+        background: $color-white;
+        box-shadow: $shadow-2;
+
+        @include absolute-center(40%);
+        width: 70%;
+        height: 20rem;
+        max-width: 25rem;
+    }
+
+    &__content {
+        flex: 1;
+
+        font-size: $font-size-normal;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__buttons {
+        padding: 2rem 3rem;
+        padding-top: 0;
+
+        .form--button {
+            height: 4rem;
+        }
+    }
+
+}

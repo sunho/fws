@@ -11,15 +11,18 @@ export class AuthGuardService implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
-    return this.authService.getUser().pipe(
-      map(_ => {
-        return true;
-      }),
-      catchError(err => {
-        console.error(err);
-        this.router.navigate(['/']);
-        return throwError(err);
-      })
-    );
+    return new Observable<boolean>(observer => {
+      this.authService.getUser().subscribe(
+        _ => {
+          observer.next(true);
+          observer.complete();
+        },
+        _ => {
+          observer.next(false);
+          observer.complete();
+          this.router.navigate(['/']);
+        }
+      );
+    });
   }
 }

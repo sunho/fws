@@ -23,9 +23,9 @@ export class InviteComponent implements OnInit {
       this.key = params['key'];
       this.username = params['username'];
       this.authSerivce.keyCheck(this.key, this.username).subscribe(
-        data => {},
+        _ => {},
         error => {
-          // this.router.navigate(['/']);
+          this.router.navigate(['/']);
         }
       );
     });

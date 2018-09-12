@@ -140,6 +140,16 @@ func (a *Api) login(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(201)
 }
 
+func (a *Api) logout(w http.ResponseWriter, r *http.Request) {
+	http.SetCookie(w, &http.Cookie{
+		Name:     "token",
+		Path:     "/",
+		Value:    "",
+		HttpOnly: true,
+	})
+	w.WriteHeader(200)
+}
+
 func (a *Api) getUser(w http.ResponseWriter, r *http.Request) {
 	u := getUser(r)
 	json.NewEncoder(w).Encode(u)

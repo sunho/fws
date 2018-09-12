@@ -1,0 +1,10 @@
+<div class="popup" [class.popup--hidden]="msgs.length == 0">
+    <div *ngFor="let msg of msgs; let i = index" class="popup__box">
+        <div class="popup__content">
+            {{msg}}
+        </div>
+        <div class="popup__buttons">
+            <button (click)="remove(i)" class="form--button form--full-button">Ok</button>
+        </div>
+    </div>
+</div>

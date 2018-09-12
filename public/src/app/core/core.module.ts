@@ -1,3 +1,4 @@
+import { PopupComponent } from './components/popup/popup.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -23,6 +24,7 @@ import { FormDropdownComponent } from './components/form-dropdown/form-dropdown.
     FormsModule,
   ],
   declarations: [
+    PopupComponent,
     FormDropdownComponent,
     FormInputComponent,
     IconComponent,
@@ -33,6 +35,6 @@ import { FormDropdownComponent } from './components/form-dropdown/form-dropdown.
     SmallHeaderComponent,
   ],
   providers: [],
-  exports: [LoginComponent, InviteComponent, FormInputComponent, FormDropdownComponent, IconComponent],
+  exports: [LoginComponent, InviteComponent, FormInputComponent, FormDropdownComponent, PopupComponent, IconComponent],
 })
 export class CoreModule {}

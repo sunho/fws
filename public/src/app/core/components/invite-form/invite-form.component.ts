@@ -1,3 +1,4 @@
+import { PopupService } from './../../services/popup.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -19,7 +20,8 @@ export class InviteFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authSerivce: AuthService
+    private authSerivce: AuthService,
+    private popupService: PopupService
   ) {}
 
   ngOnInit(): void {
@@ -34,14 +36,14 @@ export class InviteFormComponent implements OnInit {
       this.authSerivce
         .register(this.key, this.username, f.value.nickname, f.value.password)
         .subscribe(
-          data => {
+          _ => {
             this.OnSuccess.emit();
           },
           error => {
             if (error === DUPLICATE) {
-              // this.wrongNickname = true;
+              this.popupService.createMsg('nickname is already in use');
             } else {
-              // alert
+              this.popupService.createMsg(`unknown error(${error})`);
             }
           }
         );

@@ -13,7 +13,7 @@ type XormStore struct {
 
 func New(e *xorm.Engine) *XormStore {
 	e.SetMapper(core.GonicMapper{})
-	e.ShowSQL(true)
+	e.ShowSQL(false)
 	return &XormStore{e}
 }
 

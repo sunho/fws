@@ -5,6 +5,7 @@
   list-style: none;
   font-size: $font-size-small;
   background: $color-blue;
+  z-index: $z-index-2;
   overflow: hidden;
   height: 100%;
 
@@ -52,7 +53,8 @@
     &__link:visited {
       color: $color-light-gray;
       text-decoration: none;
-      display: flex;
+      display: inline-flex;
+      width: 100%;
       align-items: center;
       padding: 1rem 2rem;
       app-icon {

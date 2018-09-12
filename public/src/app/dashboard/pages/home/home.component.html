@@ -11,7 +11,7 @@
                 for 5 hours
             </div>
         </div>
-        <ng-container *ngIf="$buildStatus | async as buildStatus" [ngSwitch]="buildStatus.type">
+        <ng-container [ngSwitch]="buildStatus.type">
             <div *ngSwitchCase="'none'" class="health health--none col__half">
                 <div i18n class="health__title">
                     Build Status
@@ -47,7 +47,7 @@
         </ng-container>
     </div>
 
-    <div class="row" *ngIf="$current | async as current">
+    <div class="row">
         <div class="card col__full">
             <div class="card__header">Details</div>
             <div class="card__main">
