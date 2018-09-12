@@ -10,13 +10,13 @@ func (a *Api) postRun(w http.ResponseWriter, r *http.Request) {
 	b := getBot(r)
 	confs, err := a.in.GetStore().ListBotConfig(b.ID)
 	if err != nil {
-		a.httpError(w, 500, err)
+		a.httpError(w, r, 500, err)
 		return
 	}
 
 	envs, err := a.in.GetStore().ListBotEnv(b.ID)
 	if err != nil {
-		a.httpError(w, 500, err)
+		a.httpError(w, r, 500, err)
 		return
 	}
 	rb := &model.RunBot{
@@ -26,7 +26,7 @@ func (a *Api) postRun(w http.ResponseWriter, r *http.Request) {
 	}
 	err = a.in.GetRunManager().Create(rb)
 	if err != nil {
-		a.httpError(w, 500, err)
+		a.httpError(w, r, 500, err)
 		return
 	}
 	w.WriteHeader(201)

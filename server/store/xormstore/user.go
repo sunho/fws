@@ -49,7 +49,16 @@ func (x *XormStore) UpdateUser(user *model.User) error {
 }
 
 func (x *XormStore) DeleteUser(user *model.User) error {
-	_, err := x.e.ID(user.ID).Delete(new(model.User))
+	_, err := x.e.Where("user_id = ?", user.ID).Delete(new(model.UserBot))
+	if err != nil {
+		return err
+	}
+
+	_, err = x.e.ID(user.ID).Delete(new(model.User))
+	if err != nil {
+		return err
+	}
+
 	return err
 }
 
@@ -60,6 +69,19 @@ func (x *XormStore) ListUserBot(user int) ([]*model.Bot, error) {
 		Join("INNER", "bot", "user_bot.bot_id = bot.id").
 		Find(&bots)
 	return bots, err
+}
+
+func (x *XormStore) GetUserBot(user int, bot int) (bool, error) {
+	var b model.UserBot
+	has, err := x.e.Where("user_id = ? AND bot_id = ?", user, bot).
+		Get(&b)
+	if !has {
+		return false, nil
+	}
+	if err != nil {
+		return false, err
+	}
+	return true, nil
 }
 
 func (x *XormStore) CreateUserBot(user int, bot int) error {

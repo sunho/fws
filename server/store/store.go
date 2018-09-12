@@ -46,7 +46,7 @@ type Store interface {
 	DeleteBotEnv(env *model.BotEnv) error
 
 	ListUserBot(user int) ([]*model.Bot, error)
-	// GetUserBot(user int, bot int) (bool, error)
+	GetUserBot(user int, bot int) (bool, error)
 	CreateUserBot(user int, bot int) error
 	DeleteUserBot(user int, bot int) error
 

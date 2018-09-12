@@ -44,19 +44,19 @@ func (a *Api) devServer(r chi.Router, path string, addr string) {
 			req.Header.Set(name, value[0])
 		}
 		if err != nil {
-			a.httpError(w, 500, err)
+			a.httpError(w, r, 500, err)
 			return
 		}
 		resp, err := client.Do(req)
 		if err != nil {
-			a.httpError(w, 500, err)
+			a.httpError(w, r, 500, err)
 			return
 		}
 
 		if resp.StatusCode == 404 {
 			resp2, err := http.Get(addr + "/index.html")
 			if err != nil {
-				a.httpError(w, 500, nil)
+				a.httpError(w, r, 500, nil)
 				return
 			}
 			io.Copy(w, resp2.Body)

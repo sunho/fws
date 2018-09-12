@@ -6,15 +6,31 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"io"
+	rando "math/rand"
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/golang/glog"
 	"github.com/sunho/fws/server/runtime"
 	"github.com/sunho/fws/server/store"
 	"golang.org/x/crypto/bcrypt"
 )
+
+func init() {
+	rando.Seed(time.Now().Unix())
+}
+
+var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
+
+func randomString(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rando.Intn(len(letterRunes))]
+	}
+	return string(b)
+}
 
 type fwsInterface struct {
 	f *Fws
@@ -33,11 +49,11 @@ func (f *fwsInterface) GetBuildManager() *runtime.BuildManager {
 }
 
 func (f *fwsInterface) CreateWebhookSecret() string {
-	return "todo"
+	return randomString(20)
 }
 
 func (f *fwsInterface) CreateInviteKey(username string) string {
-	return "todo"
+	return randomString(20)
 }
 
 func (f *fwsInterface) ComparePassword(password string, hash string) bool {

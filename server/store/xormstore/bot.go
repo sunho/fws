@@ -32,7 +32,37 @@ func (x *XormStore) UpdateBot(bot *model.Bot) error {
 }
 
 func (x *XormStore) DeleteBot(bot *model.Bot) error {
-	_, err := x.e.ID(bot.ID).Delete(&model.Bot{})
+	_, err := x.e.Where("bot_id = ?", bot.ID).Delete(new(model.UserBot))
+	if err != nil {
+		return err
+	}
+
+	_, err = x.e.Where("bot_id = ?", bot.ID).Delete(new(model.BotConfig))
+	if err != nil {
+		return err
+	}
+
+	_, err = x.e.Where("bot_id = ?", bot.ID).Delete(new(model.BotEnv))
+	if err != nil {
+		return err
+	}
+
+	_, err = x.e.Where("bot_id = ?", bot.ID).Delete(new(model.BotVolume))
+	if err != nil {
+		return err
+	}
+
+	_, err = x.e.Where("bot_id = ?", bot.ID).Delete(new(model.Build))
+	if err != nil {
+		return err
+	}
+
+	_, err = x.e.Where("bot_id = ?", bot.ID).Delete(new(model.BuildLog))
+	if err != nil {
+		return err
+	}
+
+	_, err = x.e.ID(bot.ID).Delete(&model.Bot{})
 	return err
 }
 

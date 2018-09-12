@@ -74,7 +74,7 @@ func (a *Api) postWebhook(w http.ResponseWriter, r *http.Request) {
 	b := getBot(r)
 	con, ok := parseHook([]byte(b.WebhookSecret), r)
 	if !ok {
-		a.httpError(w, 400, nil)
+		a.httpError(w, r, 400, nil)
 		return
 	}
 
@@ -85,29 +85,29 @@ func (a *Api) postWebhook(w http.ResponseWriter, r *http.Request) {
 		payload := make(map[string]interface{})
 		err := json.Unmarshal(con.Payload, &payload)
 		if err != nil {
-			a.httpErrorWithMsg(w, 400, "content type is not application/json", nil)
+			a.httpErrorWithMsg(w, r, 400, "content type is not application/json", nil)
 			break
 		}
 
 		ref_, ok := payload["ref"]
 		if !ok {
-			a.httpError(w, 400, nil)
+			a.httpError(w, r, 400, nil)
 			break
 		}
 
 		ref, ok := ref_.(string)
 		if !ok {
-			a.httpError(w, 400, nil)
+			a.httpError(w, r, 400, nil)
 			break
 		}
 
 		if !strings.Contains(ref, "master") {
-			a.httpErrorWithMsg(w, 400, "branch other than master is not available", nil)
+			a.httpErrorWithMsg(w, r, 400, "branch other than master is not available", nil)
 			break
 		}
 
-		a.requestBuild(w, b)
+		a.requestBuild(w, r, b)
 	default:
-		a.httpError(w, 400, nil)
+		a.httpError(w, r, 400, nil)
 	}
 }

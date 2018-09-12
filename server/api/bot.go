@@ -8,6 +8,27 @@ import (
 	"github.com/sunho/fws/server/model"
 )
 
+func (a *Api) userBotMiddleWare(next http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		u := getUser(r)
+		b := getBot(r)
+
+		exist, err := a.in.GetStore().GetUserBot(u.ID, b.ID)
+		if err != nil {
+			a.httpError(w, r, 500, err)
+			return
+		}
+
+		if !exist {
+			a.httpError(w, r, 404, nil)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	}
+	return http.HandlerFunc(fn)
+}
+
 func (a *Api) botMiddleWare(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		id_ := chi.URLParam(r, "bot")
@@ -15,7 +36,7 @@ func (a *Api) botMiddleWare(next http.Handler) http.Handler {
 
 		b, err := a.in.GetStore().GetBot(id)
 		if err != nil {
-			a.httpError(w, 404, err)
+			a.httpError(w, r, 404, err)
 			return
 		}
 
@@ -28,7 +49,7 @@ func (a *Api) listUserBot(w http.ResponseWriter, r *http.Request) {
 	u := getUser(r)
 	bots, err := a.in.GetStore().ListUserBot(u.ID)
 	if err != nil {
-		a.httpError(w, 500, err)
+		a.httpError(w, r, 500, err)
 		return
 	}
 
@@ -39,7 +60,7 @@ func (a *Api) listBotConfig(w http.ResponseWriter, r *http.Request) {
 	b := getBot(r)
 	confs, err := a.in.GetStore().ListBotConfig(b.ID)
 	if err != nil {
-		a.httpError(w, 500, err)
+		a.httpError(w, r, 500, err)
 		return
 	}
 
@@ -56,7 +77,7 @@ func (a *Api) postBotConfig(w http.ResponseWriter, r *http.Request) {
 
 	_, err := a.in.GetStore().CreateBotConfig(&req)
 	if err != nil {
-		a.httpError(w, 409, err)
+		a.httpError(w, r, 409, err)
 		return
 	}
 
@@ -72,7 +93,7 @@ func (a *Api) deleteBotConfig(w http.ResponseWriter, r *http.Request) {
 	b := getBot(r)
 	err := a.in.GetStore().DeleteBotConfig(&model.BotConfig{BotID: b.ID, Name: name})
 	if err != nil {
-		a.httpError(w, 500, err)
+		a.httpError(w, r, 500, err)
 		return
 	}
 }
@@ -81,7 +102,7 @@ func (a *Api) listBotVolume(w http.ResponseWriter, r *http.Request) {
 	b := getBot(r)
 	vols, err := a.in.GetStore().ListBotVolume(b.ID)
 	if err != nil {
-		a.httpError(w, 500, err)
+		a.httpError(w, r, 500, err)
 		return
 	}
 
@@ -98,7 +119,7 @@ func (a *Api) postBotVolume(w http.ResponseWriter, r *http.Request) {
 
 	_, err := a.in.GetStore().CreateBotVolume(&req)
 	if err != nil {
-		a.httpError(w, 409, err)
+		a.httpError(w, r, 409, err)
 		return
 	}
 
@@ -117,7 +138,7 @@ func (a *Api) listBotEnv(w http.ResponseWriter, r *http.Request) {
 	b := getBot(r)
 	envs, err := a.in.GetStore().ListBotEnv(b.ID)
 	if err != nil {
-		a.httpError(w, 500, err)
+		a.httpError(w, r, 500, err)
 		return
 	}
 
@@ -134,7 +155,7 @@ func (a *Api) postBotEnv(w http.ResponseWriter, r *http.Request) {
 
 	_, err := a.in.GetStore().CreateBotEnv(&req)
 	if err != nil {
-		a.httpError(w, 409, err)
+		a.httpError(w, r, 409, err)
 		return
 	}
 

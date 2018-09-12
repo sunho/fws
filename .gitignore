@@ -1,5 +1,9 @@
 /out
 
+/admin/build
+/admin/dist
+/admin/fwsadm.egg-info
+
 /server/server.exe
 /server/server
 /server/dist
@@ -15,6 +19,8 @@
 /public/libpeerconnection.log
 /public/typings
 
+__pycache__
+config.pk
 fws.db
 config.yaml
 npm-debug.log

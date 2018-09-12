@@ -49,10 +49,13 @@ func (a *Api) Http(dev bool) http.Handler {
 }
 
 func (a *Api) apiRoute(r chi.Router) {
-	r.Get("/invite/{username}", a.getUserInvite)
 	r.Post("/register", a.register)
+
 	r.Post("/login", a.login)
 	r.Delete("/login", a.logout)
+
+	r.Get("/invite/{username}", a.getUserInvite)
+
 	r.With(a.authMiddleWare).Get("/user", a.getUser)
 
 	r.With(a.botMiddleWare).Post("/hook/{bot}", a.postWebhook)
@@ -62,6 +65,7 @@ func (a *Api) apiRoute(r chi.Router) {
 		s.Get("/", a.listUserBot)
 		s.Route("/{bot}", func(s chi.Router) {
 			s.Use(a.botMiddleWare)
+			s.Use(a.userBotMiddleWare)
 			s.Route("/status", func(s chi.Router) {
 				s.Get("/build", a.getBuildStatus)
 				// s.Get("/run", a.getRunStatus)
@@ -91,17 +95,23 @@ func (a *Api) apiRoute(r chi.Router) {
 	})
 
 	r.Route("/admin", func(s chi.Router) {
+		s.Use(a.authMiddleWare)
+		s.Use(a.adminMiddleWare)
 		s.Route("/invite", func(s chi.Router) {
 			s.Get("/", a.listUserInvite)
 			s.Post("/", a.postUserInvite)
+			s.Delete("/{username}", a.deleteUserInvite)
 		})
 		s.Route("/user", func(s chi.Router) {
 			s.Get("/", a.listUser)
 			s.Route("/{username}", func(s chi.Router) {
 				s.Use(a.userMiddleWare)
+				s.Get("/", a.getUser)
+				s.Delete("/", a.deleteUser)
 				s.Route("/bot", func(s chi.Router) {
 					s.Get("/", a.listUserBot)
 					s.Post("/", a.postUserBot)
+					s.With(a.botMiddleWare).With(a.userBotMiddleWare).Delete("/{bot}", a.deleteUserBot)
 				})
 			})
 		})
@@ -131,13 +141,17 @@ func (a *Api) cors(r chi.Router) {
 	r.Use(cors.Handler)
 }
 
-func (a *Api) httpError(w http.ResponseWriter, code int, org error) {
-	glog.Infof("Error in http handler, code: %v org: %v", code, org)
+func (a *Api) httpError(w http.ResponseWriter, r *http.Request, code int, org error) {
+	if org != nil {
+		glog.Infof("Error in http handler, code: %v org: %v (%s:%s)", code, org, r.Method, r.URL.Path)
+	}
 	http.Error(w, http.StatusText(code), code)
 }
 
-func (a *Api) httpErrorWithMsg(w http.ResponseWriter, code int, msg string, org error) {
-	glog.Infof("Error in http handler, code: %v msg: %s org: %v", code, msg, org)
+func (a *Api) httpErrorWithMsg(w http.ResponseWriter, r *http.Request, code int, msg string, org error) {
+	if org != nil {
+		glog.Infof("Error in http handler, code: %v msg: %s org: %v (%s:%s)", code, msg, org, r.Method, r.URL.Path)
+	}
 	http.Error(w, msg, code)
 }
 
@@ -154,7 +168,7 @@ func (a *Api) jsonEncode(w http.ResponseWriter, i interface{}) {
 func (a *Api) jsonDecode(w http.ResponseWriter, r *http.Request, i interface{}) bool {
 	err := json.NewDecoder(r.Body).Decode(i)
 	if err != nil {
-		a.httpError(w, 400, nil)
+		a.httpError(w, r, 400, nil)
 		return false
 	}
 	return true
