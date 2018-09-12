@@ -5,8 +5,12 @@
   background: white;
   padding: 2rem;
   box-shadow: $shadow-1;
+  min-height: 17rem;
 
   &__header {
+    display: flex;
+    justify-content: space-between;
+    
     font-size: $font-size-big;
   }
 

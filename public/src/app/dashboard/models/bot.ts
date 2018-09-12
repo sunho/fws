@@ -23,3 +23,24 @@ export type BuildStatus =
   | BuildStatusBuilding
   | BuildStatusBuilt
   | BuildStatusNone;
+
+export interface Volume {
+  bot_id: number;
+  name: string;
+  size: number;
+  path: string;
+}
+
+export interface Config {
+  bot_id: number;
+  name: string;
+  path: string;
+  file: string;
+  value: string;
+}
+
+export interface Env {
+  bot_id: number;
+  name: string;
+  value: string;
+}

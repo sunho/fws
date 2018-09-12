@@ -1,4 +1,3 @@
-import { routeName } from './../../dashboard-routing.module';
 import { SideBarItem } from './../../models/sidebar';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -7,11 +6,11 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './sidebar.component.html',
 })
 export class SideBarComponent implements OnInit {
-  show: boolean;
+  show = false;
   items: SideBarItem[] = [
-    { title: 'home', icon: 'home', href: `./` },
-    { title: 'volume', icon: 'hdd', href: `volume` },
-    { title: 'config', icon: 'document', href: `config` },
+    { title: 'home', icon: 'home', href: 'home' },
+    { title: 'volume', icon: 'hdd', href: 'volume' },
+    { title: 'config', icon: 'document', href: 'config' },
   ];
   constructor() {}
 

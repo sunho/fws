@@ -1,6 +1,6 @@
 import { catchError, map } from 'rxjs/operators';
 import { AppConfig } from './../../app.config';
-import { Bot, BuildStatus } from './../models/bot';
+import { Bot, BuildStatus, Volume, Env, Config } from './../models/bot';
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
@@ -33,6 +33,24 @@ export class BotService {
 
     console.error(error);
     return throwError(error.message);
+  }
+
+  getVolumes(id: number): Observable<Volume[]> {
+    return this.http
+      .get<Volume[]>(`${AppConfig.apiUrl}/bot/${id}/volume`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getConfigs(id: number): Observable<Config[]> {
+    return this.http
+      .get<Config[]>(`${AppConfig.apiUrl}/bot/${id}/config`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getEnvs(id: number): Observable<Env[]> {
+    return this.http
+      .get<Env[]>(`${AppConfig.apiUrl}/bot/${id}/env`)
+      .pipe(catchError(this.handleError));
   }
 
   getBots(): Observable<Bot[]> {

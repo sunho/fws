@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { routeName } from '../../dashboard/dashboard-routing.module';
+import { AppConfig } from '../../app.config';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class NoAuthGuardService implements CanActivate {
         _ => {
           observer.next(false);
           observer.complete();
-          this.router.navigate(['/' + routeName]);
+          this.router.navigate(['/' + AppConfig.dashboardRoute]);
         },
         _ => {
           observer.next(true);

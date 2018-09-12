@@ -1,5 +1,5 @@
 import { BotResolverService as BotResolver } from './services/bot-resolve.service';
-import { FirstBotResolverService as FirstBotResolver } from './services/first-bot-resolve.service';
+import { FirstBotRedirectService as FirstBotRedirect } from './services/first-bot-resolve.service';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BuildComponent } from './pages/build/build.component';
@@ -8,21 +8,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { ConfigComponent } from './pages/config/config.component';
 import { VolumeComponent } from './pages/volume/volume.component';
 
-const routeChildren = [
-  { path: '', component: HomeComponent },
-  { path: 'build', component: BuildComponent },
-  { path: 'volume', component: VolumeComponent },
-  { path: 'config', component: ConfigComponent },
-];
-
 const routes: Routes = [
   {
     path: '',
     component: DashComponent,
-    resolve: {
-      bot: FirstBotResolver,
-    },
-    children: routeChildren,
+    canActivate: [
+      FirstBotRedirect,
+    ]
   },
   {
     path: ':id',
@@ -30,7 +22,13 @@ const routes: Routes = [
     resolve: {
       bot: BotResolver,
     },
-    children: routeChildren,
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full'},
+      { path: 'home', component: HomeComponent },
+      { path: 'build', component: BuildComponent },
+      { path: 'volume', component: VolumeComponent },
+      { path: 'config', component: ConfigComponent },
+    ]
   },
 ];
 

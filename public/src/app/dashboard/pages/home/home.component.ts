@@ -14,17 +14,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   current: Bot;
   buildStatus: BuildStatus = { type: 'none' };
   subscription: Subscription;
+  subscription2: Subscription;
   constructor(
     private botService: BotService,
     private route: ActivatedRoute,
     private popupService: PopupService
-  ) {
-    this.route.data.subscribe(d => {
+  ) { }
+
+  ngOnInit(): void {
+    this.subscription2 = this.route.parent.data.subscribe(d => {
       this.current = d.bot;
       if (this.subscription) {
         this.subscription.unsubscribe();
       }
-      this.subscription = interval(500)
+      this.subscription = interval(1000)
         .pipe(startWith(0))
         .subscribe(_ => {
           this.botService.getBotBuildStatus(this.current.id).subscribe(
@@ -41,9 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
-
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 }

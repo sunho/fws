@@ -1,3 +1,6 @@
+import { AddModalComponent } from './components/add-modal/add-modal.component';
+import { ResCardComponent } from './components/res-card/res-card.component';
+import { ResListComponent } from './components/res-list/res-list.component';
 import { ConfigComponent } from './pages/config/config.component';
 import { BotSelectComponent } from './components/bot-select/bot-select.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -15,6 +18,9 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 
 @NgModule({
   declarations: [
+    AddModalComponent,
+    ResListComponent,
+    ResCardComponent,
     UserProfileComponent,
     VolumeComponent,
     ConfigComponent,

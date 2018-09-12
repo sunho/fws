@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="card__header">
+        {{title}}
+        <div class="card__header__button">
+            <button title="add" class="form--button form--icon-button form--icon-button--no-back">
+                <app-icon icon="add"></app-icon>
+            </button>
+        </div>
+    </div>
+    <div class="card__main">
+        <app-res-list [names]="names" [keys]="keys" [items]="items"></app-res-list>
+    </div>
+</div>

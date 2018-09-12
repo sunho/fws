@@ -10,6 +10,7 @@ import { Bot } from '../../models/bot';
 })
 export class HeaderComponent implements OnInit {
   current: Bot;
+  bots: Bot[] = [];
 
   constructor(
     private botService: BotService,
@@ -23,6 +24,14 @@ export class HeaderComponent implements OnInit {
         this.current = d.bot;
       },
       _ => {}
+    );
+
+    this.botService.getBots().subscribe(
+      bots => {
+        this.bots = bots;
+      }, error => {
+        this.popupService.createMsg(`unknown error (${error})`);
+      }
     );
   }
 

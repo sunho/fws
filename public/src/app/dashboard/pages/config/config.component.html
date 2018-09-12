@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <app-res-card
+            class="col--full" 
+            title="Environment Variables" 
+            [items]="envItems" 
+            [keys]="envKeys" 
+            [names]="envNames">
+        </app-res-card>
+    </div>
+    <div class="row">
+        <app-res-card
+            class="col--full" 
+            title="Config Files" 
+            [items]="confItems" 
+            [keys]="confKeys" 
+            [names]="confNames">
+        </app-res-card>
+    </div>
+</div>

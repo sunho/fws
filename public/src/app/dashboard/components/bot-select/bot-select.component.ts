@@ -1,6 +1,6 @@
-import { routeName } from './../../dashboard-routing.module';
+import { AppConfig } from './../../../app.config';
 import { BotService } from './../../services/bot.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Bot } from '../../models/bot';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PopupService } from '../../../core/services/popup.service';
@@ -10,28 +10,19 @@ import { PopupService } from '../../../core/services/popup.service';
   templateUrl: './bot-select.component.html',
 })
 export class BotSelectComponent implements OnInit {
-  current: Bot;
-  bots: Bot[];
+  @Input()
+  current: number;
+  @Input()
+  items: Bot[];
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
-    private botService: BotService,
-    private popupService: PopupService
   ) {}
 
   ngOnInit(): void {
-    this.current = this.route.snapshot.data.bot;
-    this.botService.getBots().subscribe(
-      bots => {
-        this.bots = bots;
-      },
-      error => {
-        this.popupService.createMsg(`unknown error(${error})`);
-      }
-    );
   }
 
   onChange(value: string): void {
-    this.router.navigate(['/' + routeName, value]);
+    const r = this.router.url.replace(`${AppConfig.dashboardRoute}/${this.current}`, `${AppConfig.dashboardRoute}/${value}`);
+    this.router.navigate([r]);
   }
 }

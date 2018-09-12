@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="health health--okay col__half">
+        <div class="health health--okay col--half">
             <div i18n class="health__title">
                 Run Status
             </div>
@@ -12,7 +12,7 @@
             </div>
         </div>
         <ng-container [ngSwitch]="buildStatus.type">
-            <div *ngSwitchCase="'none'" class="health health--none col__half">
+            <div *ngSwitchCase="'none'" class="health health--none col--half">
                 <div i18n class="health__title">
                     Build Status
                 </div>
@@ -20,7 +20,7 @@
                     None
                 </div>
             </div>
-            <div *ngSwitchCase="'building'" class="health health--progress col__half">
+            <div *ngSwitchCase="'building'" class="health health--progress col--half">
                 <div i18n class="health__title">
                     Build Status
                 </div>
@@ -31,7 +31,7 @@
                     {{buildStatus.step}}
                 </div> 
             </div>
-            <div *ngSwitchCase="'built'" class="health col__half" 
+            <div *ngSwitchCase="'built'" class="health col--half" 
                 [class.health--okay]="buildStatus.success" 
                 [class.health--bad]="!buildStatus.success">
                 <div class="health__title">
@@ -48,7 +48,7 @@
     </div>
 
     <div class="row">
-        <div class="card col__full">
+        <div class="card col--full">
             <div class="card__header">Details</div>
             <div class="card__main">
                 <div class="card__entry">

@@ -9,11 +9,11 @@
   }
 
   .col {
-    &__full {
+    &--full {
       flex: 1;
     }
 
-    &__half {
+    &--half {
       flex: 0 0 calc(50% - 1rem);
 
       @include respond(phone) {

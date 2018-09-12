@@ -1,5 +1,5 @@
 <header class="header">
-    <app-bot-select></app-bot-select>
+    <app-bot-select *ngIf="current" [items]="bots" [current]="current.id"></app-bot-select>
     <div class="header__actions">
         <button title="rebuild" (click)="onRebuildClick()" class="form--button form--icon-button"><app-icon icon="hammer"></app-icon></button>
         <button title="restart" class="form--button form--icon-button"><app-icon icon="reload"></app-icon></button>
