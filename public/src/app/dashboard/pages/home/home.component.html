@@ -53,15 +53,17 @@
             <div class="card__main">
                 <div class="card__entry">
                     <div i18n class="card__entry__title">Name:</div>
-                    <div class="card__entry__content">{{current.name}}</div>
+                    <div class="card__entry__content">&nbsp;{{current.name}}</div>
                 </div>
                 <div class="card__entry">
                     <div i18n class="card__entry__title">RepoURL:</div>
-                    <div class="card__entry__content">{{current.git_url}}</div>
+                    <div class="card__entry__content">&nbsp;{{current.git_url}}</div>
+                    <a href="{{current.git_url}}" target="_blank" class="card__entry__aux"><app-icon icon="link"></app-icon></a>
                 </div>
                 <div class="card__entry">
                     <div i18n class="card__entry__title">WebhookSecret:</div>
-                    <div class="card__entry__content">{{current.webhook_secret}}</div>
+                    <div class="card__entry__content">&nbsp;{{current.webhook_secret}}</div>
+                    <a href="#" class="card__entry__aux"><app-icon icon="reload-black"></app-icon></a>
                 </div>
             </div>
         </div>

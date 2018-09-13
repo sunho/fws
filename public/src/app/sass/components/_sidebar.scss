@@ -12,7 +12,7 @@
   @include respond(phone) {
     height: 100vh;
     width: 100%;
-    max-height: $header-height;
+    max-height: $mobile-header-height;
   }
 
   &--menu-on {
@@ -27,6 +27,10 @@
     align-items: center;
     justify-content: space-between;
 
+    @include respond(phone) {
+      height: $mobile-header-height;
+    }
+
     &__logo {
       font-size: $font-size-big;
       color: $color-white;
@@ -35,7 +39,8 @@
 
     &__toggle {
       .form--button {
-        background: none;
+        width: 4rem;
+        height: 4rem;
       }
 
       display: none;
@@ -60,6 +65,15 @@
       app-icon {
         width: 1.7rem;
         height: 1.7rem;
+      }
+
+      @include respond(phone) {
+        font-size: $font-size-normal;
+        padding: 1.5rem 2rem;
+        app-icon {
+          width: 2rem;
+          height: 2rem;
+        }
       }
 
       span {

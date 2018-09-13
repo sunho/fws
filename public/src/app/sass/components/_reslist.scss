@@ -4,6 +4,7 @@
 .reslist {
     &__menu-cell {
         width: 5rem;
+        overflow: initial !important;
     }
 
     &__detail-row {

@@ -1,7 +1,7 @@
 import { PopupService } from './../../../core/services/popup.service';
 import { map, catchError, startWith } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Bot, BuildStatus } from '../../models/bot';
 import { Observable, Observer, Subscription, interval } from 'rxjs';
 import { BotService, NOT_FOUND } from '../../services/bot.service';

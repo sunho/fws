@@ -4,8 +4,7 @@
 .card {
   background: white;
   padding: 2rem;
-  box-shadow: $shadow-1;
-  min-height: 17rem;
+  box-shadow: $shadow-1; min-height: 17rem;
 
   &__header {
     display: flex;
@@ -19,17 +18,46 @@
   }
 
   &__entry {
-    display: flex;
+    display: block;
+    word-wrap:break-word;
     font-size: $font-size-small;
     &:not(:first-child) {
       margin-top: 1rem;
     }
     &__title {
+      display: inline;
       font-weight: 500;
     }
     &__content {
+      display: inline;
       font-weight: 300;
-      margin-left: 0.5rem;
+    }
+    &__aux {
+      &:link, 
+      &:visited{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        vertical-align: middle;
+
+        margin-bottom: .5rem;
+        margin-left: .2rem;
+        padding: .5rem;
+        app-icon {
+          display: inline-block;
+          vertical-align: middle;
+          width: 1.4rem;
+          height: 1.4rem;
+        }
+
+        background-color: rgba($color-gray, 0);
+        @include transition(background-color .2s);
+      }
+
+      &:hover {
+        background-color: rgba($color-gray, .1);
+      }
     }
   }
 }

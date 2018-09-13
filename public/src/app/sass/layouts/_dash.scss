@@ -5,6 +5,7 @@
   height: 100vh;
   background: $color-bg;
   display: flex;
+  overflow-x: hidden;
 
   @include respond(phone) {
     flex-direction: column;
@@ -23,7 +24,8 @@
 
   &__container {
     height: 100vh;
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   &__header {

@@ -15,7 +15,7 @@ registerLocaleData(localeKo, 'ko');
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, CoreModule, AppRoutingModule],
-  providers: [ {provide: APP_BASE_HREF, useValue: 'http://localhost:8080'}],
+  providers: [ {provide: APP_BASE_HREF, useValue: '/'}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

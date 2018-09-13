@@ -12,14 +12,14 @@
 html {
   @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-  font-size: 62.5%;
+  font-size: 68%;
 
   @include respond(tab-land) {
-    font-size: 56.25%;
+    font-size: 62.5%;
   }
 
   @include respond(tab-port) {
-    font-size: 50%;
+    font-size: 56.25%;
   }
 
   @include respond(big-desktop) {

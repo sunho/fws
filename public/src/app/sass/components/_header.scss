@@ -9,8 +9,11 @@
   align-items: center;
   box-shadow: $shadow-1;
 
+  @include respond(phone) {
+    height: $mobile-header-height;
+  }
+
   &__bot {
-    font-size: $font-size-normal;
     display: flex;
     align-items: center;
     app-icon {
@@ -21,10 +24,18 @@
       margin-left: 1rem;
       font-size: $font-size-normal;
     }
+    @include respond(phone) {
+      app-icon {
+        width: 3.25rem;
+        height: 3.25rem;
+      }
+    }
   }
 
   &__actions {
-    flex: 1;
+    flex: 1 0;
+    display: flex;
+    flex-wrap: none;
     .form--button {
       margin-left: 1rem;
     }
@@ -36,6 +47,12 @@
     app-icon {
       width: 1.5rem;
       height: 1.5rem;
+    }
+    @include respond(phone) {
+      app-icon {
+        width: 1.7rem;
+        height: 1.7rem;
+      }
     }
   }
 }

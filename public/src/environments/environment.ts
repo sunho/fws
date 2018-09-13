@@ -4,7 +4,7 @@
 
 export const environment = {
   dashboardRoute: 'dashboard',
-  apiUrl: 'http://localhost:8080/api',
+  apiUrl: '/api',
   production: false,
 };
 

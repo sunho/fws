@@ -88,9 +88,16 @@
     width: 3.25rem;
     height: 3.25rem;
     app-icon {
-      stroke-width: 10;
       width: 1.7rem;
       height: 1.7rem;
+    }
+    @include respond(phone) {
+      width: 3.8rem;
+      height: 3.8rem;
+      app-icon {
+        width: 2rem;
+        height: 2rem;
+      }
     }
   }
 
@@ -131,6 +138,7 @@
       padding: 0.5em 0.5em;
       padding-right: 2.5em;
       border-radius: 0;
+      width: 5.5em;
 
       @include transition(border-color 0.2s);
       &:focus {
@@ -166,9 +174,6 @@
 
   &--dropdown {
     position: relative;
-    &__button {
-    }
-
     &__menu {
       &--on {
         visibility: initial;
@@ -184,6 +189,9 @@
 
       visibility: hidden;
       opacity: 0;
+
+      font-weight: 300;
+      font-size: $font-size-normal;
 
       background: $color-white;
       box-shadow: $shadow-2;
