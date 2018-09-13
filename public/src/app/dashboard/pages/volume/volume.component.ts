@@ -12,26 +12,20 @@ import { STRINGS } from '../../../../locale/strings';
   templateUrl: './volume.component.html',
 })
 export class VolumeComponent implements OnInit {
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private botService: BotService,
     private popupService: PopupService,
-    private addModalService: AddModalService) {}
+    private addModalService: AddModalService
+  ) {}
 
   current: Bot;
 
-  resNames = [
-    'name',
-    'path',
-  ];
+  resNames = ['name', 'path'];
 
-  resKeys = [
-    'name',
-    'path',
-  ];
+  resKeys = ['name', 'path'];
 
-  resOptions = [
-    { title: 'Delete', func: this.deleteCallback.bind(this) }
-  ];
+  resOptions = [{ title: 'Delete', func: this.deleteCallback.bind(this) }];
 
   resItems: Volume[];
 
@@ -48,21 +42,22 @@ export class VolumeComponent implements OnInit {
 
   addCallback(obj: object): Observable<boolean> {
     return new Observable<boolean>(observer => {
-    this.botService.addVolume(this.current.id, obj as Volume).subscribe(
-      _ => {
-        this.refreshItems();
-        observer.next(true);
-        observer.complete();
-      },
-      error => {
-        if (error === CONFLICT) {
-          this.popupService.createMsg(STRINGS.EXIST_VOLUME);
-        } else if (error === BAD_FORMAT) {
-          this.popupService.createMsg(STRINGS.BAD_VOLUME_FORMAT);
-        } else {
-          this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+      this.botService.addVolume(this.current.id, obj as Volume).subscribe(
+        _ => {
+          this.refreshItems();
+          observer.next(true);
+          observer.complete();
+        },
+        error => {
+          if (error === CONFLICT) {
+            this.popupService.createMsg(STRINGS.EXIST_VOLUME);
+          } else if (error === BAD_FORMAT) {
+            this.popupService.createMsg(STRINGS.BAD_VOLUME_FORMAT);
+          } else {
+            this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+          }
         }
-      });
+      );
     });
   }
 

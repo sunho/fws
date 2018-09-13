@@ -11,9 +11,7 @@ const routes: Routes = [
   {
     path: '',
     component: DashComponent,
-    canActivate: [
-      FirstBotRedirect,
-    ]
+    canActivate: [FirstBotRedirect],
   },
   {
     path: ':id',
@@ -22,11 +20,11 @@ const routes: Routes = [
       bot: BotResolver,
     },
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full'},
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'volume', component: VolumeComponent },
       { path: 'config', component: ConfigComponent },
-    ]
+    ],
   },
 ];
 

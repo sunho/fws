@@ -29,7 +29,8 @@ export class HeaderComponent implements OnInit {
     this.botService.getBots().subscribe(
       bots => {
         this.bots = bots;
-      }, error => {
+      },
+      error => {
         this.popupService.createMsg(`unknown error (${error})`);
       }
     );

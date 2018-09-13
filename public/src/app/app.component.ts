@@ -7,6 +7,5 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   ios = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

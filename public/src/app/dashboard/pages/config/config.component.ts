@@ -14,79 +14,64 @@ import { STRINGS } from '../../../../locale/strings';
 export class ConfigComponent implements OnInit {
   current: Bot;
 
-  envNames = [
-    'name',
-    'value',
-  ];
+  envNames = ['name', 'value'];
 
-  envKeys = [
-    'name',
-    'value',
-  ];
+  envKeys = ['name', 'value'];
 
-  envOptions = [
-    { title: 'Delete', func: this.envDeleteCallback.bind(this) }
-  ];
+  envOptions = [{ title: 'Delete', func: this.envDeleteCallback.bind(this) }];
 
   envItems: Env[];
 
-  confNames = [
-    'name',
-    'path',
-    'file',
-  ];
+  confNames = ['name', 'path', 'file'];
 
-  confKeys = [
-    'name',
-    'path',
-    'file',
-  ];
+  confKeys = ['name', 'path', 'file'];
 
-  confOptions = [
-    { title: 'Delete', func: this.confDeleteCallback.bind(this) }
-  ];
+  confOptions = [{ title: 'Delete', func: this.confDeleteCallback.bind(this) }];
 
   confItems: Config[];
 
-  constructor(private botService: BotService,
-      private popupService: PopupService,
-      private addModalService: AddModalService,
-      private route: ActivatedRoute
-    ) {}
+  constructor(
+    private botService: BotService,
+    private popupService: PopupService,
+    private addModalService: AddModalService,
+    private route: ActivatedRoute
+  ) {}
 
   confAddCallback(obj: object): Observable<boolean> {
     return new Observable<boolean>(observer => {
-    this.botService.addConfig(this.current.id, obj as Config).subscribe(
-      _ => {
-        this.refreshItems();
-        observer.next(true);
-        observer.complete();
-      },
-      error => {
-        if (error === CONFLICT) {
-          this.popupService.createMsg(STRINGS.EXIST_CONFIG);
-        } else {
-          this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+      this.botService.addConfig(this.current.id, obj as Config).subscribe(
+        _ => {
+          this.refreshItems();
+          observer.next(true);
+          observer.complete();
+        },
+        error => {
+          if (error === CONFLICT) {
+            this.popupService.createMsg(STRINGS.EXIST_CONFIG);
+          } else {
+            this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+          }
         }
-      });
+      );
     });
   }
 
   envAddCallback(obj: object): Observable<boolean> {
     return new Observable<boolean>(observer => {
-    this.botService.addEnv(this.current.id, obj as Env).subscribe(
-      _ => {
-        this.refreshItems();
-        observer.next(true);
-        observer.complete();
-      },
-      error => {
-        if (error === CONFLICT) {
-          this.popupService.createMsg(STRINGS.EXIST_ENV);
-        } else {
-          this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+      this.botService.addEnv(this.current.id, obj as Env).subscribe(
+        _ => {
+          this.refreshItems();
+          observer.next(true);
+          observer.complete();
+        },
+        error => {
+          if (error === CONFLICT) {
+            this.popupService.createMsg(STRINGS.EXIST_ENV);
+          } else {
+            this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+          }
         }
-      });
+      );
     });
   }
 

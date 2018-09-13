@@ -14,15 +14,15 @@ export class BotSelectComponent implements OnInit {
   current: number;
   @Input()
   items: Bot[];
-  constructor(
-    private router: Router,
-  ) {}
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onChange(value: string): void {
-    const r = this.router.url.replace(`${environment.dashboardRoute}/${this.current}`, `${environment.dashboardRoute}/${value}`);
+    const r = this.router.url.replace(
+      `${environment.dashboardRoute}/${this.current}`,
+      `${environment.dashboardRoute}/${value}`
+    );
     this.router.navigate([r]);
   }
 }

@@ -2,50 +2,49 @@
 @import 'mixins';
 
 .addmodal {
-    &--hidden {
-        visibility: hidden;
-        opacity: 0;
+  &--hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  z-index: $z-index-3;
+  opacity: 1;
+  background: rgba($color-black, 0.1);
+  position: fixed;
+  width: 100vw;
+  overflow-y: auto;
+  height: 100%;
+
+  @include transition(opacity 0.2s);
+
+  &__box {
+    padding: 4rem;
+    background: $color-white;
+    box-shadow: $shadow-2;
+    margin: 5rem auto;
+    width: 75%;
+    max-width: 27rem;
+
+    &__title {
+      text-align: center;
+      font-size: $font-size-big;
+      padding-bottom: 2rem;
     }
 
-    z-index: $z-index-3;
-    opacity: 1;
-    background: rgba($color-black, 0.1);
-    position: fixed;
-    width: 100vw;
-    overflow-y: auto;
-    height: 100%;
+    &__form {
+      app-form-input:not(:first-child) {
+        margin-top: 1rem;
+      }
 
-    @include transition(opacity 0.2s);
-
-    &__box {
-        padding: 4rem;
-        background: $color-white;
-        box-shadow: $shadow-2;
-        margin: 5rem auto;
-        width: 75%;
-        max-width: 27rem;
-
-        &__title {
-            text-align: center;
-            font-size: $font-size-big;
-            padding-bottom: 2rem;
+      &__buttons {
+        margin-top: 2rem;
+        width: 100%;
+        .form--button {
+          height: 4rem;
+          margin-top: 1rem;
+          padding: 0;
         }
-
-        &__form {
-            app-form-input:not(:first-child) {
-                margin-top: 1rem;
-            }
-
-            &__buttons {
-                margin-top: 2rem;
-                width: 100%;
-                .form--button {
-                    height: 4rem;
-                    margin-top: 1rem;
-                    padding: 0;
-                }
-            }
-        }
+      }
     }
-
+  }
 }

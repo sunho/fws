@@ -30,7 +30,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     HomeComponent,
     SideBarComponent,
   ],
-  imports: [DashBoardRoutingModule, ReactiveFormsModule, FormsModule, RouterModule, CoreModule, CommonModule],
+  imports: [
+    DashBoardRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RouterModule,
+    CoreModule,
+    CommonModule,
+  ],
   exports: [],
   providers: [],
 })

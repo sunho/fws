@@ -5,8 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './small-header.component.html',
 })
 export class SmallHeaderComponent implements OnInit {
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

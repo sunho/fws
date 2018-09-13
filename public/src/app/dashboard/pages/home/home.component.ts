@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private botService: BotService,
     private route: ActivatedRoute,
     private popupService: PopupService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.subscription2 = this.route.parent.data.subscribe(d => {

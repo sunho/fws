@@ -1,9 +1,6 @@
 import { BotService } from './bot.service';
 import { Injectable } from '@angular/core';
-import {
-  Router,
-  CanActivate,
-} from '@angular/router';
+import { Router, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PopupService } from '../../core/services/popup.service';
@@ -14,8 +11,12 @@ import { environment } from '../../../environments/environment.prod';
   providedIn: 'root',
 })
 export class FirstBotRedirectService implements CanActivate {
-  constructor(private botService: BotService,
-    private authService: AuthService, private popupService: PopupService, private router: Router) {}
+  constructor(
+    private botService: BotService,
+    private authService: AuthService,
+    private popupService: PopupService,
+    private router: Router
+  ) {}
 
   canActivate(): Observable<boolean> {
     return this.botService.getBots().pipe(
@@ -23,9 +24,12 @@ export class FirstBotRedirectService implements CanActivate {
         if (bots.length === 0) {
           this.authService.logout().subscribe(
             _ => {
-              this.popupService.createMsg('You don\'t own any bot. Contact admin.');
+              this.popupService.createMsg(
+                "You don't own any bot. Contact admin."
+              );
               this.router.navigate(['/']);
-            }, error => {
+            },
+            error => {
               this.popupService.createMsg(`unknown error(${error}`);
             }
           );

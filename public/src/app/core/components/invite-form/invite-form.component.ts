@@ -44,7 +44,9 @@ export class InviteFormComponent implements OnInit {
             if (error === DUPLICATE) {
               this.popupService.createMsg(STRINGS.NICKNAME_IN_USE);
             } else {
-              this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+              this.popupService.createMsg(
+                `${STRINGS.UNKNOWN_ERROR} (${error})`
+              );
             }
           }
         );

@@ -20,7 +20,7 @@
     }
 
     input {
-      margin-top: .4rem;
+      margin-top: 0.4rem;
       padding: 0.5em 0.25em;
       width: 100%;
 
@@ -119,7 +119,7 @@
     background-color: rgba($color-gray, 0);
     &:hover {
       color: lighten($color-gray, 5);
-      background-color: rgba($color-gray, .1);
+      background-color: rgba($color-gray, 0.1);
     }
   }
 

@@ -17,7 +17,8 @@ export interface DropdownItem {
   templateUrl: './form-dropdown.component.html',
 })
 export class FormDropdownComponent implements OnInit {
-  @ViewChild('toggleButton') el: ElementRef;
+  @ViewChild('toggleButton')
+  el: ElementRef;
 
   @Input()
   items: DropdownItem[];
@@ -28,8 +29,7 @@ export class FormDropdownComponent implements OnInit {
     item.func(item.title);
   }
 
-  onButtonClick(e: MouseEvent): void {
-  }
+  onButtonClick(e: MouseEvent): void {}
 
   @HostListener('document:click', ['$event'])
   onClick(e: MouseEvent): void {

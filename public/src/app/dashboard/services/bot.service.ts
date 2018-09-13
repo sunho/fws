@@ -47,13 +47,19 @@ export class BotService {
   addVolume(id: number, vol: Volume): Observable<void> {
     return this.http
       .post(`${environment.apiUrl}/bot/${id}/volume`, vol, this.options)
-      .pipe(catchError(this.handleError), map(_ => { }));
+      .pipe(
+        catchError(this.handleError),
+        map(_ => {})
+      );
   }
 
   deleteVolume(id: number, vol: string): Observable<void> {
     return this.http
       .delete(`${environment.apiUrl}/bot/${id}/volume/${vol}`)
-      .pipe(catchError(this.handleError), map(_ => { }));
+      .pipe(
+        catchError(this.handleError),
+        map(_ => {})
+      );
   }
 
   getConfigs(id: number): Observable<Config[]> {
@@ -65,13 +71,19 @@ export class BotService {
   addConfig(id: number, conf: Config): Observable<void> {
     return this.http
       .post(`${environment.apiUrl}/bot/${id}/config`, conf, this.options)
-      .pipe(catchError(this.handleError), map(_ => { }));
+      .pipe(
+        catchError(this.handleError),
+        map(_ => {})
+      );
   }
 
   deleteConfig(id: number, conf: string): Observable<void> {
     return this.http
       .delete(`${environment.apiUrl}/bot/${id}/config/${conf}`)
-      .pipe(catchError(this.handleError), map(_ => { }));
+      .pipe(
+        catchError(this.handleError),
+        map(_ => {})
+      );
   }
 
   getEnvs(id: number): Observable<Env[]> {
@@ -83,13 +95,17 @@ export class BotService {
   addEnv(id: number, env: Env): Observable<void> {
     return this.http
       .post(`${environment.apiUrl}/bot/${id}/env`, env, this.options)
-      .pipe(catchError(this.handleError), map(_ => { }));
+      .pipe(
+        catchError(this.handleError),
+        map(_ => {})
+      );
   }
 
   deleteEnv(id: number, env: string): Observable<void> {
-    return this.http
-      .delete(`${environment.apiUrl}/bot/${id}/env/${env}`)
-      .pipe(catchError(this.handleError), map(_ => { }));
+    return this.http.delete(`${environment.apiUrl}/bot/${id}/env/${env}`).pipe(
+      catchError(this.handleError),
+      map(_ => {})
+    );
   }
 
   getBots(): Observable<Bot[]> {

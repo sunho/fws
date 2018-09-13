@@ -4,12 +4,13 @@
 .card {
   background: white;
   padding: 2rem;
-  box-shadow: $shadow-1; min-height: 17rem;
+  box-shadow: $shadow-1;
+  min-height: 17rem;
 
   &__header {
     display: flex;
     justify-content: space-between;
-    
+
     font-size: $font-size-big;
   }
 
@@ -19,7 +20,7 @@
 
   &__entry {
     display: block;
-    word-wrap:break-word;
+    word-wrap: break-word;
     font-size: $font-size-small;
     &:not(:first-child) {
       margin-top: 1rem;
@@ -33,17 +34,17 @@
       font-weight: 300;
     }
     &__aux {
-      &:link, 
-      &:visited{
+      &:link,
+      &:visited {
         display: inline-flex;
         align-items: center;
         justify-content: center;
 
         vertical-align: middle;
 
-        margin-bottom: .5rem;
-        margin-left: .2rem;
-        padding: .5rem;
+        margin-bottom: 0.5rem;
+        margin-left: 0.2rem;
+        padding: 0.5rem;
         app-icon {
           display: inline-block;
           vertical-align: middle;
@@ -52,11 +53,11 @@
         }
 
         background-color: rgba($color-gray, 0);
-        @include transition(background-color .2s);
+        @include transition(background-color 0.2s);
       }
 
       &:hover {
-        background-color: rgba($color-gray, .1);
+        background-color: rgba($color-gray, 0.1);
       }
     }
   }
@@ -87,7 +88,6 @@
       $color-pink-yellow-2
     );
   }
-
   &--none {
     background: $color-light-gray;
   }
