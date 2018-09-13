@@ -17,23 +17,25 @@ var (
 
 const maxCurrent = 10
 
-func NewBuildManager(stor store.Store, builder Builder) *BuildManager {
+func NewBuildManager(stor store.Store, builder Builder, runManager *RunManager) *BuildManager {
 	return &BuildManager{
-		stor:    stor,
-		builder: builder,
-		check:   make(chan struct{}),
-		builds:  make(map[int]*build),
+		stor:       stor,
+		builder:    builder,
+		check:      make(chan struct{}),
+		builds:     make(map[int]*build),
+		runManager: runManager,
 	}
 }
 
 type BuildManager struct {
 	mu sync.RWMutex
 
-	stor    store.Store
-	builder Builder
-	check   chan struct{}
-	current int
-	builds  map[int]*build
+	runManager *RunManager
+	stor       store.Store
+	builder    Builder
+	check      chan struct{}
+	current    int
+	builds     map[int]*build
 }
 
 type build struct {
@@ -183,6 +185,12 @@ func (b *BuildManager) callback(bot *model.Bot) BuildCallback {
 		})
 		if err != nil {
 			glog.Errorf("Creating BuildLog failed, err: %v", err)
+			return
+		}
+
+		err = b.runManager.runner.UpdateBuild(newbot)
+		if err != nil {
+			glog.Errorf("Upading Build failed, err: %v", err)
 			return
 		}
 	}

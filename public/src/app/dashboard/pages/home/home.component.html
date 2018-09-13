@@ -1,16 +1,45 @@
 <div class="container">
     <div class="row">
-        <div class="health health--okay col--half">
-            <div i18n class="health__title">
-                Run Status
-            </div>
-            <div i18n class="health__content">
-                Running
-            </div>
-            <div class="health__aux">
-                for 5 hours
-            </div>
-        </div>
+        <ng-container [ngSwitch]="runStatus.type">
+          <div *ngSwitchCase="'running'" class="health health--okay col--half">
+              <div i18n class="health__title">
+                  Run Status
+              </div>
+              <div i18n class="health__content">
+                  Running
+              </div>
+              <div class="health__aux">
+                  for {{runStatus.seconds}} seconds.
+              </div>
+          </div>
+          <div *ngSwitchCase="'pending'" class="health health--progress col--half">
+              <div i18n class="health__title">
+                  Run Status
+              </div>
+              <div i18n class="health__content">
+                  Pending
+              </div>
+          </div>
+          <div *ngSwitchCase="'failed'" class="health health--bad col--half">
+              <div i18n class="health__title">
+                  Run Status
+              </div>
+              <div i18n class="health__content">
+                  Failed
+              </div>
+              <div class="health__aux">
+                  for {{runStatus.seconds}} seconds.
+              </div>
+          </div>
+          <div *ngSwitchCase="'none'" class="health health--none col--half">
+              <div i18n class="health__title">
+                  Run Status
+              </div>
+              <div i18n class="health__content">
+                  None
+              </div>
+          </div>
+        </ng-container>
         <ng-container [ngSwitch]="buildStatus.type">
             <div *ngSwitchCase="'none'" class="health health--none col--half">
                 <div i18n class="health__title">
@@ -29,10 +58,10 @@
                 </div>
                 <div class="health__aux">
                     {{buildStatus.step}}
-                </div> 
+                </div>
             </div>
-            <div *ngSwitchCase="'built'" class="health col--half" 
-                [class.health--okay]="buildStatus.success" 
+            <div *ngSwitchCase="'built'" class="health col--half"
+                [class.health--okay]="buildStatus.success"
                 [class.health--bad]="!buildStatus.success">
                 <div i18n class="health__title">
                     Build Status
@@ -58,7 +87,7 @@
                 <div class="card__entry">
                     <div i18n class="card__entry__title">RepoURL:</div>
                     <div class="card__entry__content">&nbsp;{{current.git_url}}</div>
-                    <a href="{{current.git_url}}" target="_blank" class="card__entry__aux"><app-icon icon="link"></app-icon></a>
+                    <a [href]="current.git_url" target="_blank" class="card__entry__aux"><app-icon icon="link"></app-icon></a>
                 </div>
                 <div class="card__entry">
                     <div i18n class="card__entry__title">WebhookSecret:</div>

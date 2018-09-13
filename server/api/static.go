@@ -40,6 +40,10 @@ func (a *Api) devServer(r chi.Router, path string, addr string) {
 			r.URL.Scheme = "http"
 		}
 		req, err := http.NewRequest(r.Method, r.URL.String(), r.Body)
+		if err != nil {
+			a.httpError(w, r, 400, err)
+			return
+		}
 		for name, value := range r.Header {
 			req.Header.Set(name, value[0])
 		}

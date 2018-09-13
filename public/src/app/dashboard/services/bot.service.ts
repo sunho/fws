@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { RunStatus } from '../models/bot';
 
 export const BAD_FORMAT = 'bad format';
 export const NOT_FOUND = 'not found';
@@ -123,9 +124,24 @@ export class BotService {
       );
   }
 
-  getBotBuildStatus(id: number): Observable<BuildStatus> {
+  uploadBot(id: number): Observable<void> {
+    return this.http
+      .put(`${environment.apiUrl}/bot/${id}/run`, this.options)
+      .pipe(
+        catchError(this.handleError),
+        map(_ => {})
+      );
+  }
+
+  getBuildStatus(id: number): Observable<BuildStatus> {
     return this.http
       .get<BuildStatus>(`${environment.apiUrl}/bot/${id}/status/build`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getRunStatus(id: number): Observable<RunStatus> {
+    return this.http
+      .get<RunStatus>(`${environment.apiUrl}/bot/${id}/status/run`)
       .pipe(catchError(this.handleError));
   }
 }

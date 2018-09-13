@@ -61,13 +61,14 @@ export class VolumeComponent implements OnInit {
     });
   }
 
-  onAddClick(): void {
+  onAddClick(): boolean {
     this.addModalService.createMod({
       title: 'Add Volume',
       keys: ['name', 'path'],
       names: ['name', 'path'],
       callback: this.addCallback.bind(this),
     });
+    return false;
   }
 
   refreshItems(): void {

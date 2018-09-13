@@ -38,12 +38,12 @@ func main() {
 	}
 
 	builder := basic.NewBuilder(conf.RegURL, conf.Workspace)
-	// runner, err := basic.NewRunnerFromCluster("bot")
-	// if err != nil {
-	// 	panic(err)
-	// }
+	runner, err := basic.NewRunnerFromFile("bot", "/home/sunho/.kube/config", "/var/nfs", "172.30.1.25")
+	if err != nil {
+		panic(err)
+	}
 
-	f, err := fws.New(x, builder, nil, fconf)
+	f, err := fws.New(x, builder, runner, fconf)
 	if err != nil {
 		panic(err)
 	}

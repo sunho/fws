@@ -19,6 +19,10 @@ func NewRunManager(runner Runner) *RunManager {
 }
 
 // TODO queue
-func (r *RunManager) Create(bot *model.RunBot) error {
-	return r.runner.Create(bot)
+func (r *RunManager) Put(bot *model.RunBot) error {
+	return r.runner.Put(bot)
+}
+
+func (r *RunManager) Status(bot *model.Bot) (model.RunStatus, error) {
+	return r.runner.Status(bot)
 }

@@ -33,7 +33,8 @@ export class ResCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onAddClick(): void {
+  onAddClick(): boolean {
     this.addClick.emit();
+    return false;
   }
 }

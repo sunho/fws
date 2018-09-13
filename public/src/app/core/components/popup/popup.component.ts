@@ -18,7 +18,8 @@ export class PopupComponent implements OnInit {
     );
   }
 
-  remove(i: number): void {
+  remove(i: number): boolean {
     this.msgs.splice(i, 1);
+    return false;
   }
 }

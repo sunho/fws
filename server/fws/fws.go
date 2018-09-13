@@ -30,13 +30,13 @@ type Fws struct {
 func New(stor store.Store, builder runtime.Builder,
 	runner runtime.Runner, config Config) (*Fws, error) {
 	f := &Fws{
-		stor:         stor,
-		buildManager: runtime.NewBuildManager(stor, builder),
-		runManager:   runtime.NewRunManager(runner),
-		builder:      builder,
-		runner:       runner,
-		config:       config,
+		stor:       stor,
+		runManager: runtime.NewRunManager(runner),
+		builder:    builder,
+		runner:     runner,
+		config:     config,
 	}
+	f.buildManager = runtime.NewBuildManager(stor, builder, f.runManager)
 
 	err := f.initDist()
 	if err != nil {

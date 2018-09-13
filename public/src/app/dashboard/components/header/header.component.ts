@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BotService, CONFLICT } from './../../services/bot.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Bot } from '../../models/bot';
+import { STRINGS } from '../../../../locale/strings';
 
 @Component({
   selector: 'app-header',
@@ -36,14 +37,23 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  onRebuildClick(): void {
+  onRebuildClick(): boolean {
     this.botService.rebuildBot(this.current.id).subscribe(
       _ => {},
       error => {
-        if (error === CONFLICT) {
-          this.popupService.createMsg('a build is already in progress');
-        }
+        this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
       }
     );
+    return false;
+  }
+
+  onUploadClick(): boolean {
+    this.botService.uploadBot(this.current.id).subscribe(
+      _ => {},
+      error => {
+        this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+      }
+    );
+    return false;
   }
 }

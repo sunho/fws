@@ -24,20 +24,20 @@ export class FormDropdownComponent implements OnInit {
   items: DropdownItem[];
   show: boolean;
 
-  onItemClick(e: MouseEvent, item: DropdownItem): void {
+  onItemClick(e: MouseEvent, item: DropdownItem): boolean {
     e.preventDefault();
     item.func(item.title);
+    return false;
   }
 
-  onButtonClick(e: MouseEvent): void {}
-
   @HostListener('document:click', ['$event'])
-  onClick(e: MouseEvent): void {
+  onClick(e: MouseEvent): boolean {
     if (this.el.nativeElement.contains(e.target)) {
       this.show = !this.show;
     } else {
       this.show = false;
     }
+    return true;
   }
 
   constructor() {}

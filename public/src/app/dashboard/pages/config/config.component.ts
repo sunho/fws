@@ -97,22 +97,24 @@ export class ConfigComponent implements OnInit {
     );
   }
 
-  onConfAddClick(): void {
+  onConfAddClick(): boolean {
     this.addModalService.createMod({
       title: 'Add Config File',
       keys: ['name', 'path', 'file'],
       names: ['name', 'path', 'file'],
       callback: this.confAddCallback.bind(this),
     });
+    return false;
   }
 
-  onEnvAddClick(): void {
+  onEnvAddClick(): boolean {
     this.addModalService.createMod({
       title: 'Add Environment Variable',
       keys: ['name', 'value'],
       names: ['name', 'value'],
       callback: this.envAddCallback.bind(this),
     });
+    return false;
   }
 
   ngOnInit(): void {

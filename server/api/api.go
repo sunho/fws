@@ -68,7 +68,7 @@ func (a *Api) apiRoute(r chi.Router) {
 			s.Use(a.userBotMiddleWare)
 			s.Route("/status", func(s chi.Router) {
 				s.Get("/build", a.getBuildStatus)
-				// s.Get("/run", a.getRunStatus)
+				s.Get("/run", a.getRunStatus)
 			})
 			s.Route("/build", func(s chi.Router) {
 				s.Get("/", a.listBuild)
@@ -76,7 +76,7 @@ func (a *Api) apiRoute(r chi.Router) {
 				s.Get("/{number}", a.getBuild)
 			})
 			s.Route("/run", func(s chi.Router) {
-				s.Post("/", a.postRun)
+				s.Put("/", a.putRun)
 			})
 			s.Route("/volume", func(s chi.Router) {
 				s.Get("/", a.listBotVolume)

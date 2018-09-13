@@ -17,13 +17,15 @@ export class SideBarComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onToggleClick(): void {
+  onToggleClick(): boolean {
     this.show = !this.show;
+    return false;
   }
 
-  onItemClick(): void {
+  onItemClick(): boolean {
     this.show = false;
     // should find another way to make it generic
     document.querySelector('.dash').scrollTo(0, 0);
+    return false;
   }
 }

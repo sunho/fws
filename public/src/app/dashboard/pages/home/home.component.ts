@@ -2,7 +2,7 @@ import { PopupService } from './../../../core/services/popup.service';
 import { map, catchError, startWith } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { Bot, BuildStatus } from '../../models/bot';
+import { Bot, BuildStatus, RunStatus } from '../../models/bot';
 import { Observable, Observer, Subscription, interval } from 'rxjs';
 import { BotService, NOT_FOUND } from '../../services/bot.service';
 
@@ -13,6 +13,7 @@ import { BotService, NOT_FOUND } from '../../services/bot.service';
 export class HomeComponent implements OnInit, OnDestroy {
   current: Bot;
   buildStatus: BuildStatus = { type: 'none' };
+  runStatus: RunStatus = { type: 'none' };
   subscription: Subscription;
   subscription2: Subscription;
   constructor(
@@ -30,13 +31,23 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.subscription = interval(1000)
         .pipe(startWith(0))
         .subscribe(_ => {
-          this.botService.getBotBuildStatus(this.current.id).subscribe(
+          this.botService.getBuildStatus(this.current.id).subscribe(
             s => {
               this.buildStatus = s;
             },
             error => {
               if (error === NOT_FOUND) {
                 this.buildStatus = { type: 'none' };
+              }
+            }
+          );
+          this.botService.getRunStatus(this.current.id).subscribe(
+            s => {
+              this.runStatus = s;
+            },
+            error => {
+              if (error === NOT_FOUND) {
+                this.runStatus = { type: 'none' };
               }
             }
           );

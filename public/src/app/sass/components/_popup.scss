@@ -12,34 +12,33 @@
   position: fixed;
   background: rgba($color-black, 0.1);
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+  overflow-y: auto;
 
   @include transition(opacity 0.2s);
 
   &__box {
     display: flex;
+	min-width: 0;
     flex-direction: column;
-
     background: $color-white;
     box-shadow: $shadow-2;
 
-    @include absolute-center(40%);
+	margin: 5rem auto;
     width: 70%;
-    height: 20rem;
+    min-height: 20rem;
     max-width: 25rem;
   }
 
   &__content {
     flex: 1;
-
-    font-size: $font-size-normal;
-
+	display: flex;
     text-align: center;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 0 3rem;
+	flex-direction: column;
+	justify-content: center;
+	word-wrap: break-word;
+    font-size: $font-size-normal;
+    padding: 2rem 3rem;
   }
 
   &__buttons {

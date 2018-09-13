@@ -24,6 +24,31 @@ export type BuildStatus =
   | BuildStatusBuilt
   | BuildStatusNone;
 
+export interface RunStatusNone {
+  type: 'none';
+}
+
+
+export interface RunStatusRunning {
+  type: 'built';
+  seconds: number;
+}
+
+export interface RunStatusFailed {
+  type: 'failed';
+  seconds: number;
+}
+
+export interface RunStatusPending {
+  type: 'pending';
+}
+
+export type RunStatus =
+  RunStatusNone |
+  RunStatusRunning |
+  RunStatusFailed |
+  RunStatusPending;
+
 export interface Volume {
   bot_id?: number;
   size?: number;

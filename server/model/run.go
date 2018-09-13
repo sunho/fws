@@ -23,13 +23,29 @@ type BuildStatusBuilding struct {
 
 func (BuildStatusBuilding) sealed() {}
 
-type RunStatus int
+type RunStatus interface {
+	sealed()
+}
 
-const (
-	RunStatusRunning RunStatus = iota
-	RunStatusStopped
-	RunStatusCrash
-)
+type RunStatusRunning struct {
+	Type    string `json:"type"`
+	Seconds int    `json:"seconds"`
+}
+
+func (RunStatusRunning) sealed() {}
+
+type RunStatusFailed struct {
+	Type    string `json:"type"`
+	Seconds int    `json:"seconds"`
+}
+
+func (RunStatusFailed) sealed() {}
+
+type RunStatusPending struct {
+	Type string `json:"type"`
+}
+
+func (RunStatusPending) sealed() {}
 
 type RunBot struct {
 	*Bot

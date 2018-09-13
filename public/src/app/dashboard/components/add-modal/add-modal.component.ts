@@ -29,8 +29,9 @@ export class AddModalComponent implements OnInit {
     );
   }
 
-  onCancelClick(): void {
+  onCancelClick(): boolean {
     this.current = null;
+    return false;
   }
 
   onSubmit(f: NgForm): void {

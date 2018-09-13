@@ -8,6 +8,7 @@ import (
 	"github.com/sunho/fws/server/model"
 	appsv1 "k8s.io/api/apps/v1"
 	apiv1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -24,7 +25,7 @@ const (
 
 func int32Ptr(i int32) *int32 { return &i }
 
-func (r *Runner) getConfigs(bot *model.RunBot) ([]apiv1.ConfigMap, error) {
+func (r *Runner) getConfigs(bot *model.Bot) ([]apiv1.ConfigMap, error) {
 	list, err := r.cli.Core().ConfigMaps(r.Namespace).List(metav1.ListOptions{
 		LabelSelector: labelIDKey + "=" + r.labelIDValue(bot),
 	})
@@ -34,7 +35,18 @@ func (r *Runner) getConfigs(bot *model.RunBot) ([]apiv1.ConfigMap, error) {
 	return list.Items, nil
 }
 
-func (r *Runner) getDeployment(bot *model.RunBot) (*appsv1.Deployment, error) {
+func (r *Runner) getPods(bot *model.Bot) ([]apiv1.Pod, error) {
+	list, err := r.cli.CoreV1().Pods(r.Namespace).List(metav1.ListOptions{
+		LabelSelector: labelIDKey + "=" + r.labelIDValue(bot),
+		FieldSelector: "status.phase=Running",
+	})
+	if err != nil {
+		return nil, err
+	}
+	return list.Items, nil
+}
+
+func (r *Runner) getDeployment(bot *model.Bot) (*appsv1.Deployment, error) {
 	list, err := r.cli.Apps().Deployments(r.Namespace).List(metav1.ListOptions{
 		LabelSelector: labelIDKey + "=" + r.labelIDValue(bot),
 	})
@@ -50,6 +62,30 @@ func (r *Runner) getDeployment(bot *model.RunBot) (*appsv1.Deployment, error) {
 	return &list.Items[0], nil
 }
 
+func (r *Runner) deleteDeployment(bot *model.Bot) error {
+	deploy := r.cli.Apps().Deployments(r.Namespace)
+	err := deploy.DeleteCollection(&metav1.DeleteOptions{}, metav1.ListOptions{
+		LabelSelector: labelIDKey + "=" + r.labelIDValue(bot),
+	})
+	return err
+}
+
+func (r *Runner) deletePods(bot *model.Bot) error {
+	deploy := r.cli.CoreV1().Pods(r.Namespace)
+	err := deploy.DeleteCollection(&metav1.DeleteOptions{}, metav1.ListOptions{
+		LabelSelector: labelIDKey + "=" + r.labelIDValue(bot),
+	})
+	return err
+}
+
+func (r *Runner) deleteConfigs(bot *model.Bot) error {
+	config := r.cli.Core().ConfigMaps(r.Namespace)
+	err := config.DeleteCollection(&metav1.DeleteOptions{}, metav1.ListOptions{
+		LabelSelector: labelIDKey + "=" + r.labelIDValue(bot),
+	})
+	return err
+}
+
 func (r *Runner) makeConfigs(bot *model.RunBot) []apiv1.ConfigMap {
 	confs := []apiv1.ConfigMap{}
 	for _, conf := range bot.Configs {
@@ -57,7 +93,7 @@ func (r *Runner) makeConfigs(bot *model.RunBot) []apiv1.ConfigMap {
 			ObjectMeta: metav1.ObjectMeta{
 				Name: r.kubeConfigName(bot, conf),
 				Labels: map[string]string{
-					labelIDKey:     r.labelIDValue(bot),
+					labelIDKey:     r.labelIDValue(bot.Bot),
 					labelConfigKey: conf.Name,
 				},
 			},
@@ -104,7 +140,7 @@ func (r *Runner) makeDeployment(bot *model.RunBot) *appsv1.Deployment {
 			VolumeSource: apiv1.VolumeSource{
 				NFS: &apiv1.NFSVolumeSource{
 					Server: r.volumeManager.NfsAddr,
-					Path:   r.volumeManager.GetPath(vol),
+					Path:   r.volumeManager.GetPath(bot.ID, vol.Name),
 				},
 			},
 		})
@@ -116,20 +152,23 @@ func (r *Runner) makeDeployment(bot *model.RunBot) *appsv1.Deployment {
 
 	return &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      r.kubeDeploymentName(bot),
+			Name: r.kubeDeploymentName(bot),
+			Labels: map[string]string{
+				labelIDKey: r.labelIDValue(bot.Bot),
+			},
 			Namespace: r.Namespace,
 		},
 		Spec: appsv1.DeploymentSpec{
 			Replicas: int32Ptr(1),
 			Selector: &metav1.LabelSelector{
 				MatchLabels: map[string]string{
-					labelIDKey: r.labelIDValue(bot),
+					labelIDKey: r.labelIDValue(bot.Bot),
 				},
 			},
 			Template: apiv1.PodTemplateSpec{
 				ObjectMeta: metav1.ObjectMeta{
 					Labels: map[string]string{
-						labelIDKey: r.labelIDValue(bot),
+						labelIDKey: r.labelIDValue(bot.Bot),
 					},
 				},
 				Spec: apiv1.PodSpec{
@@ -139,6 +178,13 @@ func (r *Runner) makeDeployment(bot *model.RunBot) *appsv1.Deployment {
 							Image:        bot.BuildResult,
 							VolumeMounts: mounts,
 							Env:          envs,
+							Resources: apiv1.ResourceRequirements{
+								// TODO
+								Limits: apiv1.ResourceList{
+									apiv1.ResourceCPU:    resource.MustParse("500m"),
+									apiv1.ResourceMemory: resource.MustParse("200Mi"),
+								},
+							},
 						},
 					},
 					Volumes: vols,
@@ -164,6 +210,6 @@ func (r *Runner) kubeVolumeName(bot *model.RunBot, vol *model.BotVolume) string 
 	return r.kubeBotName(bot) + "-volume-" + vol.Name
 }
 
-func (r *Runner) labelIDValue(bot *model.RunBot) string {
+func (r *Runner) labelIDValue(bot *model.Bot) string {
 	return strconv.Itoa(bot.ID)
 }

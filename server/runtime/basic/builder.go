@@ -79,7 +79,7 @@ func (b *Building) work() error {
 
 	_, err := os.Stat(b.parent.Workspace)
 	if os.IsNotExist(err) {
-		err = os.Mkdir(b.parent.Workspace, 0644)
+		err = os.Mkdir(b.parent.Workspace, 0744)
 		if err != nil {
 			return err
 		}
