@@ -91,11 +91,19 @@ func (a *Api) putBotConfig(w http.ResponseWriter, r *http.Request) {
 func (a *Api) deleteBotConfig(w http.ResponseWriter, r *http.Request) {
 	name := chi.URLParam(r, "name")
 	b := getBot(r)
-	err := a.in.GetStore().DeleteBotConfig(&model.BotConfig{BotID: b.ID, Name: name})
+	c, err := a.in.GetStore().GetBotConfig(b.ID, name)
+	if err != nil {
+		a.httpError(w, r, 404, err)
+		return
+	}
+
+	err = a.in.GetStore().DeleteBotConfig(c)
 	if err != nil {
 		a.httpError(w, r, 500, err)
 		return
 	}
+
+	w.WriteHeader(200)
 }
 
 func (a *Api) listBotVolume(w http.ResponseWriter, r *http.Request) {
@@ -126,12 +134,22 @@ func (a *Api) postBotVolume(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(201)
 }
 
-func (a *Api) putBotVolume(w http.ResponseWriter, r *http.Request) {
-	//TODO
-}
-
 func (a *Api) deleteBotVolume(w http.ResponseWriter, r *http.Request) {
+	name := chi.URLParam(r, "name")
+	b := getBot(r)
+	v, err := a.in.GetStore().GetBotVolume(b.ID, name)
+	if err != nil {
+		a.httpError(w, r, 404, err)
+		return
+	}
 
+	err = a.in.GetStore().DeleteBotVolume(v)
+	if err != nil {
+		a.httpError(w, r, 500, err)
+		return
+	}
+
+	w.WriteHeader(200)
 }
 
 func (a *Api) listBotEnv(w http.ResponseWriter, r *http.Request) {
@@ -167,5 +185,19 @@ func (a *Api) putBotEnv(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *Api) deleteBotEnv(w http.ResponseWriter, r *http.Request) {
+	name := chi.URLParam(r, "name")
+	b := getBot(r)
+	e, err := a.in.GetStore().GetBotEnv(b.ID, name)
+	if err != nil {
+		a.httpError(w, r, 404, err)
+		return
+	}
 
+	err = a.in.GetStore().DeleteBotEnv(e)
+	if err != nil {
+		a.httpError(w, r, 500, err)
+		return
+	}
+
+	w.WriteHeader(200)
 }

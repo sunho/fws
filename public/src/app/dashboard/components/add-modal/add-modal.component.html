@@ -1,14 +1,22 @@
 <div class="addmodal" [class.addmodal--hidden]="!current">
-    <div class="addmodal__box">
+    <div *ngIf="current" class="addmodal__box">
+        <div class="addmodal__box__title">{{current.title}}</div>
         <form class="addmodal__box__form"
             #form="ngForm" 
             [formGroup]="formGroup"
             (ngSubmit)="onSubmit(form)" 
             novalidate>
-            <app-form-input type="text" [formGroup]="formGroup" [form]="form" name="username" key="username"></app-form-input>
+            <app-form-input 
+                *ngFor="let key of current.keys; let i = index" 
+                type="text" 
+                [formGroup]="formGroup" 
+                [form]="form" 
+                [key]="key"
+                [name]="current.names[i]" 
+             ></app-form-input>
             <div class="addmodal__box__form__buttons">
-                <button i18n class="form--button form--full-button form--cancel-button">Cancel</button>
-                <button i18n class="form--button form--full-button">Ok</button>
+                <button type="submit" i18n class="form--button form--full-button">Add</button>
+                <button (click)="onCancelClick()" type="button" i18n class="form--button form--full-button form--no-back-button">Cancel</button>
             </div>
         </form>
     </div>

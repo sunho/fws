@@ -5,7 +5,10 @@
             title="Volumes" 
             [items]="resItems" 
             [keys]="resKeys" 
-            [names]="resNames">
+            [names]="resNames"
+            [options]="resOptions"
+            (addClick)="onAddClick()"
+            >
         </app-res-card>
     </div>
 </div>

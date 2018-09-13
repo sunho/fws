@@ -1,0 +1,17 @@
+@import 'variables';
+@import 'mixins';
+
+.reslist {
+    &__menu-cell {
+        width: 5rem;
+    }
+
+    &__detail-row {
+        cursor: pointer;
+        background-color: rgba($color-light-gray, 0);
+        @include transition(background-color .2s);
+        &:hover {
+            background-color: rgba($color-light-gray, .3);
+        }
+    }
+}

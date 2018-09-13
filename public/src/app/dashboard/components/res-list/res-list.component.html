@@ -2,11 +2,19 @@
     <thead>
         <tr>
             <th *ngFor="let name of names">{{name}}</th>
+            <th class="reslist__menu-cell"></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let item of items">
+        <tr class="reslist__detail-row" *ngFor="let item of items">
             <td *ngFor="let key of keys">{{item[key]}}</td>
+            <td class="reslist__menu-cell">
+                <app-form-dropdown [items]="createDrops(item)">
+                    <button title="option" class="form--button form--icon-button form--no-back-button">
+                        <app-icon icon="option"></app-icon>
+                    </button>
+                </app-form-dropdown>
+            </td>
         </tr>
     </tbody>
 </table>

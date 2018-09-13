@@ -2,6 +2,7 @@
     <app-bot-select *ngIf="current" [items]="bots" [current]="current.id"></app-bot-select>
     <div class="header__actions">
         <button i18n-title title="rebuild" (click)="onRebuildClick()" class="form--button form--icon-button"><app-icon icon="hammer"></app-icon></button>
+        <button i18n-title title="upload" class="form--button form--icon-button"><app-icon icon="upload"></app-icon></button>
         <button i18n-title title="restart" class="form--button form--icon-button"><app-icon icon="reload"></app-icon></button>
     </div>
     <app-user-profile></app-user-profile>

@@ -8,13 +8,14 @@ import { CoreModule } from './core/core.module';
 import localeKo from '@angular/common/locales/ko';
 
 import { registerLocaleData } from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 
 registerLocaleData(localeKo, 'ko');
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, CoreModule, AppRoutingModule],
-  providers: [],
+  providers: [ {provide: APP_BASE_HREF, useValue: 'http://localhost:8080'}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

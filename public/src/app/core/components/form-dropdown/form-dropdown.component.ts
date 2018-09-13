@@ -17,6 +17,8 @@ export interface DropdownItem {
   templateUrl: './form-dropdown.component.html',
 })
 export class FormDropdownComponent implements OnInit {
+  @ViewChild('toggleButton') el: ElementRef;
+
   @Input()
   items: DropdownItem[];
   show: boolean;
@@ -27,13 +29,15 @@ export class FormDropdownComponent implements OnInit {
   }
 
   onButtonClick(e: MouseEvent): void {
-    e.stopPropagation();
-    this.show = !this.show;
   }
 
   @HostListener('document:click', ['$event'])
   onClick(e: MouseEvent): void {
-    this.show = false;
+    if (this.el.nativeElement.contains(e.target)) {
+      this.show = !this.show;
+    } else {
+      this.show = false;
+    }
   }
 
   constructor() {}

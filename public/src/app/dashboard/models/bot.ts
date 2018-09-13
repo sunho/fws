@@ -25,22 +25,22 @@ export type BuildStatus =
   | BuildStatusNone;
 
 export interface Volume {
-  bot_id: number;
+  bot_id?: number;
+  size?: number;
   name: string;
-  size: number;
   path: string;
 }
 
 export interface Config {
-  bot_id: number;
+  bot_id?: number;
+  value?: string;
   name: string;
   path: string;
   file: string;
-  value: string;
 }
 
 export interface Env {
-  bot_id: number;
+  bot_id?: number;
+  value?: string;
   name: string;
-  value: string;
 }

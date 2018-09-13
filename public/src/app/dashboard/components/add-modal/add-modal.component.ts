@@ -15,17 +15,33 @@ export class AddModalComponent implements OnInit {
     current: AddModal;
 
     ngOnInit(): void {
-        this.formGroup = this.formBuilder.group({
-            username: ['', Validators.required],
-        });
         this.addModalService.$mod.subscribe(
             m => {
                 this.current = m;
+                const obj = {};
+                for (const key of this.current.keys) {
+                    obj[key] = ['', Validators.required];
+                }
+                this.formGroup = this.formBuilder.group(obj);
             },
             _ => { }
         );
     }
 
+    onCancelClick(): void {
+        this.current = null;
+    }
+
     onSubmit(f: NgForm): void {
+        if (f.valid) {
+            this.current.callback(f.value).subscribe(
+                b => {
+                    if (b) {
+                        this.current = null;
+                    }
+                },
+                _ => { }
+            );
+        }
     }
 }

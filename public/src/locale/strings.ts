@@ -8,4 +8,8 @@ export const STRINGS = {
     UNKNOWN_ERROR: 'Unknown error',
     NO_SUCH_ACCOUNT: 'No such account.',
     WRONG_PASSWORD: 'Wrong password.',
+    EXIST_VOLUME: 'Volume already exists.',
+    EXIST_CONFIG: 'Config already exists.',
+    EXIST_ENV: 'Enviornment variable already exists.',
+    BAD_VOLUME_FORMAT: 'Volume name must be lower-cased alphabet + number.',
 };

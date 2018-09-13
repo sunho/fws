@@ -1,0 +1,10 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="option" viewBox="0 0 512 512">
+	<title>
+		option
+	</title>
+	<g fill="#4e4e4e">
+		<circle cx="256" cy="256" r="64"/>
+		<circle cx="256" cy="448" r="64"/>
+		<circle cx="256" cy="64" r="64"/>
+	</g>
+</svg>

@@ -5,7 +5,9 @@
             title="Environment Variables" 
             [items]="envItems" 
             [keys]="envKeys" 
-            [names]="envNames">
+            [names]="envNames"
+            [options]="envOptions"
+            (addClick)="onEnvAddClick()">
         </app-res-card>
     </div>
     <div class="row">
@@ -14,7 +16,9 @@
             title="Config Files" 
             [items]="confItems" 
             [keys]="confKeys" 
-            [names]="confNames">
+            [names]="confNames"
+            [options]="confOptions"
+            (addClick)="onConfAddClick()">>
         </app-res-card>
     </div>
 </div>

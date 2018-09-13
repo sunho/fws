@@ -25,22 +25,25 @@ type Store interface {
 	DeleteUserInvite(i *model.UserInvite) error
 
 	ListBot() ([]*model.Bot, error)
-	GetBot(id int) (*model.Bot, error)
+	GetBot(bot int) (*model.Bot, error)
 	CreateBot(bot *model.Bot) (*model.Bot, error)
 	UpdateBot(bot *model.Bot) error
 	DeleteBot(bot *model.Bot) error
 
-	ListBotConfig(id int) ([]*model.BotConfig, error)
+	ListBotConfig(bot int) ([]*model.BotConfig, error)
+	GetBotConfig(bot int, name string) (*model.BotConfig, error)
 	CreateBotConfig(config *model.BotConfig) (*model.BotConfig, error)
 	UpdateBotConfig(config *model.BotConfig) error
 	DeleteBotConfig(config *model.BotConfig) error
 
-	ListBotVolume(id int) ([]*model.BotVolume, error)
+	ListBotVolume(bot int) ([]*model.BotVolume, error)
+	GetBotVolume(bot int, vol string) (*model.BotVolume, error)
 	CreateBotVolume(volume *model.BotVolume) (*model.BotVolume, error)
 	UpdateBotVolume(volume *model.BotVolume) error
 	DeleteBotVolume(volume *model.BotVolume) error
 
-	ListBotEnv(id int) ([]*model.BotEnv, error)
+	ListBotEnv(bot int) ([]*model.BotEnv, error)
+	GetBotEnv(bot int, env string) (*model.BotEnv, error)
 	CreateBotEnv(env *model.BotEnv) (*model.BotEnv, error)
 	UpdateBotEnv(env *model.BotEnv) error
 	DeleteBotEnv(env *model.BotEnv) error

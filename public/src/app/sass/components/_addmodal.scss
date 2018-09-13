@@ -15,13 +15,21 @@
     overflow-y: auto;
     height: 100%;
 
+    @include transition(opacity 0.2s);
+
     &__box {
         padding: 4rem;
         background: $color-white;
         box-shadow: $shadow-2;
         margin: 5rem auto;
         width: 75%;
-        max-width: 30rem;
+        max-width: 27rem;
+
+        &__title {
+            text-align: center;
+            font-size: $font-size-big;
+            padding-bottom: 2rem;
+        }
 
         &__form {
             app-form-input:not(:first-child) {
@@ -29,13 +37,12 @@
             }
 
             &__buttons {
-                display: flex;
-                margin-top: 4rem;
-                justify-content: space-between;
+                margin-top: 2rem;
                 width: 100%;
                 .form--button {
+                    height: 4rem;
+                    margin-top: 1rem;
                     padding: 0;
-                    flex: 0 0 calc(50% - .5rem);
                 }
             }
         }

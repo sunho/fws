@@ -72,6 +72,15 @@ func (x *XormStore) ListBotConfig(bot int) ([]*model.BotConfig, error) {
 	return cs, err
 }
 
+func (x *XormStore) GetBotConfig(bot int, conf string) (*model.BotConfig, error) {
+	var c model.BotConfig
+	has, err := x.e.Where("bot_id = ? AND name = ?", bot, conf).Get(&c)
+	if !has {
+		return nil, store.ErrNotExists
+	}
+	return &c, err
+}
+
 func (x *XormStore) CreateBotConfig(config *model.BotConfig) (*model.BotConfig, error) {
 	_, err := x.e.Insert(config)
 	return config, err
@@ -94,6 +103,15 @@ func (x *XormStore) ListBotVolume(bot int) ([]*model.BotVolume, error) {
 	return vs, err
 }
 
+func (x *XormStore) GetBotVolume(bot int, vol string) (*model.BotVolume, error) {
+	var v model.BotVolume
+	has, err := x.e.Where("bot_id = ? AND name = ?", bot, vol).Get(&v)
+	if !has {
+		return nil, store.ErrNotExists
+	}
+	return &v, err
+}
+
 func (x *XormStore) CreateBotVolume(volume *model.BotVolume) (*model.BotVolume, error) {
 	_, err := x.e.Insert(volume)
 	return volume, err
@@ -106,7 +124,8 @@ func (x *XormStore) UpdateBotVolume(volume *model.BotVolume) error {
 }
 
 func (x *XormStore) DeleteBotVolume(volume *model.BotVolume) error {
-	_, err := x.e.Update(volume)
+	_, err := x.e.Where("bot_id = ? AND name = ?", volume.BotID, volume.Name).
+		Delete(&model.BotVolume{})
 	return err
 }
 
@@ -114,6 +133,15 @@ func (x *XormStore) ListBotEnv(bot int) ([]*model.BotEnv, error) {
 	var es []*model.BotEnv
 	err := x.e.Where("bot_id = ?", bot).Find(&es)
 	return es, err
+}
+
+func (x *XormStore) GetBotEnv(bot int, env string) (*model.BotEnv, error) {
+	var e model.BotEnv
+	has, err := x.e.Where("bot_id = ? AND name = ?", bot, env).Get(&e)
+	if !has {
+		return nil, store.ErrNotExists
+	}
+	return &e, err
 }
 
 func (x *XormStore) CreateBotEnv(env *model.BotEnv) (*model.BotEnv, error) {

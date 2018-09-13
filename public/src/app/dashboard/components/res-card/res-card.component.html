@@ -2,12 +2,12 @@
     <div class="card__header">
         {{title}}
         <div class="card__header__button">
-            <button title="add" class="form--button form--icon-button form--icon-button--no-back">
+            <button (click)="onAddClick()" title="add" class="form--button form--icon-button form--no-back-button">
                 <app-icon icon="add"></app-icon>
             </button>
         </div>
     </div>
     <div class="card__main">
-        <app-res-list [names]="names" [keys]="keys" [items]="items"></app-res-list>
+        <app-res-list [options]="options" [names]="names" [keys]="keys" [items]="items"></app-res-list>
     </div>
 </div>

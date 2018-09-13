@@ -81,6 +81,7 @@ func (a *Api) apiRoute(r chi.Router) {
 			s.Route("/volume", func(s chi.Router) {
 				s.Get("/", a.listBotVolume)
 				s.Post("/", a.postBotVolume)
+				s.Delete("/{name}", a.deleteBotVolume)
 			})
 			s.Route("/config", func(s chi.Router) {
 				s.Get("/", a.listBotConfig)
@@ -90,6 +91,7 @@ func (a *Api) apiRoute(r chi.Router) {
 			s.Route("/env", func(s chi.Router) {
 				s.Get("/", a.listBotEnv)
 				s.Post("/", a.postBotEnv)
+				s.Delete("/{name}", a.deleteBotEnv)
 			})
 		})
 	})

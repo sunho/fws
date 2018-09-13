@@ -9,6 +9,7 @@ import {
 import { throwError, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
+export const BAD_FORMAT = 'bad format';
 export const NOT_FOUND = 'not found';
 export const CONFLICT = 'conflict';
 
@@ -29,6 +30,8 @@ export class BotService {
       return throwError(NOT_FOUND);
     } else if (error.status === 409) {
       return throwError(CONFLICT);
+    } else if (error.status === 400) {
+      return throwError(BAD_FORMAT);
     }
 
     console.error(error);
@@ -41,16 +44,52 @@ export class BotService {
       .pipe(catchError(this.handleError));
   }
 
+  addVolume(id: number, vol: Volume): Observable<void> {
+    return this.http
+      .post(`${environment.apiUrl}/bot/${id}/volume`, vol, this.options)
+      .pipe(catchError(this.handleError), map(_ => { }));
+  }
+
+  deleteVolume(id: number, vol: string): Observable<void> {
+    return this.http
+      .delete(`${environment.apiUrl}/bot/${id}/volume/${vol}`)
+      .pipe(catchError(this.handleError), map(_ => { }));
+  }
+
   getConfigs(id: number): Observable<Config[]> {
     return this.http
       .get<Config[]>(`${environment.apiUrl}/bot/${id}/config`)
       .pipe(catchError(this.handleError));
   }
 
+  addConfig(id: number, conf: Config): Observable<void> {
+    return this.http
+      .post(`${environment.apiUrl}/bot/${id}/config`, conf, this.options)
+      .pipe(catchError(this.handleError), map(_ => { }));
+  }
+
+  deleteConfig(id: number, conf: string): Observable<void> {
+    return this.http
+      .delete(`${environment.apiUrl}/bot/${id}/config/${conf}`)
+      .pipe(catchError(this.handleError), map(_ => { }));
+  }
+
   getEnvs(id: number): Observable<Env[]> {
     return this.http
       .get<Env[]>(`${environment.apiUrl}/bot/${id}/env`)
       .pipe(catchError(this.handleError));
+  }
+
+  addEnv(id: number, env: Env): Observable<void> {
+    return this.http
+      .post(`${environment.apiUrl}/bot/${id}/env`, env, this.options)
+      .pipe(catchError(this.handleError), map(_ => { }));
+  }
+
+  deleteEnv(id: number, env: string): Observable<void> {
+    return this.http
+      .delete(`${environment.apiUrl}/bot/${id}/env/${env}`)
+      .pipe(catchError(this.handleError), map(_ => { }));
   }
 
   getBots(): Observable<Bot[]> {

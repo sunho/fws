@@ -40,7 +40,7 @@ export class UserProfileComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error => {
-        this.popupService.createMsg(`unknown error(${error})`);
+        this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
       }
     );
   }

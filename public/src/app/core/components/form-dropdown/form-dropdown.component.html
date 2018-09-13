@@ -1,5 +1,5 @@
 <div class="form--dropdown">
-    <div (click)="onButtonClick($event)"><ng-content ></ng-content></div>
+    <div #toggleButton class="form--dropdown__button" (click)="onButtonClick($event)"><ng-content ></ng-content></div>
     <div class="form--dropdown__menu" [class.form--dropdown__menu--on]="show">
         <ul>
             <li *ngFor="let item of items">

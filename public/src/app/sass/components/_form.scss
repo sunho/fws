@@ -20,8 +20,8 @@
     }
 
     input {
-      margin-top: 0.5rem;
-      padding: 0.875rem 0.5rem;
+      margin-top: .4rem;
+      padding: 0.5em 0.25em;
       width: 100%;
 
       outline: none;
@@ -88,7 +88,6 @@
     width: 3.25rem;
     height: 3.25rem;
     app-icon {
-      fill: currentColor;
       stroke-width: 10;
       width: 1.7rem;
       height: 1.7rem;
@@ -101,6 +100,20 @@
 
   &--cancel-button {
     background: $color-pale-gray;
+    color: $color-gray;
+    &:hover {
+      color: lighten($color-gray, 5);
+      background-color: darken($color-pale-gray, 5);
+    }
+  }
+
+  &--no-back-button {
+    color: $color-gray;
+    background-color: rgba($color-gray, 0);
+    &:hover {
+      color: lighten($color-gray, 5);
+      background-color: rgba($color-gray, .1);
+    }
   }
 
   &--select {
@@ -152,6 +165,10 @@
   }
 
   &--dropdown {
+    position: relative;
+    &__button {
+    }
+
     &__menu {
       &--on {
         visibility: initial;

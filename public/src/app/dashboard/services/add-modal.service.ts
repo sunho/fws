@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 
 export interface AddModal {
+    title: string;
     names: string[];
     keys: string[];
     callback: (obj: object) => Observable<boolean>;
