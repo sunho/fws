@@ -15,6 +15,8 @@ type Config struct {
 	SqliteFile string `yaml:"sqlite_file"`
 	RegURL     string `yaml:"reg_url"`
 	Workspace  string `yaml:"workspace"`
+	NfsDir     string `yaml:"nfs_dir"`
+	NfsAddr    string `yaml:"nfs_addr"`
 }
 
 func loadConfig() (Config, error) {
@@ -49,7 +51,9 @@ func createConfig() error {
 		Dev:        false,
 		Secret:     "thisshouldbe16lt",
 		SqliteFile: "fws.db",
-		Workspace:  "./workspace",
+		Workspace:  "workspace",
+		NfsDir:     "nfs",
+		NfsAddr:    "127.0.0.1",
 	}
 
 	buf, err := yaml.Marshal(conf)

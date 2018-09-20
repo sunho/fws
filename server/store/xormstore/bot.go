@@ -27,7 +27,7 @@ func (x *XormStore) CreateBot(bot *model.Bot) (*model.Bot, error) {
 }
 
 func (x *XormStore) UpdateBot(bot *model.Bot) error {
-	_, err := x.e.Update(bot)
+	_, err := x.e.Where("id = ?", bot.ID).Update(bot)
 	return err
 }
 
@@ -87,7 +87,7 @@ func (x *XormStore) CreateBotConfig(config *model.BotConfig) (*model.BotConfig, 
 }
 
 func (x *XormStore) UpdateBotConfig(config *model.BotConfig) error {
-	_, err := x.e.Update(config)
+	_, err := x.e.Where("bot_id = ? AND name = ?", config.BotID, config.Name).Update(config)
 	return err
 }
 

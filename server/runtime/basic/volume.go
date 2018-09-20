@@ -14,11 +14,15 @@ type VolumeManager struct {
 }
 
 func (v *VolumeManager) getBotTashDir(bot int) string {
-	return filepath.Join(v.NfsPath, "trash", strconv.Itoa(bot))
+	return filepath.Join("/trash", strconv.Itoa(bot))
 }
 
 func (v *VolumeManager) getBotDir(bot int) string {
-	return filepath.Join(v.NfsPath, strconv.Itoa(bot))
+	return filepath.Join("/", strconv.Itoa(bot))
+}
+
+func (v *VolumeManager) actualize(path string) string {
+	return filepath.Join(v.NfsPath, path)
 }
 
 func (v *VolumeManager) GetTrashPath(bot int, vol string) string {
@@ -30,7 +34,7 @@ func (v *VolumeManager) GetPath(bot int, vol string) string {
 }
 
 func (v *VolumeManager) initDir(path string) error {
-	info, err := os.Stat(path)
+	info, err := os.Stat(v.actualize(path))
 	if os.IsNotExist(err) {
 		err := os.MkdirAll(path, 0777)
 		if err != nil {
@@ -69,7 +73,7 @@ func (v *VolumeManager) Init(bot int) error {
 }
 
 func (v *VolumeManager) List(bot int) ([]string, error) {
-	files, err := ioutil.ReadDir(v.getBotDir(bot))
+	files, err := ioutil.ReadDir(v.actualize(v.getBotDir(bot)))
 	if err != nil {
 		return nil, err
 	}
@@ -82,14 +86,14 @@ func (v *VolumeManager) List(bot int) ([]string, error) {
 }
 
 func (v *VolumeManager) Stats(bot int, vol string) bool {
-	_, err := os.Stat(v.GetPath(bot, vol))
+	_, err := os.Stat(v.actualize(v.GetPath(bot, vol)))
 	return !os.IsNotExist(err)
 }
 
 func (v *VolumeManager) Create(bot int, vol string) error {
-	return os.MkdirAll(v.GetPath(bot, vol), 0777)
+	return os.MkdirAll(v.actualize(v.GetPath(bot, vol)), 0777)
 }
 
 func (v *VolumeManager) Delete(bot int, vol string) error {
-	return os.Rename(v.GetPath(bot, vol), v.GetTrashPath(bot, vol))
+	return os.Rename(v.actualize(v.GetPath(bot, vol)), v.actualize(v.GetTrashPath(bot, vol)))
 }

@@ -132,10 +132,11 @@ func (b *BuildManager) startPendingBuilds() {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 
-	for _, bui := range b.builds {
+	for i := range b.builds {
 		if b.current >= maxCurrent {
 			return
 		}
+		bui := b.builds[i]
 		if !bui.running() {
 			building, err := b.builder.Build(bui.bot, b.callback(bui.bot))
 			if err != nil {
@@ -179,7 +180,7 @@ func (b *BuildManager) callback(bot *model.Bot) BuildCallback {
 		}
 
 		_, err = b.stor.CreateBotBuildLog(&model.BuildLog{
-			BotID:  build.BotID,
+			BotID:  bot.ID,
 			Number: build.Number,
 			Logged: logged,
 		})

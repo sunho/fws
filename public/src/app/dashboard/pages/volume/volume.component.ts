@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { AddModalService } from './../../services/add-modal.service';
+import { ModalService } from './../../services/modal.service';
 import { PopupService } from './../../../core/services/popup.service';
 import { BotService, CONFLICT, BAD_FORMAT } from './../../services/bot.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,7 +16,7 @@ export class VolumeComponent implements OnInit {
     private route: ActivatedRoute,
     private botService: BotService,
     private popupService: PopupService,
-    private addModalService: AddModalService
+    private modalService: ModalService
   ) {}
 
   current: Bot;
@@ -62,10 +62,11 @@ export class VolumeComponent implements OnInit {
   }
 
   onAddClick(): boolean {
-    this.addModalService.createMod({
+    this.modalService.createMod({
       title: 'Add Volume',
       keys: ['name', 'path'],
       names: ['name', 'path'],
+      button: 'Add',
       callback: this.addCallback.bind(this),
     });
     return false;

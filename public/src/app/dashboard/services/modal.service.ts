@@ -1,26 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 
-export interface AddModal {
+export interface Modal {
   title: string;
   names: string[];
   keys: string[];
+  defaults?: any;
+  button: string;
   callback: (obj: object) => Observable<boolean>;
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class AddModalService {
-  mod: Observer<AddModal>;
-  $mod: Observable<AddModal>;
+export class ModalService {
+  mod: Observer<Modal>;
+  $mod: Observable<Modal>;
   constructor() {
     this.$mod = Observable.create(observer => {
       this.mod = observer;
     });
   }
 
-  createMod(mod: AddModal): void {
+  createMod(mod: Modal): void {
     this.mod.next(mod);
   }
 }

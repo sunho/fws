@@ -110,10 +110,11 @@ func (r *Runner) Put(bot *model.RunBot) error {
 		return err
 	}
 
+L:
 	for _, n := range names {
 		for _, v := range bot.Volumes {
 			if v.Name == n {
-				break
+				continue L
 			}
 		}
 
@@ -123,10 +124,11 @@ func (r *Runner) Put(bot *model.RunBot) error {
 		}
 	}
 
+L2:
 	for _, v := range bot.Volumes {
 		for _, n := range names {
 			if v.Name == n {
-				break
+				continue L2
 			}
 		}
 		err = r.volumeManager.Create(bot.ID, v.Name)

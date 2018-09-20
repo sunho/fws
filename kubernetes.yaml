@@ -1,0 +1,172 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: fws
+  namespace: fws
+  labels:
+    app: fws
+spec:
+  template:
+    metadata:
+      labels:
+        app: fws
+    spec:
+      serviceAccountName: fws
+      volumes:
+      - name: fws-config
+        configMap:
+          name: fws-config
+          items:
+          - key: config.yaml
+            path: config.yaml
+      - name: docker-login
+        configMap:
+          name: fws-docker-login
+          items:
+          - key: config.json
+            path: config.json
+      - name: fws-data
+        persistentVolumeClaim:
+          claimName: fws-data
+      - name: fws-nfs
+        persistentVolumeClaim:
+          claimName: fws-nfs
+      - name: docker-sock
+        hostPath:
+          path: /var/run/docker.sock
+      containers:
+      - name: fws
+        imagePullPolicy: Always
+        image: ksunhokim/fws
+        workingDir: /fws
+        volumeMounts:
+        - mountPath: /fws/data
+          name: fws-data
+        - mountPath: /fws/nfs
+          name: fws-nfs
+        - mountPath: /fws/config.yaml
+          name: fws-config
+          subPath: config.yaml
+        - name: docker-login
+          mountPath: /home/.docker/config.json
+          subPath: config.json
+        - name: docker-sock
+          mountPath: /var/run/docker.sock
+        env:
+        - name: DOCKER_CONFIG
+          value: /home/.docker
+        ports:
+        - name: fws
+          containerPort: 8080
+      - name: nfs
+        image: gcr.io/google_containers/volume-nfs:0.8
+        ports:
+        - name: nfs
+          containerPort: 2049
+        - name: mountd
+          containerPort: 20048
+        - name: rpcbind
+          containerPort: 111
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /exports
+          name: fws-nfs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: fws
+  name: fws
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: fws
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: fws
+  name: fws-nfs
+spec:
+  ports:
+    - name: nfs
+      port: 2049
+    - name: mountd
+      port: 20048
+    - name: rpcbind
+      port: 111
+  selector:
+    app: fws
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fws
+  namespace: fws
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: fws-role
+rules:
+  -
+    apiGroups:
+    - ""
+    - apps
+    - autoscaling
+    - batch
+    - extensions
+    - policy
+    - rbac.authorization.k8s.io
+    resources:
+    - deployments
+    - pods
+    - configmaps
+    - pods/log
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: fws-rolebinding
+subjects:
+- kind: ServiceAccount
+  name: fws
+  namespace: fws
+roleRef:
+  kind: ClusterRole
+  name: fws-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fws-data
+  namespace: fws
+  labels:
+    app: fws
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fws-nfs
+  namespace: fws
+  labels:
+    app: fws
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi

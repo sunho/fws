@@ -1,22 +1,22 @@
-import { AddModalService, AddModal } from './../../services/add-modal.service';
+import { ModalService, Modal } from './../../services/modal.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-modal',
-  templateUrl: './add-modal.component.html',
+  selector: 'app-modal',
+  templateUrl: './modal.component.html'
 })
-export class AddModalComponent implements OnInit {
+export class ModalComponent implements OnInit {
   constructor(
-    private addModalService: AddModalService,
+    private modalService: ModalService,
     private formBuilder: FormBuilder
   ) {}
 
   formGroup: FormGroup;
-  current: AddModal;
+  current: Modal;
 
   ngOnInit(): void {
-    this.addModalService.$mod.subscribe(
+    this.modalService.$mod.subscribe(
       m => {
         this.current = m;
         const obj = {};

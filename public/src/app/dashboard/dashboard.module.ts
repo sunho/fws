@@ -1,4 +1,5 @@
-import { AddModalComponent } from './components/add-modal/add-modal.component';
+import { EnvDetailComponent } from './pages/env-detail/env-detail.component';
+import { ModalComponent } from './components/modal/modal.component';
 import { ResCardComponent } from './components/res-card/res-card.component';
 import { ResListComponent } from './components/res-list/res-list.component';
 import { ConfigComponent } from './pages/config/config.component';
@@ -18,7 +19,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AddModalComponent,
+    ModalComponent,
     ResListComponent,
     ResCardComponent,
     UserProfileComponent,
@@ -29,6 +30,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     HeaderComponent,
     HomeComponent,
     SideBarComponent,
+    EnvDetailComponent
   ],
   imports: [
     DashBoardRoutingModule,

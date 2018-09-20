@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { AddModalService } from './../../services/add-modal.service';
+import { ModalService } from './../../services/modal.service';
 import { PopupService } from './../../../core/services/popup.service';
 import { BotService, CONFLICT } from './../../services/bot.service';
 import { Component, OnInit } from '@angular/core';
@@ -33,7 +33,7 @@ export class ConfigComponent implements OnInit {
   constructor(
     private botService: BotService,
     private popupService: PopupService,
-    private addModalService: AddModalService,
+    private modalService: ModalService,
     private route: ActivatedRoute
   ) {}
 
@@ -98,21 +98,23 @@ export class ConfigComponent implements OnInit {
   }
 
   onConfAddClick(): boolean {
-    this.addModalService.createMod({
+    this.modalService.createMod({
       title: 'Add Config File',
       keys: ['name', 'path', 'file'],
       names: ['name', 'path', 'file'],
       callback: this.confAddCallback.bind(this),
+      button: 'Add',
     });
     return false;
   }
 
   onEnvAddClick(): boolean {
-    this.addModalService.createMod({
+    this.modalService.createMod({
       title: 'Add Environment Variable',
       keys: ['name', 'value'],
       names: ['name', 'value'],
       callback: this.envAddCallback.bind(this),
+      button: 'Add',
     });
     return false;
   }

@@ -8,4 +8,8 @@ export const STRINGS = {
   UNKNOWN_ERROR: '알려지지 않은 오류',
   NO_SUCH_ACCOUNT: '존재하지 않는 계정입니다',
   WRONG_PASSWORD: '비밀번호가 일치하지 않습니다',
+  EXIST_VOLUME: '이미 존재하는 볼륨입니다.',
+  EXIST_CONFIG: '이미 존재하는 설정파일입니다.',
+  EXIST_ENV: '이미 존재하는 환경변수입니다.',
+  BAD_VOLUME_FORMAT: 'Volume name must be lower-cased alphabet + number.',
 };
