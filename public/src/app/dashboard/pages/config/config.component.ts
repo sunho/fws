@@ -121,7 +121,7 @@ export class ConfigComponent implements OnInit {
           name: 'value',
           key: 'value',
           initial: conf.value,
-          textfield: true
+          textarea: true
         },
       ],
       button: 'Edit',
@@ -208,7 +208,7 @@ export class ConfigComponent implements OnInit {
         {
           name: 'value',
           key: 'value',
-          textfield: true
+          textarea: true
         }
       ],
       callback: this.confAddCallback.bind(this),

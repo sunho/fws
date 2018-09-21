@@ -7,7 +7,7 @@ export interface ModalItem {
   key: string;
   initial?: string;
   disabled?: boolean;
-  textfield?: boolean;
+  textarea?: boolean;
 }
 export interface Modal {
   title: string;

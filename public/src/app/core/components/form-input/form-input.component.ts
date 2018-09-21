@@ -18,6 +18,8 @@ export class FormInputComponent implements OnInit {
   form: NgForm;
   @Input()
   formGroup: FormGroup;
+  @Input()
+  disabled = false;
 
   constructor() {}
 

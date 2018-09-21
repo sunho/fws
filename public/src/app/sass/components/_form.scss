@@ -19,9 +19,10 @@
       color: $color-gray;
     }
 
-    input {
+	textarea, input {
+      dispaly: block;
       margin-top: 0.4rem;
-      padding: 0.5em 0.25em;
+      padding: 0.5em;
       width: 100%;
 
       outline: none;
@@ -39,8 +40,16 @@
       &:focus {
         border-color: $color-primary;
       }
+	  &:disabled {
+		background: $color-pale-gray;
+	  }
       @include transition(border-color 0.2s);
-    }
+	}
+
+	textarea {
+	  height: 10rem;
+      font-size: $font-size-small;
+	}
   }
 
   &--error {
@@ -128,6 +137,7 @@
     vertical-align: top;
 
     select {
+      width: 5.5em;
       font-size: inherit;
       -moz-appearance: none;
       -webkit-appearance: none;
@@ -139,7 +149,6 @@
       padding: 0.5em 0.5em;
       padding-right: 2.5em;
       border-radius: 0;
-      width: 5.5em;
 
       @include transition(border-color 0.2s);
       &:focus {

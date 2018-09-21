@@ -8,7 +8,8 @@
             novalidate>
             <app-form-input
                 *ngFor="let item of current.items"
-                type="text"
+                [disabled]="item.disabled"
+                [type]="item.textarea ? 'textarea':'text'"
                 [formGroup]="formGroup"
                 [form]="form"
                 [key]="item.key"

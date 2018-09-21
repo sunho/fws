@@ -22,7 +22,7 @@ export class ModalComponent implements OnInit {
         const obj = {};
         for (const item of this.current.items) {
           const initial = item.initial ? item.initial : '';
-          if (!item.textfield) {
+          if (!item.textarea) {
             obj[item.key] = [initial, Validators.required];
           } else {
             obj[item.key] = [initial];
