@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 
+
+export interface ModalItem {
+  name: string;
+  key: string;
+  initial?: string;
+  disabled?: boolean;
+  textfield?: boolean;
+}
 export interface Modal {
   title: string;
-  names: string[];
-  keys: string[];
-  defaults?: any;
+  items: ModalItem[];
   button: string;
   callback: (obj: object) => Observable<boolean>;
 }

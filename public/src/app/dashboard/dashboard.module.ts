@@ -1,4 +1,3 @@
-import { EnvDetailComponent } from './pages/env-detail/env-detail.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ResCardComponent } from './components/res-card/res-card.component';
 import { ResListComponent } from './components/res-list/res-list.component';
@@ -29,8 +28,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     DashComponent,
     HeaderComponent,
     HomeComponent,
-    SideBarComponent,
-    EnvDetailComponent
+    SideBarComponent
   ],
   imports: [
     DashBoardRoutingModule,

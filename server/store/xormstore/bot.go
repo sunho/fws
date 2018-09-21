@@ -119,7 +119,7 @@ func (x *XormStore) CreateBotVolume(volume *model.BotVolume) (*model.BotVolume, 
 
 func (x *XormStore) UpdateBotVolume(volume *model.BotVolume) error {
 	_, err := x.e.Where("bot_id = ? AND name = ?", volume.BotID, volume.Name).
-		Delete(&model.BotVolume{})
+		Update(volume)
 	return err
 }
 
@@ -150,7 +150,8 @@ func (x *XormStore) CreateBotEnv(env *model.BotEnv) (*model.BotEnv, error) {
 }
 
 func (x *XormStore) UpdateBotEnv(env *model.BotEnv) error {
-	_, err := x.e.Update(env)
+	_, err := x.e.Where("bot_id = ? AND name = ?", env.BotID, env.Name).
+		Update(env)
 	return err
 }
 

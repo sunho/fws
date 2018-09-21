@@ -45,7 +45,7 @@ class Client:
             raise res_error(res)
 
         return res.json()
-        
+
 
     def delete_userbot(self, username, bot_id):
         res = self.sess.delete(self.addr + '/api/admin/user/{}/bot/{}'.format(username, bot_id))
@@ -56,7 +56,7 @@ class Client:
         res = self.sess.get(self.addr + '/api/admin/bot')
         if not res.ok:
             raise res_error(res)
-        
+
         return res.json()
 
     def create_bot(self, name, git_url):
@@ -77,12 +77,12 @@ class Client:
         res = self.sess.delete(self.addr + '/api/admin/bot/{}'.format(id))
         if not res.ok:
             raise res_error(res)
-            
+
     def list_invite(self):
         res = self.sess.get(self.addr + '/api/admin/invite')
         if not res.ok:
             raise res_error(res)
-        
+
         return res.json()
 
     def create_invite(self, username):
@@ -92,21 +92,21 @@ class Client:
         res = self.sess.post(self.addr + '/api/admin/invite', data=json.dumps(data))
         if not res.ok:
             raise res_error(res)
-        
+
         return res.text
-    
+
     def delete_invite(self, username):
         res = self.sess.delete(self.addr + '/api/admin/invite/{}'.format(username))
         if not res.ok:
             raise res_error(res)
-            
+
     def list_user(self):
         res = self.sess.get(self.addr + '/api/admin/user')
         if not res.ok:
             raise res_error(res)
 
         return res.json()
-        
+
     def delete_user(self, username):
         res = self.sess.delete(self.addr + '/api/admin/user/{}'.format(username))
         if not res.ok:

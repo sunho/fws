@@ -84,8 +84,30 @@ func (a *Api) postBotConfig(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(201)
 }
 
-func (a *Api) putBotConfig(w http.ResponseWriter, r *http.Request) {
-	//TODO
+func (a *Api) patchBotConfig(w http.ResponseWriter, r *http.Request) {
+	var req model.BotConfig
+	if !a.jsonDecode(w, r, &req) {
+		return
+	}
+	name := chi.URLParam(r, "name")
+	b := getBot(r)
+	req.BotID = b.ID
+	req.Name = name
+
+	old, err := a.in.GetStore().GetBotConfig(b.ID, name)
+	if err != nil {
+		a.httpError(w, r, 404, nil)
+		return
+	}
+	req.Version = old.Version
+
+	err = a.in.GetStore().UpdateBotConfig(&req)
+	if err != nil {
+		a.httpError(w, r, 500, err)
+		return
+	}
+
+	w.WriteHeader(200)
 }
 
 func (a *Api) deleteBotConfig(w http.ResponseWriter, r *http.Request) {
@@ -134,6 +156,32 @@ func (a *Api) postBotVolume(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(201)
 }
 
+func (a *Api) patchBotVolume(w http.ResponseWriter, r *http.Request) {
+	var req model.BotVolume
+	if !a.jsonDecode(w, r, &req) {
+		return
+	}
+	name := chi.URLParam(r, "name")
+	b := getBot(r)
+	req.BotID = b.ID
+	req.Name = name
+
+	old, err := a.in.GetStore().GetBotVolume(b.ID, name)
+	if err != nil {
+		a.httpError(w, r, 404, nil)
+		return
+	}
+	req.Version = old.Version
+
+	err = a.in.GetStore().UpdateBotVolume(&req)
+	if err != nil {
+		a.httpError(w, r, 500, err)
+		return
+	}
+
+	w.WriteHeader(200)
+}
+
 func (a *Api) deleteBotVolume(w http.ResponseWriter, r *http.Request) {
 	name := chi.URLParam(r, "name")
 	b := getBot(r)
@@ -180,8 +228,30 @@ func (a *Api) postBotEnv(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(201)
 }
 
-func (a *Api) putBotEnv(w http.ResponseWriter, r *http.Request) {
-	//TODO
+func (a *Api) patchBotEnv(w http.ResponseWriter, r *http.Request) {
+	var req model.BotEnv
+	if !a.jsonDecode(w, r, &req) {
+		return
+	}
+	name := chi.URLParam(r, "name")
+	b := getBot(r)
+	req.BotID = b.ID
+	req.Name = name
+
+	old, err := a.in.GetStore().GetBotEnv(b.ID, name)
+	if err != nil {
+		a.httpError(w, r, 404, nil)
+		return
+	}
+	req.Version = old.Version
+
+	err = a.in.GetStore().UpdateBotEnv(&req)
+	if err != nil {
+		a.httpError(w, r, 500, err)
+		return
+	}
+
+	w.WriteHeader(200)
 }
 
 func (a *Api) deleteBotEnv(w http.ResponseWriter, r *http.Request) {

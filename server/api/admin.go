@@ -69,7 +69,7 @@ func (a *Api) getBot(w http.ResponseWriter, r *http.Request) {
 	a.jsonEncode(w, b)
 }
 
-func (a *Api) putBot(w http.ResponseWriter, r *http.Request) {
+func (a *Api) patchBot(w http.ResponseWriter, r *http.Request) {
 	req := struct {
 		Name   string `json:"name"`
 		GitURL string `json:"git_url"`

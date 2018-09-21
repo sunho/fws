@@ -72,27 +72,30 @@ func (a *Api) apiRoute(r chi.Router) {
 			})
 			s.Route("/build", func(s chi.Router) {
 				s.Get("/", a.listBuild)
-				s.Post("/", a.postBuild)
 				s.Get("/{number}", a.getBuild)
-			})
-			s.Route("/run", func(s chi.Router) {
-				s.Put("/", a.putRun)
+				s.Post("/", a.postBuild)
 			})
 			s.Route("/volume", func(s chi.Router) {
 				s.Get("/", a.listBotVolume)
 				s.Post("/", a.postBotVolume)
+				s.Patch("/{name}", a.patchBotVolume)
 				s.Delete("/{name}", a.deleteBotVolume)
 			})
 			s.Route("/config", func(s chi.Router) {
 				s.Get("/", a.listBotConfig)
 				s.Post("/", a.postBotConfig)
+				s.Patch("/{name}", a.patchBotConfig)
 				s.Delete("/{name}", a.deleteBotConfig)
 			})
 			s.Route("/env", func(s chi.Router) {
 				s.Get("/", a.listBotEnv)
 				s.Post("/", a.postBotEnv)
+				s.Patch("/{name}", a.patchBotEnv)
 				s.Delete("/{name}", a.deleteBotEnv)
 			})
+			s.Post("/regenhook", a.postRegenHook)
+			s.Post("/upload", a.postUpload)
+			s.Post("/restart", a.postRestart)
 		})
 	})
 
@@ -123,7 +126,7 @@ func (a *Api) apiRoute(r chi.Router) {
 			s.Route("/{bot}", func(s chi.Router) {
 				s.Use(a.botMiddleWare)
 				s.Get("/", a.getBot)
-				s.Put("/", a.putBot)
+				s.Patch("/", a.patchBot)
 				s.Delete("/", a.deleteBot)
 			})
 		})

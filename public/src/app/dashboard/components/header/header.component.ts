@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
         this.bots = bots;
       },
       error => {
-        this.popupService.createMsg(`unknown error (${error})`);
+        this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
       }
     );
   }
@@ -49,6 +49,16 @@ export class HeaderComponent implements OnInit {
 
   onUploadClick(): boolean {
     this.botService.uploadBot(this.current.id).subscribe(
+      _ => {},
+      error => {
+        this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+      }
+    );
+    return false;
+  }
+
+  onRestartClick(): boolean {
+    this.botService.restartBot(this.current.id).subscribe(
       _ => {},
       error => {
         this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);

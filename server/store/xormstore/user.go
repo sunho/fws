@@ -44,7 +44,7 @@ func (x *XormStore) CreateUser(user *model.User) (*model.User, error) {
 }
 
 func (x *XormStore) UpdateUser(user *model.User) error {
-	_, err := x.e.Update(user)
+	_, err := x.e.Where("id = ?", user.ID).Update(user)
 	return err
 }
 

@@ -111,3 +111,14 @@ func (a *Api) postWebhook(w http.ResponseWriter, r *http.Request) {
 		a.httpError(w, r, 400, nil)
 	}
 }
+
+func (a *Api) postRegenHook(w http.ResponseWriter, r *http.Request) {
+	b := getBot(r)
+	b.WebhookSecret = a.in.CreateWebhookSecret()
+	err := a.in.GetStore().UpdateBot(b)
+	if err != nil {
+		a.httpError(w, r, 500, err)
+		return
+	}
+	w.WriteHeader(201)
+}

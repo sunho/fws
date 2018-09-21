@@ -54,6 +54,15 @@ export class BotService {
       );
   }
 
+  patchVolume(id: number, vol: Volume): Observable<void> {
+    return this.http
+      .patch(`${environment.apiUrl}/bot/${id}/volume/${vol.name}`, vol, this.options)
+      .pipe(
+        catchError(this.handleError),
+        map(_ => {})
+      );
+  }
+
   deleteVolume(id: number, vol: string): Observable<void> {
     return this.http
       .delete(`${environment.apiUrl}/bot/${id}/volume/${vol}`)
@@ -72,6 +81,15 @@ export class BotService {
   addConfig(id: number, conf: Config): Observable<void> {
     return this.http
       .post(`${environment.apiUrl}/bot/${id}/config`, conf, this.options)
+      .pipe(
+        catchError(this.handleError),
+        map(_ => {})
+      );
+  }
+
+  patchConfig(id: number, conf: Config): Observable<void> {
+    return this.http
+      .patch(`${environment.apiUrl}/bot/${id}/config/${conf.name}`, conf, this.options)
       .pipe(
         catchError(this.handleError),
         map(_ => {})
@@ -102,6 +120,15 @@ export class BotService {
       );
   }
 
+  patchEnv(id: number, env: Env): Observable<void> {
+    return this.http
+      .patch(`${environment.apiUrl}/bot/${id}/env/${env.name}`, env, this.options)
+      .pipe(
+        catchError(this.handleError),
+        map(_ => {})
+      );
+  }
+
   deleteEnv(id: number, env: string): Observable<void> {
     return this.http.delete(`${environment.apiUrl}/bot/${id}/env/${env}`).pipe(
       catchError(this.handleError),
@@ -126,7 +153,25 @@ export class BotService {
 
   uploadBot(id: number): Observable<void> {
     return this.http
-      .put(`${environment.apiUrl}/bot/${id}/run`, this.options)
+      .post(`${environment.apiUrl}/bot/${id}/upload`, this.options)
+      .pipe(
+        catchError(this.handleError),
+        map(_ => {})
+      );
+  }
+
+  restartBot(id: number): Observable<void> {
+    return this.http
+      .post(`${environment.apiUrl}/bot/${id}/restart`, this.options)
+      .pipe(
+        catchError(this.handleError),
+        map(_ => {})
+      );
+  }
+
+  regenBotHook(id: number): Observable<void> {
+    return this.http
+      .post(`${environment.apiUrl}/bot/${id}/regenhook`, this.options)
       .pipe(
         catchError(this.handleError),
         map(_ => {})

@@ -18,7 +18,7 @@ export class ConfigComponent implements OnInit {
 
   envKeys = ['name', 'value'];
 
-  envOptions = [{ title: 'Delete', func: this.envDeleteCallback.bind(this) }];
+  envOptions = [{ title: 'Edit', func: this.envEditCallback.bind(this) }, { title: 'Delete', func: this.envDeleteCallback.bind(this) }];
 
   envItems: Env[];
 
@@ -26,7 +26,7 @@ export class ConfigComponent implements OnInit {
 
   confKeys = ['name', 'path', 'file'];
 
-  confOptions = [{ title: 'Delete', func: this.confDeleteCallback.bind(this) }];
+  confOptions = [{ title: 'Edit', func: this.confEditCallback.bind(this) }, { title: 'Delete', func: this.confDeleteCallback.bind(this) }];
 
   confItems: Config[];
 
@@ -97,11 +97,120 @@ export class ConfigComponent implements OnInit {
     );
   }
 
+  confEditCallback(conf: Config, s: string): void {
+    this.modalService.createMod({
+      title: 'Edit Config File',
+      items: [
+        {
+          name: 'name',
+          key: 'name',
+          initial: conf.name,
+          disabled: true
+        },
+        {
+          name: 'path',
+          key: 'path',
+          initial: conf.path
+        },
+        {
+          name: 'file',
+          key: 'file',
+          initial: conf.file
+        },
+        {
+          name: 'value',
+          key: 'value',
+          initial: conf.value,
+          textfield: true
+        },
+      ],
+      button: 'Edit',
+      callback: this.confEditCompleteCallback.bind(this),
+    });
+  }
+
+
+  envEditCallback(env: Env, s: string): void {
+    this.modalService.createMod({
+      title: 'Edit Environment Variable',
+      items: [
+        {
+          name: 'name',
+          key: 'name',
+          initial: env.name,
+          disabled: true
+        },
+        {
+          name: 'value',
+          key: 'value',
+          initial: env.value
+        },
+      ],
+      button: 'Edit',
+      callback: this.envEditCompleteCallback.bind(this),
+    });
+  }
+
+  confEditCompleteCallback(obj: Object): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      this.botService.patchConfig(this.current.id, obj as Config).subscribe(
+        _ => {
+          this.refreshItems();
+          observer.next(true);
+          observer.complete();
+        },
+        error => {
+          if (error === CONFLICT) {
+            this.popupService.createMsg(STRINGS.EXIST_ENV);
+          } else {
+            this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+          }
+        }
+      );
+    });
+  }
+
+  envEditCompleteCallback(obj: Object): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      this.botService.patchEnv(this.current.id, obj as Env).subscribe(
+        _ => {
+          this.refreshItems();
+          observer.next(true);
+          observer.complete();
+        },
+        error => {
+          if (error === CONFLICT) {
+            this.popupService.createMsg(STRINGS.EXIST_ENV);
+          } else {
+            this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+          }
+        }
+      );
+    });
+  }
+
   onConfAddClick(): boolean {
     this.modalService.createMod({
       title: 'Add Config File',
-      keys: ['name', 'path', 'file'],
-      names: ['name', 'path', 'file'],
+      items: [
+        {
+          name: 'name',
+          key: 'name'
+        },
+        {
+          name: 'path',
+          key: 'path'
+        },
+        {
+          name: 'file',
+          key: 'file'
+        },
+        {
+          name: 'value',
+          key: 'value',
+          textfield: true
+        }
+      ],
       callback: this.confAddCallback.bind(this),
       button: 'Add',
     });
@@ -110,9 +219,18 @@ export class ConfigComponent implements OnInit {
 
   onEnvAddClick(): boolean {
     this.modalService.createMod({
+
       title: 'Add Environment Variable',
-      keys: ['name', 'value'],
-      names: ['name', 'value'],
+      items: [
+        {
+          name: 'name',
+          key: 'name'
+        },
+        {
+          name: 'value',
+          key: 'value'
+        }
+      ],
       callback: this.envAddCallback.bind(this),
       button: 'Add',
     });

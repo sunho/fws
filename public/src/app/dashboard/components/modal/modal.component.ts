@@ -20,8 +20,13 @@ export class ModalComponent implements OnInit {
       m => {
         this.current = m;
         const obj = {};
-        for (const key of this.current.keys) {
-          obj[key] = ['', Validators.required];
+        for (const item of this.current.items) {
+          const initial = item.initial ? item.initial : '';
+          if (!item.textfield) {
+            obj[item.key] = [initial, Validators.required];
+          } else {
+            obj[item.key] = [initial];
+          }
         }
         this.formGroup = this.formBuilder.group(obj);
       },

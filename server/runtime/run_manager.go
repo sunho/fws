@@ -23,6 +23,10 @@ func (r *RunManager) Put(bot *model.RunBot) error {
 	return r.runner.Put(bot)
 }
 
+func (r *RunManager) Restart(bot *model.Bot) error {
+	return r.runner.Restart(bot)
+}
+
 func (r *RunManager) Status(bot *model.Bot) (model.RunStatus, error) {
 	return r.runner.Status(bot)
 }

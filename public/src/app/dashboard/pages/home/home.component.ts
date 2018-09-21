@@ -5,6 +5,7 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Bot, BuildStatus, RunStatus } from '../../models/bot';
 import { Observable, Observer, Subscription, interval } from 'rxjs';
 import { BotService, NOT_FOUND } from '../../services/bot.service';
+import { STRINGS } from '../../../../locale/strings';
 
 @Component({
   selector: 'app-home',
@@ -53,6 +54,30 @@ export class HomeComponent implements OnInit, OnDestroy {
           );
         });
     });
+  }
+
+  webhookURL(id: number): string {
+    const host = window.location.origin;
+    return `${host}/api/hook/${id}`;
+  }
+
+  onRegenHookClick(): boolean {
+    this.botService.regenBotHook(this.current.id).subscribe(
+      _ => {
+        this.botService.getBots().subscribe(
+          bots => {
+            const found = bots.find(b => b.id === this.current.id);
+            if (found) {
+              this.current = found;
+            }
+          },
+          error => {}
+        );
+      },
+      error => {
+        this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+      });
+    return false;
   }
 
   ngOnDestroy(): void {

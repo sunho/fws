@@ -7,13 +7,12 @@
             (ngSubmit)="onSubmit(form)"
             novalidate>
             <app-form-input
-                *ngFor="let key of current.keys; let i = index"
+                *ngFor="let item of current.items"
                 type="text"
-                value="current.defaults ? current.defaults[key] : ''"
                 [formGroup]="formGroup"
                 [form]="form"
-                [key]="key"
-                [name]="current.names[i]"
+                [key]="item.key"
+                [name]="item.name"
              ></app-form-input>
             <div class="addmodal__box__form__buttons">
                 <button type="submit" class="form--button form--full-button">{{current.button}}</button>

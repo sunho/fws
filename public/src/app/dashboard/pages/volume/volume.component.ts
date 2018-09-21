@@ -25,7 +25,7 @@ export class VolumeComponent implements OnInit {
 
   resKeys = ['name', 'path'];
 
-  resOptions = [{ title: 'Delete', func: this.deleteCallback.bind(this) }];
+  resOptions = [{ title: 'Edit', func: this.editCallback.bind(this) }, { title: 'Delete', func: this.deleteCallback.bind(this) }];
 
   resItems: Volume[];
 
@@ -61,11 +61,59 @@ export class VolumeComponent implements OnInit {
     });
   }
 
+  editCallback(volume: Volume, s: string): void {
+    this.modalService.createMod({
+      title: 'Edit Volume',
+      items: [
+        {
+          name: 'name',
+          key: 'name',
+          initial: volume.name,
+          disabled: true
+        },
+        {
+          name: 'path',
+          key: 'path',
+          initial: volume.path
+        },
+      ],
+      button: 'Edit',
+      callback: this.editCompleteCallback.bind(this),
+    });
+  }
+
+  editCompleteCallback(obj: Object): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      this.botService.patchVolume(this.current.id, obj as Volume).subscribe(
+        _ => {
+          this.refreshItems();
+          observer.next(true);
+          observer.complete();
+        },
+        error => {
+          if (error === CONFLICT) {
+            this.popupService.createMsg(STRINGS.EXIST_ENV);
+          } else {
+            this.popupService.createMsg(`${STRINGS.UNKNOWN_ERROR} (${error})`);
+          }
+        }
+      );
+    });
+  }
+
   onAddClick(): boolean {
     this.modalService.createMod({
       title: 'Add Volume',
-      keys: ['name', 'path'],
-      names: ['name', 'path'],
+      items: [
+        {
+          name: 'name',
+          key: 'name',
+        },
+        {
+          name: 'path',
+          key: 'path',
+        },
+      ],
       button: 'Add',
       callback: this.addCallback.bind(this),
     });

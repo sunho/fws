@@ -90,9 +90,13 @@
                     <a [href]="current.git_url" target="_blank" class="card__entry__aux"><app-icon icon="link"></app-icon></a>
                 </div>
                 <div class="card__entry">
+                    <div i18n class="card__entry__title">WebhookURL:</div>
+                    <div class="card__entry__content">&nbsp;{{webhookURL(current.id)}}</div>
+                </div>
+                <div class="card__entry">
                     <div i18n class="card__entry__title">WebhookSecret:</div>
                     <div class="card__entry__content">&nbsp;{{current.webhook_secret}}</div>
-                    <a href="#" class="card__entry__aux"><app-icon icon="reload-black"></app-icon></a>
+                    <a href="#" class="card__entry__aux" (click)="onRegenHookClick()"><app-icon icon="reload-black"></app-icon></a>
                 </div>
             </div>
         </div>

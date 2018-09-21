@@ -8,6 +8,7 @@ import (
 	"github.com/go-xorm/xorm"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/sunho/fws/server/fws"
+	"github.com/sunho/fws/server/runtime"
 	"github.com/sunho/fws/server/runtime/basic"
 	xormstore "github.com/sunho/fws/server/store/xormstore"
 )
@@ -38,9 +39,12 @@ func main() {
 	}
 
 	builder := basic.NewBuilder(conf.RegURL, conf.Workspace)
-	runner, err := basic.NewRunnerFromCluster("fws", conf.NfsDir, conf.NfsAddr)
-	if err != nil {
-		panic(err)
+	var runner runtime.Runner
+	if !conf.Dev {
+		runner, err = basic.NewRunnerFromCluster("fws", conf.NfsDir, conf.NfsAddr)
+		if err != nil {
+			panic(err)
+		}
 	}
 
 	f, err := fws.New(x, builder, runner, fconf)

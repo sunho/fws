@@ -1,5 +1,6 @@
 export interface Bot {
   id: number;
+  version: number;
   name: string;
   build_result: string;
   webhook_secret: string;
@@ -53,6 +54,7 @@ export interface Volume {
   bot_id?: number;
   size?: number;
   name: string;
+  version: number;
   path: string;
 }
 
@@ -60,6 +62,7 @@ export interface Config {
   bot_id?: number;
   value?: string;
   name: string;
+  version: number;
   path: string;
   file: string;
 }
@@ -67,5 +70,6 @@ export interface Config {
 export interface Env {
   bot_id?: number;
   value?: string;
+  version: number;
   name: string;
 }

@@ -32,7 +32,7 @@ def list_user(ctx):
         bots = c.list_userbot(u['username'])
         t = ['{}:{}'.format(x['id'], x['name']) for x in bots]
         print('owned bots: ' + ' '.join(t))
-    
+
 @click.command()
 @click.argument('username', nargs=1)
 @click.pass_context
@@ -55,7 +55,7 @@ def give_bot(ctx, username, bot_id):
 def ungive_bot(ctx, username, bot_id):
     c = ctx.obj['c']
     c.delete_userbot(username, bot_id)
-    
+
 @click.group()
 @click.pass_context
 def cli(ctx):
@@ -78,42 +78,21 @@ def create_bot(ctx, name, git_url):
     c.create_bot(name, git_url)
 
 @click.command()
-@click.argument('nameorid', nargs=1)
-@click.argument('value', nargs=1)
+@click.argument('id', type=int, nargs=1)
 @click.pass_context
-def edit_bot(ctx, nameorid, value):
+def edit_bot(ctx, id):
     c = ctx.obj['c']
     bots = c.list_bot()
-    b = []
-    if nameorid == 'id':
-        b = [x for x in bots if x['id'] == value]
-    elif nameorid == 'name':
-        b = [x for x in bots if x['name'] == value]
-    else:
-        print('invalid input')
-        return
-    
+    b = [x for x in bots if x['id'] == id]
     edit_item(b[0])
     c.put_bot(b[0])
 
 @click.command()
-@click.argument('nameorid', nargs=1)
-@click.argument('value', nargs=1)
+@click.argument('id', type=int, nargs=1)
 @click.pass_context
-def delete_bot(ctx, nameorid, value):
+def delete_bot(ctx, id, value):
     c = ctx.obj['c']
-    if nameorid == 'id':
-        c.delete_bot(value)
-    elif nameorid == 'name':
-        bots = c.list_bot()
-        matches = [x for x in bots if x['name'] == value]
-        if len(matches) == 0:
-            print('no such bot')
-            return
-        for m in matches:
-            c.delete_bot(m['id'])
-    else:
-        print('invalid input')
+    c.delete_bot(id)
 
 @click.command()
 @click.pass_context
@@ -139,7 +118,7 @@ def create_invite(ctx, username):
 def delete_invite(ctx, username):
     c = ctx.obj['c']
     key = c.delete_invite(username)
-    
+
 cli.add_command(list_user)
 cli.add_command(delete_user)
 
@@ -154,7 +133,7 @@ cli.add_command(delete_invite)
 
 cli.add_command(give_bot)
 cli.add_command(ungive_bot)
-    
+
 def main():
     if not os.path.isfile('config.pk'):
         init()
