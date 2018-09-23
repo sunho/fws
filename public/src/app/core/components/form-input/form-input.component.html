@@ -1,7 +1,7 @@
 <div class="form--text" [formGroup]="formGroup">
     <label> {{name}} </label>
-    <input *ngIf="type !== 'textarea'" [attr.disabled]="disabled" [formControlName]="key" [name]="key" [placeholder]="name" [type]="type">
-    <textarea *ngIf="type === 'textarea'" [attr.disabled]="disabled" [formControlName]="key" [name]="key" [placeholder]="name"></textarea>
+    <input *ngIf="type !== 'textarea'" [attr.disabled]="disabled ? '' : null" [formControlName]="key" [name]="key" [placeholder]="name" [type]="type">
+    <textarea *ngIf="type === 'textarea'" [attr.disabled]="disabled ? '' : null" [formControlName]="key" [name]="key" [placeholder]="name"></textarea>
     <div class="bar"></div>
     <div i18n class="form--error" *ngIf="formGroup.get(key).invalid && form.submitted">
         {{ name }} is invalid.

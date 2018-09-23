@@ -19,7 +19,7 @@ export class FormInputComponent implements OnInit {
   @Input()
   formGroup: FormGroup;
   @Input()
-  disabled = false;
+  disabled: boolean;
 
   constructor() {}
 
