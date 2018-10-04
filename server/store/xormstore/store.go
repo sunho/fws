@@ -33,6 +33,8 @@ func (x *XormStore) Migrate() error {
 		new(model.BotEnv),
 		new(model.Build),
 		new(model.BuildLog),
+		new(model.Run),
+		new(model.RunLog),
 	)
 	if err != nil {
 		return err

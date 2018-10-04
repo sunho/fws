@@ -67,3 +67,18 @@ type BuildLog struct {
 	Number int `xorm:"pk"`
 	Logged []byte
 }
+
+type Run struct {
+	BotID   int `json:"bot_id" xorm:"pk"`
+	Number  int `json:"number" xorm:"pk"`
+	Version int `json:"version" xorm:"version"`
+	Since   time.Time
+	Until   time.Time
+}
+
+type RunLog struct {
+	BotID   int `xorm:"pk"`
+	Number  int `xorm:"pk"`
+	Version int `json:"version" xorm:"version"`
+	Logged  []byte
+}

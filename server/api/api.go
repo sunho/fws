@@ -75,6 +75,10 @@ func (a *Api) apiRoute(r chi.Router) {
 				s.Get("/{number}", a.getBuild)
 				s.Post("/", a.postBuild)
 			})
+			s.Route("/log", func(s chi.Router) {
+				s.Get("/", a.listLog)
+				s.Get("/{number}", a.getLog)
+			})
 			s.Route("/volume", func(s chi.Router) {
 				s.Get("/", a.listBotVolume)
 				s.Post("/", a.postBotVolume)

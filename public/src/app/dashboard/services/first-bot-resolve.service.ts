@@ -25,7 +25,7 @@ export class FirstBotRedirectService implements CanActivate {
           this.authService.logout().subscribe(
             _ => {
               this.popupService.createMsg(
-                "You don't own any bot. Contact admin."
+                'You don\'t own any bot. Contact admin.'
               );
               this.router.navigate(['/']);
             },

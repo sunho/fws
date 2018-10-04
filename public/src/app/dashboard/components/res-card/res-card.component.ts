@@ -16,7 +16,7 @@ export class ResCardComponent implements OnInit {
   @Output()
   addClick = new EventEmitter();
   @Output()
-  detailClick = new EventEmitter();
+  itemClick = new EventEmitter();
 
   @Input()
   options: ResListOption[];

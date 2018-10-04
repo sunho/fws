@@ -8,12 +8,14 @@ import (
 	"github.com/sunho/fws/server/model"
 	"github.com/sunho/fws/server/runtime"
 	apiv1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 )
 
 var (
 	ErrAlreadyExist = errors.New("basic: already exist")
+	ErrManyPods     = errors.New("basic: many pods found")
 )
 
 type Runner struct {
@@ -238,8 +240,47 @@ func (r *Runner) Status(bot *model.Bot) (model.RunStatus, error) {
 	}, nil
 }
 
-func (r *Runner) Log(bot *model.Bot) ([]byte, error) {
-	return nil, nil
+func (r *Runner) Log(bot *model.Bot, since time.Time) ([]byte, error) {
+	pods, err := r.getPods(bot)
+	if err != nil {
+		return nil, err
+	}
+	if len(pods) != 1 {
+		return nil, ErrManyPods
+	}
+	buf := []byte{}
+
+	req := r.cli.CoreV1().Pods(r.Namespace).GetLogs(pods[0].Name, &apiv1.PodLogOptions{
+		Previous:   true,
+		Timestamps: true,
+		SinceTime:  &metav1.Time{Time: since},
+	})
+	res := req.Do()
+	if res.Error() == nil {
+		buf2, err := res.Raw()
+		if err != nil {
+			return nil, err
+		}
+		if len(buf2) != 0 {
+			buf = append(buf, []byte("---previous start---\n")...)
+			buf = append(buf, buf2...)
+			buf = append(buf, []byte("---previous end---\n")...)
+		}
+	}
+
+	req = r.cli.CoreV1().Pods(r.Namespace).GetLogs(pods[0].Name, &apiv1.PodLogOptions{
+		Timestamps: true,
+		SinceTime:  &metav1.Time{Time: since},
+	})
+	res = req.Do()
+	if res.Error() == nil {
+		buf2, err := res.Raw()
+		if err != nil {
+			return nil, err
+		}
+		buf = append(buf, buf2...)
+	}
+	return buf, nil
 }
 
 func (r *Runner) DownloadVolume(volume *model.BotVolume) (io.Reader, error) {

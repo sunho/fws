@@ -59,4 +59,14 @@ type Store interface {
 
 	GetBotBuildLog(bot int, number int) (*model.BuildLog, error)
 	CreateBotBuildLog(build *model.BuildLog) (*model.BuildLog, error)
+
+	ListBotRun(bot int) ([]*model.Run, error)
+	GetLatestBotRun(bot int) (*model.Run, error)
+	CreateBotRun(l *model.Run) (*model.Run, error)
+	UpdateBotRun(l *model.Run) error
+	DeleteBotRun(l *model.Run) error
+
+	GetBotRunLog(bot int, number int) (*model.RunLog, error)
+	CreateBotRunLog(run *model.RunLog) (*model.RunLog, error)
+	UpdateBotRunLog(run *model.RunLog) error
 }

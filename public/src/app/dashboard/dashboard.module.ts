@@ -1,3 +1,4 @@
+import { VolumeDetailComponent } from './pages/volume-detail/volume-detail.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ResCardComponent } from './components/res-card/res-card.component';
 import { ResListComponent } from './components/res-list/res-list.component';
@@ -18,6 +19,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
+    VolumeDetailComponent,
     ModalComponent,
     ResListComponent,
     ResCardComponent,

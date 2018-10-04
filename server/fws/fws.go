@@ -31,7 +31,7 @@ func New(stor store.Store, builder runtime.Builder,
 	runner runtime.Runner, config Config) (*Fws, error) {
 	f := &Fws{
 		stor:       stor,
-		runManager: runtime.NewRunManager(runner),
+		runManager: runtime.NewRunManager(runner, stor),
 		builder:    builder,
 		runner:     runner,
 		config:     config,
@@ -86,6 +86,7 @@ func (f *Fws) Start() {
 	}()
 
 	f.buildManager.Start()
+	f.runManager.Start()
 
 	_, err := f.stor.GetUserByUsername("admin")
 	if err == store.ErrNotExists {

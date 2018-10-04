@@ -2,6 +2,7 @@ package runtime
 
 import (
 	"io"
+	"time"
 
 	"github.com/sunho/fws/server/model"
 )
@@ -26,7 +27,7 @@ type Runner interface {
 	Restart(bot *model.Bot) error
 	Stop(bot *model.Bot) error
 	Status(bot *model.Bot) (model.RunStatus, error)
-	Log(bot *model.Bot) ([]byte, error)
+	Log(bot *model.Bot, since time.Time) ([]byte, error)
 
 	UpdateBuild(bot *model.Bot) error
 	DownloadVolume(volume *model.BotVolume) (io.Reader, error)

@@ -6,7 +6,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="reslist__detail-row" *ngFor="let item of items">
+        <tr class="reslist__detail-row" *ngFor="let item of items" (click)="itemClick(item)">
             <td *ngFor="let key of keys">{{item[key]}}</td>
             <td class="reslist__menu-cell">
                 <app-form-dropdown [items]="createDrops(item)">
